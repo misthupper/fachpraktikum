@@ -1,0 +1,16 @@
+insert into type (id, validFrom, dbtable, header,
+headc0, column0, footc0,
+headc1, column1, footc1,
+headc2, column2, footc2,
+headc3, column3, footc3,
+headc4, column4, footc4,
+headc5, column5, footc5,
+footer)
+VALUES ('contact', '01.11.2007', 'employee', '<table summary="Angaben zur Email, Telefonnummer und Anschrift">' ,
+'<caption><strong>','description','</strong></caption>',
+'<tbody> <tr> <th class="grau"><strong>Email</strong></th> <td><a href="mailto:','email','">',
+'','email','</a></td> </tr>',
+'<tr> <th class="grau"><strong>Telefon</strong></th> <td>','phone1','</td> </tr> ',
+'<tr> <th class="grau"><strong>Geb&auml;ude</strong></th> <td>','location','</td> </tr>',
+'<tr> <th class="grau">Anschrift</th> <td>','adress','</td> </tr> </tbody>',
+'</table> </strong>');

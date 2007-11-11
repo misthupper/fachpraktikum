@@ -1,0 +1,25 @@
+/*********************************************************/
+/* arbeiten-css */
+/*********************************************************/
+#rubriken #arbeiten a{
+  background-color:#AC2020;
+}
+
+#navigation fieldset{
+  border-color:#AC2020;
+}
+
+#inhalt h1{
+  border-bottom-color:#AC2020;
+}
+
+#information{
+  border-left-color:#AC2020;
+}
+#navigation #themennavigation{
+  border-top-color:#AC2020;
+}
+
+#information .pfeil li{
+  background:url(/images/webag/doppel_pfeil_rot.gif) no-repeat 0 0.25em ;
+}

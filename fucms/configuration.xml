@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<root>
+  <strings>
+    <datasource_driver>oracle.jdbc.driver.OracleDriver</datasource_driver>
+    <datasource_url>jdbc:oracle:thin:@localhost:1521:XE</datasource_url>
+    <datasource_username>test</datasource_username>
+    <datasource_password>test</datasource_password>
+  </strings>
+  <boolean/>
+  <int>
+    <datasource_port>1521</datasource_port>
+  </int>
+</root>
