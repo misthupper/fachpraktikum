@@ -1,0 +1,1051 @@
+/*********************************************************/
+/*style-css*/
+/*********************************************************/
+*{margin:0;padding:0;}
+
+img{border:none;}
+
+html{
+  height:100%;
+}
+
+body{
+  font-size:101%;/*
+  font:0.75em Verdana,Arial,Helvetica,sans-serif;*/
+  color:black;
+}
+
+a{color:#33C;}
+a:visited{color:#626284;}
+a:hover, a:focus{text-decoration:none;}
+a:active{color:#D64701;}
+
+#kopf a, #fuss a{text-decoration:none;}
+
+#seite {
+  position:absolute;
+  top:0; left:0;
+  border-right:20px solid #A5C3FB;
+  width:95%;
+  height:100%;
+  padding-top:5px;
+  padding-left:0.003em;
+  padding-bottom:5px;
+  font:0.75em Verdana,Arial,Helvetica,sans-serif;
+}
+body>#seite{
+  height:99%;
+}
+
+/*****************************************************/
+/*-------Kopf---------*/
+/****************************************************/
+#kopf{
+}
+
+/*----------------brotkruemelpfad-------------------*/
+
+#brotkruemelpfad{
+  list-style:none;
+  height:2em;
+  border-bottom:1px solid #ccc;
+  font-size:0.95em;
+  font-family:Arial,Helvetica,sans-serif;
+  padding:0.1em 0;
+  padding-left:0.3em;
+  color:black;
+}
+#kopf>#brotkruemelpfad{
+  height:1.7em;
+}
+
+#brotkruemelpfad li{
+  float:left;
+  padding-left:0.2em;
+}
+
+#brotkruemelpfad a{
+  color:#33C;
+  font-weight:normal;
+  padding-right:0.2em;
+  border-right:1px solid #33C;
+  margin-right:0.1em;
+  text-decoration:underline;
+}
+#brotkruemelpfad a:hover, #brotkruemelpfad a:focus{text-decoration:none;}
+
+/*------------navigationsweiche--------------*/
+
+#navigationsweiche{
+  position:absolute;
+  left:-500em;
+  top:-500em;
+}
+
+/*----------------logo------------------*/
+
+#logos{
+  background:url(../images/kopf_hintergrund.jpg) repeat-y top right;
+  height:80px;
+  width:100%;
+}
+#fernuni-text{
+  position:absolute;
+  right:5px;top:2.5em;
+  font-size:10px;
+  z-index:1;
+}
+#logos a{color:#33C;}
+
+#fernunilogo {
+  float:left;/*
+  width:31.083em;
+  height:5.833em;*/
+  position:absolute;
+  left:0.5em;
+  z-index:3;
+}
+
+#illustration {
+  float:right;/*
+  width:21.25em;
+  height:6.5em;*/
+  position:absolute;
+  right:0;
+  z-index:2;
+}
+
+/*------------------rubriken--------------------*/
+
+#balke{
+  clear:both;
+  background-color:#339;
+  position:absolute;
+  left:0;
+  font-variant:small-caps;
+  font-weight:bold;
+  color:#339;
+  width:107%;
+  height:1.75em;
+  padding-left:0.5em;
+}
+
+#kopf>#balke{
+  width:104.5%;
+  height:1.75em;
+}
+
+#rubriken{
+  font-variant:small-caps;
+  font-weight:bold;
+  font-size:1.2em;
+  position:absolute;
+  left:0;
+  list-style:none;
+}
+
+#rubriken li{
+  float:left;
+  color:black;
+  position:absolute;
+  white-space:nowrap;
+  padding-bottom:0.20em;
+}
+
+#focus{
+  left:0;
+}
+
+#studium{
+  left:11em;
+}
+
+#forschung{
+  left:22em;
+}
+
+#arbeiten{
+  left:41em;
+}
+#arbeiten a{
+  background-color:#339;
+}
+
+#rubriken li a{
+  display:block;
+  width:3em;
+  color:#fff;
+  text-decoration:none;
+  height:1.43em;
+  padding:0 1.5em/*
+  background-color:#339;*/
+}
+
+#rubriken li>a{
+  width:auto;
+}
+
+#focus a:hover, #focus a:focus{
+  background-color:#4444FB;
+}
+
+#studium a:hover, #studium a:focus{
+  background-color:#E84F04;
+}
+
+#forschung a:hover, #forschung a:focus{
+  background-color:#0295A6;
+}
+
+#arbeiten a:hover, #arbeiten a:focus{
+  background-color:#AC2020;
+}
+#focus a:hover, #focus a:focus, #studium a:hover, #studium a:focus, #forschung a:hover, #forschung a:focus, #arbeiten a:hover, #arbeiten a:focus{
+  padding:0 1.5em;
+}
+/*
+#focus>a:hover, #focus>a:focus, #studium>a:hover, #studium>a:focus, #forschung>a:hover, #forschung>a:focus, #arbeiten>a:hover, #arbeiten>a:focus{
+  padding:0 1.5em;
+}*/
+/*********************************************************/
+/*----------Navigation---------------*/
+/********************************************************/
+
+#navigation {
+  float:left;
+  font-weight:bold;
+  font-family:Arial,Helvetica,sans-serif;
+  width:15%;
+  position:relative;
+  left:0; top:2em;
+  padding:1.2em 0 0 5px;
+}
+/*
+#seite>#navigation{
+  min-width:14em;
+}*/
+
+#navigation a{color:#33C;text-decoration:none;}
+#navigation a:hover, #navigation a:focus{text-decoration:underline;}
+
+#navigation #navigation-ueberschrift{
+  font-size:1em;
+  border-bottom:3px solid #fff;
+  padding:0.3em 0.2em 0.3em 0.5em;
+  background-color:#E8E8EA;
+}
+/*------------------themennavigation--------------*/
+
+#navigation #themennavigation,#navigation .themennavigation{
+  list-style:none;
+  border-top:1px solid #6A65FF;
+  padding:0.5em 0.2em 0.5em 0.7em;
+  font-size:0.9em;
+  background-color:#E8E8EA;
+}
+
+#navigation #themennavigation li,#navigation .themennavigation li{
+  line-height:1.3em;
+  background:url(../images/menu_minus.gif) no-repeat 0 0.2em;
+  padding: 0 0 0 12px;
+  margin-bottom:0.5em;
+}
+
+/*----------------Funktionen (Kontakt,Suche etc.)--------*/
+
+#navigation #funktionen{
+  margin-top:3em;
+  margin-left:5px;
+  list-style:none;
+  font-weight:normal;
+  font-size:0.9em;
+}
+
+#funktionen li{
+  padding:0.1em 0 0.1em 0;
+  margin-bottom:0.3em;
+}
+
+#funktionen #suche{
+  border-top:1px solid #A5C3FB;
+  padding-top:0.8em;
+}
+
+#suche form{
+  margin-top:0.3em;
+}
+
+#suche p{/*
+  white-space:nowrap;*/
+  margin-left:0;
+  padding-left:0;
+}
+
+#suche #sucheingabe{
+  border:1px solid #8B8B90;
+  width:40%;
+  background-color:#fff;
+}
+
+#suche #go{
+  font-size:1.1em;/*
+  font-weight:bold;*/
+  text-align:left;
+  background:none;
+  color:#339;
+  border:none;
+  margin:0;
+  padding:0;/*
+  width:50%;*/
+}
+
+#funktionen #kontakt{
+  font-weight:bold;
+  padding:0 0 0.5em 0;
+}
+
+#funktionen #vu{
+  font-weight:bold;
+  padding:0 0 0.5em 0;
+  text-transform:uppercase;
+}
+
+#navigation #lg-funktionen{
+  margin-top:5px;
+  margin-left:5px;
+  list-style:none;
+  font-weight:normal;
+  font-size:0.9em;
+}
+#navigation #lg-fernuni{
+  margin-top:2em;
+  border-bottom:1px solid #9cf;
+  font-weight:normal;
+  letter-spacing:0.1em;
+  padding:1.4em 0 0 0.5em;
+}
+
+#lg-funktionen #lg-vu{
+  padding:0;
+  text-transform:uppercase;
+  margin-bottom:0.15em;
+}
+#lg-funktionen .lg{
+  margin-bottom:0.15em;
+}
+/********************************************************/
+/*-------------Inhalt-------------/*
+/*******************************************************/
+
+#inhalt {
+  float:right;
+  position:absolute;
+  right:-20px;
+  width:83.5%;
+  padding:1.2em 0.5em 2em 0.5em;
+  background-color:#fff;
+  border-right:20px solid #A5C3FB;
+  margin-top:2.3em;
+}
+
+#seite>#inhalt{/*
+  position:relative;*/
+  width:79.5%;
+  padding-bottom:3em;
+  padding-top:1em;
+  right:-20px;
+}
+
+h1 {
+  font-size:1.2em;
+  padding-bottom:0.5em;
+  padding-left:0.5em;
+  border-bottom:1px solid #6A65FF;
+  letter-spacing:0.02em;
+}
+
+/*******************************************************/
+/*----------information-------------*/
+/*******************************************************/
+
+#information {
+  float:left;
+  width:71%;
+  line-height:1.4em;
+  padding:1em 0.5em 1em 1.5em;
+  height:40em;
+  border-left:1px solid #6A65FF;
+}
+
+#inhalt>#information{
+  min-height:40em;
+  height:auto;
+}
+
+/******************************************************/
+/*-----------Elemente------------------*/
+/*****************************************************/
+
+h2 {
+  font-size:1.1em;
+  margin:0 0 1em 0;
+  letter-spacing:0.02em;
+}
+
+.pfeil h2{
+  margin-bottom:0.6em;
+}
+
+h2 a{text-decoration:none;}
+h2 a:hover{text-decoration:underline;}
+
+h3,h4 {
+  font-size:0.9em;
+  margin:0.8em 0 0.4em 0;
+}
+
+p{
+  margin:0 0 0.7em 0;
+}
+
+.zurueck{
+  clear:both;
+  float:right;
+  font-size:0.9em;
+}
+
+pre{
+  font-size:1.1em;
+}
+
+address{
+  font-style:normal;
+}
+
+.clear{
+  clear:both;
+}
+
+.kleiner{
+  padding-top:1em;
+  font-size:0.9em;
+}
+
+#autor{
+  clear:both;
+  padding-top:3em;
+  font-size:0.9em;
+  margin-bottom:3em;
+}
+
+/*---------------Listen-Format---------------*/
+
+#information ul, #information ol{
+  margin:0.5em 0 1em 1em;
+  line-height:1.4em;
+  padding-left:0.5em;
+}
+
+#information ul{
+  list-style:none;
+}
+
+#information li{
+  background:url(../images/minus.gif) no-repeat 0 0.25em ;
+  padding-left:13px;
+  margin:0.3em 0;
+}
+
+#information .buchstaben, #information ol li .buchstaben{
+  list-style-type:lower-alpha;
+  margin:0.5em 0 1em 2.4em;
+}
+
+#information .buchstaben li{
+  margin:0.3em 0;
+  background:none;
+  padding:0;
+}
+
+#information ol li .buchstaben li{
+  list-style-type:lower-alpha;
+  margin:0.3em 0;
+}
+
+#information ol li,#information .liste-ohne-bullet li,#information #team li/*,#information .buchstaben li*/{
+  margin:0.3em 0;
+  background:none;
+  padding:0;
+}
+
+#information ol li{
+  margin-left:1.8em;
+}
+
+#information ol>li{
+  margin-left:1.6em;
+}
+
+#information li ul li{
+  list-style:none;
+  background:none;
+  padding-left:0;
+}
+
+#information .pfeil li ul li, #information .stz li ul li, #information ol ul li{
+  list-style:none;
+  background:url(../images/minus.gif) no-repeat 0 0.25em ;
+  margin: 0;
+  padding: 0 0 0.1em 13px;
+}
+
+#information ul li ol{
+  margin-left:0.3em;
+}
+/*
+#information ol ul li{
+  margin-left:0.3em;
+}*/
+
+#information li .liste-ohne-bullet li{
+  list-style:none;
+  background:none;
+  margin-left:-1em;;
+}
+
+#information ol ol{
+  margin-left:0.3em;
+}
+
+#information .pfeil li{
+  background:url(../images/doppel_pfeil_schwarz.gif) no-repeat 0 0.25em ;
+  padding-left:15px;
+  padding-bottom:0.7em;
+  margin:0.4em 0;
+}
+
+#information .stz li{
+  margin-bottom:0.8em;
+  padding:0.3em 0.5em 0.3em 1em;
+  background:none;
+  background-color:#E8E8EA;
+}
+
+dl, dl dt{
+  margin:0.4em 0;
+}
+
+dl dd{
+  margin:0.2em 0 0.2em 1em;
+}
+
+/*------------------fieldset und form auf der Kontakt-Seite-----------------*/
+
+fieldset{
+  padding:1em 0.7em;
+  width:100%;
+  border:1px solid #999;
+  margin-bottom:1em;
+}
+
+legend{
+  padding:0 0.3em;
+  font-size:1.1em;
+  font-weight:bold;
+}
+
+input {
+  margin-top:1em;
+  padding:0;
+  width:30%;
+}
+
+form>input{
+  margin-top:0;
+  width:auto;
+  padding:0.1em;
+}
+
+td input {
+  margin-top:0;
+  padding:0.1em;
+  width:99%;
+}
+
+td>input{
+  width:auto;
+}
+
+/*----------Tabellen----------*/
+
+table{
+  border-collapse:collapse;
+  font-family:Arial,Helvetica,sans-serif;
+  font-size:1em;
+  line-height:1.3em;
+  margin-top:1em;
+  margin-bottom:1em;
+}
+
+.tabelle100{
+  width:99%;
+}
+
+caption{
+  text-align:left;
+  font-size:1em;
+  margin-bottom:0.5em;
+  font-weight:bold;
+}
+
+td, th{
+  padding:0.3em;
+  vertical-align:top;
+  text-align:left;
+  border:1px solid #999;
+}
+
+th{
+  font-weight:bold;
+  background-color:#E8E8EA;
+  white-space:nowrap;
+}
+
+#information td ul,#information th ul,.text-block td ul,.text-block th ul{
+  margin:0;
+  padding:0;
+}
+
+#information td ul li,#information th ul li,.text-block td ul li,.text-block th ul li{
+  background:none;
+  margin:0;
+  padding:0 0 0.3em 0;
+}
+
+#information #stelle td ul li{
+  background:url(../images/minus.gif) no-repeat 0 0.25em ;
+  padding-left:13px;
+  margin:0;
+}
+
+.zusammen{
+  white-space:nowrap;
+}
+
+.linksbuendig{
+  text-align:left;
+}
+
+.rechtsbuendig{
+  text-align:right;
+}
+
+.zentriert{
+  text-align:center;
+}
+
+.grau{
+  background-color:#E8E8EA;
+}
+
+.unterstrichen{
+  border-bottom:2px solid #ccc;
+  padding-bottom:2px;
+}
+
+.versteckt{
+  display:none;
+}
+
+.halb{
+  width:50%;
+}
+
+.tabelle-grau{
+  background-color:#E8E8EA;
+}
+
+.tabelle-grau100, #stelle{
+  background-color:#E8E8EA;
+  width:99%;
+}
+
+.ohne-rahmen,.ohne-rahmen100{
+  font-family:Verdana,Arial,Helvetica,sans-serif;
+  margin-top:0.5em;
+}
+.ohne-rahmen td,.ohne-rahmen th, .ohne-rahmen100 td, .ohne-rahmen100 th{
+  border:none;
+  background:none;
+  padding:0.3em 0.6em 0.3em 0;
+}
+
+.ohne-rahmen td img, .ohne-rahmen100 td img{
+  width:7em;
+  float:left;
+  margin:0 0 1em 1em;
+  border:1px solid #A5C3FB;
+}
+
+.ohne-rahmen100{
+  width:99.5%;
+}
+
+.tabelle-grau td, .tabelle-grau th, .tabelle-grau100 td, .tabelle-grau100 th, #stelle td, #stelle th{
+  border:2px solid #FFF;
+}
+
+#stelle td, #stelle th{
+  padding:0.5em;
+}
+
+.tabelle-weiss100, .ohne-rahmen100{
+  width:99%;
+}
+
+#infohefte{
+  width:99.5%;
+}
+
+#infohefte td img {
+  width:7em;
+  float:left;
+  padding-right:1em;
+  padding-bottom:1em;
+}
+#infohefte th, #infohefte td{
+  border:none;
+}
+
+#stellenangebot{
+  font-family:Verdana,Arial,Helvetica,sans-serif;
+  width:99.5%;
+}
+
+.tabelle-weiss, .tabelle-weiss th, .tabelle-weiss100, .tabelle-weiss100 th, #stellenangebot th{
+  background-color:#fff;
+}
+.tabelle-weiss td, .tabelle-weiss th, .tabelle-weiss100 td, .tabelle-weiss100 th, #stellenangebot th, #stellenangebot td{
+  border:2px solid #E8E8EA;
+}
+
+#kontakt-person td input{
+  margin:0;
+  width:auto;
+}
+
+#kontakt-person td,#kontakt-person th{
+  padding:0.2em;
+  border:none;
+  border-bottom:2px solid #fff;
+}
+#kontakt-person th{
+  width:30%;
+  vertical-align:middle;
+  white-space:nowrap;
+}
+
+/*----------Text-Block's (div's)----------*/
+
+#information .text-block{
+  clear:both;
+  margin-left:30px;
+  margin-bottom:0.3em;
+  border-bottom:10px solid white;
+  background-color:#E8E8EA;
+  height:12.5em;
+  padding:1.5em 1em 1.5em 0;
+}
+
+#information>.text-block{
+  min-height:12.5em;
+  height:auto;
+}
+
+#information .text-block img, #information .text-block90 img{
+  width:90px;
+  margin:0 0 0 -30px;
+  float:left;
+  position:relative;
+}
+
+#information .text-block div, #information .text-block90 div{
+  margin-left:80px;
+}
+
+#information .text-block div div, #information .text-block90 div div{
+  margin-left:0;
+}
+
+#information #text-block-hintergr{
+  background:url(../images/visi_icons.gif) no-repeat bottom right;
+  background-color:#E8E8EA;
+}
+
+#information .text-block90{
+  clear:both;
+  margin-left:30px;
+  border-bottom:10px solid white;
+  background-color:#E8E8EA;
+  height:7.5em;
+  padding:1.5em 1em 1.5em 0;
+}
+#information>.text-block90{
+  min-height:7.5em;
+  height:auto;
+}
+
+.text-block #hoehe250{
+  height:22em;
+}
+#information>#hoehe250{
+  min-height:22em;
+  height:auto;
+}
+
+.text-block #hoehe350{
+  height:30em;
+}
+#information>#hoehe350{
+  min-height:30em;
+  height:auto;
+}
+
+.block{
+  clear:both;
+  margin-top:1.5em;
+}
+
+.block .ueberschrift-grau, .ueberschrift-grau{
+  background-color:#E8E8EA;
+  padding:0.3em;/*
+  width:100%;*/
+}
+
+.block p, .block div{
+  margin-top:0.5em;
+}
+
+#information .block ul{
+  margin-left:0;
+}
+
+.stimmen{
+  clear:both;
+  margin-top:1em;
+  margin-bottom:1.5em;
+  line-height:1.3em;
+}
+
+.stimmen img{
+  width:7.08em;
+  float:left;
+  padding-right:10px;
+  padding-top:5px;
+}
+
+.stimmen div{
+  margin-left:7.8em;
+  padding:0;
+}
+
+
+.stimmen div h2,.stimmen div h3, .stimmen div p{
+  margin-bottom:0;
+  margin-top:0;
+}
+
+/*---------------Bild-Format--------------------*/
+#information img{ /*
+  width:30%;*/
+}
+
+.bild-links{
+  clear:both;
+  float:left;
+  margin:0 15px 5px 0;
+}
+
+.bild-rechts{
+  clear:both;
+  float:right;
+  margin:8px 0 5px 8px;
+}
+
+.foto-rechts, .foto-links, .foto-gross, .foto-klein-rechts, .foto-klein-links, .symbol-links, .symbol-rechts{
+  clear:both;
+  background-color:#E8E8EA;
+  padding:8px;
+  font:0.9em normal Arial,Helvetica,sans-serif;
+  margin-top:10px;
+  margin-bottom:10px;
+}
+.foto-links img, .foto-rechts img, .foto-gross img, .foto-klein-links img, .foto-klein-rechts img, .symbol-links img, .symbol-rechts img{
+  margin-bottom:5px;
+  width:100%;
+}
+
+.foto-links{
+  margin-right:10px;
+  float:left;
+  width:29.3em;
+}
+
+.foto-rechts{
+  margin-left:10px;
+  float:right;
+  width:29.3em;
+}
+#information>.foto-links, #information>.foto-rechts, .block>.foto-links, .block>.foto-rechts{
+  width:27.8em;
+}
+
+.foto-gross{
+  width:47.8em;
+}
+
+#information>.foto-gross,.block>.foto-gross{
+  width:46.3em;
+}
+
+.foto-klein-links{
+  margin-right:10px;
+  float:left;
+  width:20em;
+}
+
+.foto-klein-rechts{
+  margin-left:10px;
+  float:right;
+  width:20em;
+}
+
+#information>.foto-klein-links, #information>.foto-klein-rechts, .block>.foto-klein-links, .block>.foto-klein-rechts{
+  width:18.5em;
+}
+
+.symbol-links{
+  margin-right:10px;
+  float:left;
+  width:9.8em;
+}
+
+.symbol-rechts{
+  margin-left:10px;
+  float:right;
+  width:9.8em;
+}
+
+#information>.symbol-links, #information>.symbol-rechts, .block>.symbol-links, .block>.symbol-rechts{
+  width:8.3em;
+}
+
+/**********************************************************/
+/*---------zusatzinformation-------------*/
+/**********************************************************/
+
+#zusatzinformation {
+  float:right;
+  width:23%;
+  font-size:0.9em;
+  font-family:Arial,Helvetica,sans-serif;
+  padding-top:3em;
+}
+
+#zusatzinformation a {text-decoration:none;}
+#zusatzinformation a:visited{color:#33C;}
+#zusatzinformation a:hover, #zusatzinformation a:focus{text-decoration:underline;}
+
+#zusatzinformation ul{
+  list-style:none;
+  padding-top:5px;
+}
+
+#zusatzinformation li{
+  padding-bottom:1em;
+  font-weight:bold;
+}
+
+#zusatzinformation li ul{
+  padding-top:0.5em;
+  margin-top:0.2em;
+  padding-left:5px;
+  border:none;
+  border-top:3px solid #ccc/*#A3A0FC*/;
+}
+
+#zusatzinformation li li{
+  background:url(../images/minus.gif) no-repeat 0 0.1em;
+  padding-left:12px;
+  padding-bottom:0.3em;
+  font-weight:normal;
+  line-height:1.1em;
+}
+
+#inhalt #zusatzinformation ol{
+  margin:0;
+  padding:10px 0 20px 0;
+}
+
+#inhalt #zusatzinformation ol li{
+  padding-bottom:0;
+  margin-left:2.8em;
+  padding-left:0;
+  font-weight:normal;
+}
+/*
+#inhalt #zusatzinformation ol>li{
+  margin-left:2.5em;
+}*/
+
+#zusatzinformation h3{
+  font-size:1em;
+  margin:0;
+  margin-top:-1em;
+}
+
+/*************************************************/
+/*-----------fuss--------------*/
+/*************************************************/
+
+#fuss{
+  clear:both;
+  list-style:none;
+  position:absolute;
+  left:-22%;
+  bottom:0;
+  height:1.8em;
+  font-size:0.9em;
+  font-family:Arial,Helvetica,sans-serif;
+  width:123%;/*
+  z-index:4;*/
+}
+
+#inhalt>#fuss{
+  position:relative;
+  left:-23.5%;
+}
+
+#fuss a:visited{color:#33C;}
+
+#fuss li{
+  float:left;
+  padding:0.1em 0.5em 0.1em 5px;
+}
+#fuss #impressum{
+  border-right:1px solid #33C;
+}
+
+#fuss #copyright{
+  float:right;
+}
+
+/**************************************************/
+/*------------kopf-print----------*/
+/**************************************************/
+#kopf-print{
+  display:none;
+  position:absolute;
+  top:0; left:0;
+  font-size:0.9em;
+}
