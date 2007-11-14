@@ -1,0 +1,55 @@
+<project name="cms" default="compile" basedir=".">
+
+	<!-- set global properties -->
+	<property file="build.properties"/>
+	<property name="src" location="src/com"/>
+	<property name="cp" location="bin"/>
+	<property name="jars" location="lib"/>
+	<property name="dist" location="dist"/>
+
+	<!-- path definitions -->
+	<path id="cp.global">
+		<pathelement location="${cp}"/>
+		<pathelement location="${jars}"/>
+		<fileset dir="${jars}">
+			<include name="dom4j-full.jar" />
+			<include name="ojdbc14.jar" />
+		</fileset>
+	</path>
+
+	<!-- compile targets -->
+	<target name="compile">
+		<javac srcdir="${src}" destdir="${cp}">
+			<classpath refid="cp.global"/>
+			<!-- <compilerarg value="-Xlint"/> -->
+		</javac>
+	</target>
+
+	<!-- jar-file creation -->
+	<target name="jar" depends="compile">
+		<mkdir dir="${dist}"/>
+		<jar jarfile="${dist}/cms.jar" basedir="${cp}">
+			<zipfileset src="${jars}/*.jar">
+			</zipfileset>
+			<manifest>
+				<attribute name="Built-By" value="${user.name}"/>
+				<attribute name="Main-Class" value="com.atoss.i18n.ctstd.Ctstd"/>
+			</manifest>
+		</jar>
+	</target>
+
+	<!-- run -->
+	<target name="run"  depends="compile">
+		<java classname="com.fun.fucms.Fucms">
+			<arg value="createTables"/>
+			<classpath refid="cp.global"/>
+		</java>
+	</target>
+
+
+
+
+
+
+
+</project>
