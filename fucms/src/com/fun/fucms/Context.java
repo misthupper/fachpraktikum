@@ -9,11 +9,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
-import javax.sql.DataSource;
-
 import com.fun.fucms.conf.Configuration;
-
-import oracle.jdbc.pool.OracleDataSource;
 
 public class Context {
 	
@@ -86,6 +82,7 @@ public class Context {
 			mConnection = DriverManager.getConnection(Configuration.getDataSourceUrl(),
 					Configuration.getDataSourceUsername(),
 					Configuration.getDataSourcePassword());
+			System.out.println("connected to " +Configuration.getDataSourceUrl());
 		} catch (ClassNotFoundException e) {
 			throw new SQLException(e.getMessage());
 		}

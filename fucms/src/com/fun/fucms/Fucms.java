@@ -15,10 +15,10 @@ public class Fucms {
 		Fucms fucms = new Fucms();
 		
 		if (args.length > 0) {
-			if (args[0].equalsIgnoreCase(CMDActions.sCREATE_TABLES) ) {
+			//if (args[0].equalsIgnoreCase(CMDActions.sCREATE_TABLES) ) {
 				fucms.createTables();
 				fucms.generate();
-			}
+			//}
 		}
 
 	}
@@ -42,6 +42,7 @@ public class Fucms {
 		try {
 			mp.init();
 			mp.generate();
+			System.out.println("generated to "+Configuration.getTargetDirectory().getAbsolutePath());
 		} catch (EvilException e) {
 			System.out.println(e.getMessage());
 			e.printStackTrace();

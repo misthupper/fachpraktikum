@@ -105,6 +105,7 @@ public class Template {
 		File[] files = Configuration.getTemplateDirectory().listFiles();
 		dir.mkdirs();
 		for (File f : files) {
+			if (f.isDirectory()) continue;
 			File target = new File(dir.getAbsolutePath() + "/" +f.getName());
 			try {
 				FileInputStream fis = new FileInputStream(f);

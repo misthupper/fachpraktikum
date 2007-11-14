@@ -16,6 +16,7 @@ public class SQLUtils {
 		if (f.isDirectory()) {
 			File[] files = f.listFiles();
 			for (File sqlfile : files) {
+				if (! sqlfile.getName().endsWith(".sql") || sqlfile.isDirectory()) continue;
 				try {
 					StringBuffer sb = new StringBuffer();
 					BufferedReader br = new BufferedReader(new FileReader(sqlfile));
@@ -39,8 +40,7 @@ public class SQLUtils {
 						}
 						s = br.readLine();
 					}
-					//Statement stmt = context.getConnection().createStatement();
-					//stmt.executeQuery(sb.toString());
+					System.out.println("executed " + sqlfile.getAbsolutePath());
 				} catch (IOException e) {
 					System.out.println("Error SU001 : for file " + sqlfile.getName() + " "+e.getMessage());
 				} catch (SQLException e) {
