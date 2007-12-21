@@ -10,6 +10,7 @@ import java.util.Date;
 import java.util.Locale;
 
 import com.fun.fucms.conf.Configuration;
+import com.fun.fucms.gui.MainFrame;
 
 public class Context {
 	
@@ -55,6 +56,7 @@ public class Context {
 	public ResultSet executeQuery(String sqlstm) throws SQLException {
 		mStm = getConnection().createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,
 	            ResultSet.CONCUR_UPDATABLE);
+		MainFrame.log("executing: " + sqlstm);
 		mResultSet = mStm.executeQuery(sqlstm);
 		return mResultSet;
 	}
@@ -82,7 +84,8 @@ public class Context {
 			mConnection = DriverManager.getConnection(Configuration.getDataSourceUrl(),
 					Configuration.getDataSourceUsername(),
 					Configuration.getDataSourcePassword());
-			System.out.println("connected to " +Configuration.getDataSourceUrl());
+			mConnection.setAutoCommit(true);
+			MainFrame.log("connected to " +Configuration.getDataSourceUrl());
 		} catch (ClassNotFoundException e) {
 			throw new SQLException(e.getMessage());
 		}
