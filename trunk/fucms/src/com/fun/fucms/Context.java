@@ -87,6 +87,7 @@ public class Context {
 			mConnection.setAutoCommit(true);
 			MainFrame.log("connected to " +Configuration.getDataSourceUrl());
 		} catch (ClassNotFoundException e) {
+			MainFrame.log(e.getMessage());
 			throw new SQLException(e.getMessage());
 		}
 	}
