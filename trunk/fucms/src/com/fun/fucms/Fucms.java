@@ -11,7 +11,7 @@ public class Fucms {
 	/**
 	 * @param args
 	 */
-	public static void main(String[] args) {
+	/*public static void main(String[] args) {
 		Fucms fucms = new Fucms();
 		
 		if (args.length > 0) {
@@ -21,7 +21,7 @@ public class Fucms {
 			//}
 		}
 
-	}
+
 	
 	public Fucms() {
 		try {
@@ -48,5 +48,6 @@ public class Fucms {
 			e.printStackTrace();
 		}
 	}
+	*/
 
 }
