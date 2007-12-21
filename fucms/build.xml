@@ -33,7 +33,7 @@
 			</zipfileset>
 			<manifest>
 				<attribute name="Built-By" value="${user.name}"/>
-				<attribute name="Main-Class" value="com.atoss.i18n.ctstd.Ctstd"/>
+				<attribute name="Main-Class" value="com.fun.fucms.gui.MainFrame"/>
 			</manifest>
 		</jar>
 	</target>
