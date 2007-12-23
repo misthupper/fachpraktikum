@@ -10,12 +10,14 @@ import com.fun.fucms.Context;
 import com.fun.fucms.EvilException;
 import com.fun.fucms.conf.Configuration;
 import com.fun.fucms.gui.MainFrame;
+import com.fun.fucms.gui.entities.EmployeeFrame;
 import com.fun.fucms.sql.SQLUtils;
 
 public class MainController implements ActionListener {
 	
 	public static final String sCREATE_TABLES = "createTables";
 	public static final String sEXECUTE_SINGLE_SQLFILE = "executeSingleFile";
+	public static final String sOPEN_EMPLOYEE = "openEmployeeFrame";
 	
 	private Context mContext;
 	
@@ -30,6 +32,8 @@ public class MainController implements ActionListener {
 			SQLUtils.executeSQLStmsInDirectory(mContext, Configuration.getSQLDirectory());
 		} else if (actionCommand.equals(sEXECUTE_SINGLE_SQLFILE)) {
 			excuteSingleSQLFile();
+		} else if (actionCommand.equals(sOPEN_EMPLOYEE)) {
+			EmployeeFrame employeeFrame = new EmployeeFrame();
 		}
 	}
 	
