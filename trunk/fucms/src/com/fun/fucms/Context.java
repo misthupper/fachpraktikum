@@ -24,11 +24,9 @@ public class Context {
 		try {
 			initDatabaseConnection();
 			mDate = new Date();
-			Thread.sleep(10);
 		} catch (SQLException e) {
 			System.out.println(e.getMessage());
 			throw new EvilException(e);
-		} catch (InterruptedException e) {
 		}
 	}
 	
