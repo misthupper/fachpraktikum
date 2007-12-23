@@ -35,6 +35,7 @@ public class MainMenu extends JMenuBar {
     	this.add(mMenu1);
     	
     	mMenu2.add(mMenu2Item1);
+    	mMenu2Item1.setActionCommand(MainController.sOPEN_EMPLOYEE);
     	this.add(mMenu2);
     }
     
