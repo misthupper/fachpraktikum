@@ -7,19 +7,26 @@ import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JTabbedPane;
 import javax.swing.JTextField;
 
 import com.fun.fucms.controller.EmployeeController;
 
 public class EmployeeFrame extends JFrame {
 	
+	private static final String SELECTION_TEXT = "Selection";
+	
+	private static final String ENTITY_TEXT = "Mitarbeiter";
 	private static final String ID_LABEL_TEXT = "ID: ";
 	private static final String SURNAME_LABEL_TEXT = "Surname: ";
 	private static final String FIRSTNAME_LABEL_TEXT = "Firstname: ";
 	private static final String BUTTON_OK_TEXT = "OK";
 	private static final String BUTTON_CANEL_TEXT = "Cancel";
 	
-	public Container mContainer;
+	private Container mContainer;
+	private JTabbedPane mJTabbedPane;
+	private JPanel mSelectPanel, mEntityPanel;
 	
 	private JLabel mIdLabel, mSNameLabel, mFNameLabel;
 	private JTextField mIdField, mSNameField, mFNameField;
@@ -38,11 +45,18 @@ public class EmployeeFrame extends JFrame {
 		
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         
-        mEmployeeController = new EmployeeController(this);
-        
-        //content Pane
         mContainer=this.getContentPane();
         mContainer.setLayout(new BoxLayout(mContainer,BoxLayout.PAGE_AXIS));
+        
+        mJTabbedPane = new JTabbedPane();
+        mSelectPanel = new JPanel();
+        mSelectPanel.setLayout(new BoxLayout(mSelectPanel,BoxLayout.PAGE_AXIS));
+        mEntityPanel = new JPanel();
+        mEntityPanel.setLayout(new BoxLayout(mEntityPanel,BoxLayout.PAGE_AXIS));
+        mJTabbedPane.add(SELECTION_TEXT,mSelectPanel);
+        mJTabbedPane.add(ENTITY_TEXT,mEntityPanel);
+        
+        mEmployeeController = new EmployeeController(this);
         
         mIdLabel = new JLabel(ID_LABEL_TEXT);
         mIdField = new JTextField();
@@ -73,11 +87,12 @@ public class EmployeeFrame extends JFrame {
         mButtonBox.add(Box.createHorizontalGlue());
         mButtonBox.add(mSaveButton);
 
-        mContainer.add(mIdBox);
-        mContainer.add(mSNameBox);
-        mContainer.add(mFNameBox);
-        mContainer.add(mButtonBox);
+        mEntityPanel.add(mIdBox);
+        mEntityPanel.add(mSNameBox);
+        mEntityPanel.add(mFNameBox);
+        mEntityPanel.add(mButtonBox);
         
+        mContainer.add(mJTabbedPane);
       
 
         pack();
