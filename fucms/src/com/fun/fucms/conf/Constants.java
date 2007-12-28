@@ -15,5 +15,5 @@ public interface Constants {
     public static final String sDATASOURCE_PASSWORD = "test";
 	public static final String OUT_DIR = "html";
 	public static final String TEMPLATE_DIR = "templates";
-
+	public static final String INHALTS_DIR = "inhalt";
 }

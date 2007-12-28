@@ -12,6 +12,7 @@ import javax.swing.JTextArea;
 import javax.swing.UIManager;
 
 import com.fun.fucms.EvilException;
+import com.fun.fucms.InhaltsHelper;
 import com.fun.fucms.controller.MainController;
 
 public class MainFrame extends JFrame {
@@ -31,6 +32,7 @@ public class MainFrame extends JFrame {
     public static void main(String[] args) {
         sInstance = new MainFrame(sAppName+ " " +sAppVersion);
         sInstance.init();
+        InhaltsHelper h = new InhaltsHelper();
     }
     
     public static void log(String s) {

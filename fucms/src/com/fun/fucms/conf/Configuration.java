@@ -17,6 +17,7 @@ public class Configuration {
     private static final String SQL_DIR = "sql_dir";
     private static final String OUT_DIR = "out_dir";
     private static final String TEMPLATE_DIR = "template_dir";
+    private static final String INHALTS_DIR = "inhalt_dir";
     
     private static Configuration sInstance;
     private ConfigurationFile mConfigFile;
@@ -49,6 +50,19 @@ public class Configuration {
     	}
     	return file;
     }
+    
+    public static File getInhaltsDirectory() 
+    // Nur vorrübergehend - Später aus der DAtenbank lesen
+    {
+    	String path = Configuration.getInstance().mConfigFile.getString(INHALTS_DIR, Constants.INHALTS_DIR);
+    	File file = new File(path);
+    	if (! file.exists()) {
+    		file.mkdirs();
+    	}
+    	return file;
+    }
+    
+
     
     public static File getSQLDirectory() {
     	String path = Configuration.getInstance().mConfigFile.getString(SQL_DIR, Constants.sSQL_DIR);
