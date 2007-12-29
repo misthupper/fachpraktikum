@@ -19,8 +19,8 @@ CREATE TABLE Version (
 	char(16) charset, 
 	char(2) sprache, 
 	integer format not null, 
-	byte statusid not null, 
-	integer seitenid, 
+	byte statusID not null, 
+	integer seitenID, 
 	integer autor not null,
 	FOREIGN KEY (autor) REFERENCES CMSBenutzer(id),
 	FOREIGN KEY (format) REFERENCES Webseitenvorlage(id)
@@ -71,6 +71,6 @@ DROP TABLE Version_Inhalt;
 CREATE TABLE Version_Inhalt (
 	integer id not null primary key, 
 	integer position not null primary key, 
-	integer inhaltsid not null,
-	FOREIGN KEY (inhaltsid) REFERENCES Inhalt(id)
+	integer inhaltsID not null,
+	FOREIGN KEY (inhaltsID) REFERENCES Inhalt(id)
 );
