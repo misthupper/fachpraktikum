@@ -1,4 +1,38 @@
-DROP TABLE Version_Inhalt, CMSBenutzer, Medien, Inhalt, Webseitenvorlage, Version, Webseite;
+DROP TABLE Version;
+DROP TABLE Version_Inhalt;
+DROP TABLE Medien;
+DROP TABLE Inhalt;
+DROP TABLE Webseitenvorlage;
+DROP TABLE CMSBenutzer;
+DROP TABLE Webseite;
+
+
+/* Tabelle Version */
+CREATE TABLE Version (
+	id integer not null primary key, 
+	versionsstand timestamp not null, 
+	autor integer not null, 
+	titel char(128) not null, 
+	gueltig_ab date, 
+	gueltig_bis date, 
+	charset char(16), 
+	sprache char(2), 
+	format integer not null, 
+	statusID integer not null, 
+	seitenID integer, 
+	FOREIGN KEY (autor) REFERENCES CMSBenutzer(id) ON DELETE CASCADE,
+	FOREIGN KEY (format) REFERENCES Webseitenvorlage(id) ON DELETE CASCADE
+);
+
+
+/* Tabelle Version_Inhalt */
+CREATE TABLE Version_Inhalt (
+	versionID integer not null, 
+	inhaltID integer not null,
+	position integer not null, 
+	FOREIGN KEY (versionID) REFERENCES Version(id) ON DELETE CASCADE,
+	FOREIGN KEY (inhaltID) REFERENCES Inhalt(id) ON DELETE CASCADE
+);
 
 
 /* Tabelle Webseite */
@@ -6,49 +40,6 @@ CREATE TABLE Webseite (
 	id integer not null primary key, 
 	vaterseiteID integer
 );
-
-
-/* Tabelle Version */
-CREATE TABLE Version (
-	id integer not null primary key, 
-	versionsstand datetime not null, 
-	autor integer not null, 
-	titel char(128) not null, 
-	gueltig_ab datetime, 
-	gueltig_bis datetime, 
-	charset char(16), 
-	sprache char(2), 
-	format integer not null, 
-	statusIDbyte not null, 
-	seitenID integer, 
-	autor integer not null,
-	FOREIGN KEY (autor) REFERENCES CMSBenutzer(id),
-	FOREIGN KEY (format) REFERENCES Webseitenvorlage(id)
-);
-
-
-/* Tabelle Webseitenvorlage */
-CREATE TABLE Webseitenvorlage (
-	id integer not null primary key, 
-	name char(32) not null, 
-	name char(32) not null
-);
-
-
-/* Tabelle Inhalt */
-CREATE TABLE Inhalt (
-	id integer not null primary key, 
-	inhaltstyp char(32) not null, 
-	inhaltstext text not null
-);
-
-
-/* Tabelle Medien */
-CREATE TABLE Medien (
-	id integer not null primary key, 
-	medium BLOB
-);
-
 
 /* Tabelle CMSBenutzer */
 CREATE TABLE CMSBenutzer (
@@ -61,11 +52,25 @@ CREATE TABLE CMSBenutzer (
 	rechte char(16)
 );
 
-
-/* Tabelle Version_Inhalt */
-CREATE TABLE Version_Inhalt (
+/* Tabelle Webseitenvorlage */
+CREATE TABLE Webseitenvorlage (
 	id integer not null primary key, 
-	position integer not null primary key, 
-	inhaltsID integer not null,
-	FOREIGN KEY (inhaltsID) REFERENCES Inhalt(id)
+	name char(32) not null, 
+	dateiname char(32) not null
 );
+
+
+/* Tabelle Inhalt */
+CREATE TABLE Inhalt (
+	id integer not null primary key, 
+	inhaltstyp char(32) not null, 
+	inhaltstext long not null
+);
+
+
+/* Tabelle Medien */
+CREATE TABLE Medien (
+	id integer not null primary key, 
+	medium BLOB
+);
+
