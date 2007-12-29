@@ -4,6 +4,8 @@ import java.util.ArrayList;
 
 import javax.swing.table.AbstractTableModel;
 
+import com.fun.fucms.gui.MainFrame;
+
 public class EntityTableModel extends AbstractTableModel {
 	
 	private Entity mEntity;
@@ -21,7 +23,7 @@ public class EntityTableModel extends AbstractTableModel {
 					mEntities[column] = mEntity.getFields()[column];
 				} else {
 					TableMediator.getRowByKey(mEntity, keys.get(row - 1));
-					mEntities[column + (row*(mColumns-1))] = mEntity.mValues[column];
+					mEntities[column + (row*(mColumns))] = mEntity.mValues[column];
 				}
 			}
 		}
@@ -43,7 +45,7 @@ public class EntityTableModel extends AbstractTableModel {
 	}
 
 	public Object getValueAt(int rowIndex, int columnIndex) {
-		return mEntities[columnIndex + (rowIndex*(mColumns-1))];
+		return mEntities[columnIndex + (rowIndex*(mColumns))];
 	}
 
 }
