@@ -1,26 +1,27 @@
 /* Tabelle Gebäude */
 DROP TABLE Gebaeude;
 CREATE TABLE Gebaeude (
-integer id not null PRIMARY KEY,
-char(64) strasse not null,
-byte hausnummer not null);
+	id integer not null PRIMARY KEY,
+	strasse CHAR(64) not null,
+	hausnummer integer not null
+);
 
 /* Tabelle Raum */
 DROP TABLE Raum;
 CREATE TABLE Raum (
-	integer id not null PRIMARY KEY,
-	char(4) nummer not null,
-	integer gebaeudeID not null,
+	id integer not null PRIMARY KEY,
+	nummer char(4) not null,
+	gebaeudeID integer not null,
     FOREIGN KEY (gebaeudeID) REFERENCES Gebaeude(id)
 );
 
 /* Tabelle Person */
 DROP TABLE Person;
 CREATE TABLE Person (
-	integer id not null PRIMARY KEY,
-	char(32) name not null,
-	char(32) vorname,
-	char(16) titel,
+	id integer not null PRIMARY KEY,
+	name char(32) not null,
+	vorname char(32),
+	titel char(16),
 	PRIMARY KEY (id)
 );
 
@@ -31,9 +32,9 @@ VALUES ('1', 'Doerfert', 'Frank', 'Dr.');
 /* Tabelle Person_Email */
 DROP TABLE Person_Email;
 CREATE TABLE Person_Email (
-	integer #*id,
-	integer personID,
-	char(64) email,
+	#*id integer,
+	personID integer,
+	email char(64),
     FOREIGN KEY (personID) REFERENCES Person(id)
 );
 
@@ -46,9 +47,9 @@ VALUES ('2', '1', 'Frank.Doerfert@fernuni-hagen.de');
 /* Tabelle Person_Telefon */
 DROP TABLE Person_Telefon;
 CREATE TABLE Person_Telefon (
-	integer #*id,
-	integer personID,
-	char(32) telefon,
+	#*id integer,
+	personID integer,
+	telefon char(32),
 	FOREIGN KEY (personID) REFERENCES Person(id)
 );
 
@@ -61,8 +62,8 @@ VALUES ('2', '1', '02331 / 987 - 25 82');
 /* Tabelle Person_Raum */
 DROP TABLE Person_Raum;
 CREATE TABLE Person_Raum (
-	integer persID not null,
-	integer raumID not null,
+	personID integer not null,
+	raumID integer not null,
 	FOREIGN KEY (personID) REFERENCES Person(id),
 	FOREIGN KEY (raumID) REFERENCES Raum(id)
 );
@@ -70,18 +71,18 @@ CREATE TABLE Person_Raum (
 /* Tabelle Einrichtung */
 DROP TABLE Einrichtung;
 CREATE TABLE Einrichtung (
-	integer id not null PRIMARY KEY,
-	char(64) name not null,
-	char(32) typ not null,
-	integer obereinrichtung
+	id integer not null PRIMARY KEY,
+	name char(64) not null,
+	typ char(32) not null,
+	obereinrichtung integer
 );
 
 /* Tabelle Person_Einrichtung */
 DROP TABLE Person_Einrichtung;
 CREATE TABLE Person_Einrichtung (
-	integer personID not null,
-	integer einrichtungID not null,
-	char(64) funktion,
+	personID integer not null,
+	einrichtungID integer not null,
+	funktion char(64),
 	FOREIGN KEY (personID) REFERENCES Person(id),
 	FOREIGN KEY (einrichtungID) REFERENCES Einrichtung(id)
 );
@@ -96,8 +97,8 @@ CREATE TABLE Forschungscluster (
 /* Tabelle Einrichtung_Forschungscluster */
 DROP TABLE Einrichtung_Forschungscluster;
 CREATE TABLE Einrichtung_Forschungscluster (
-	integer forschungsclusterID not null, 
-	integer einrichtungID not null,
+	forschungsclusterID integer not null, 
+	einrichtungID integer not null,
 	FOREIGN KEY (forschungsclusterID) REFERENCES Forschungscluster(id),
 	FOREIGN KEY (einrichtungID) REFERENCES Einrichtung(id)
 );
@@ -105,10 +106,10 @@ CREATE TABLE Einrichtung_Forschungscluster (
 /* Tabelle Abschlussarbeit */
 DROP TABLE Abschlussarbeit;
 CREATE TABLE Abschlussarbeit (
-	integer id not null PRIMARY KEY,
-	char(64) verfasser not null,
-	char(128) titel not null,
-	integer einrichtungID not null,
+	id integer not null PRIMARY KEY,
+	verfasser char(64) not null,
+	titel char(128) not null,
+	einrichtungID integer not null,
 	FOREIGN KEY (einrichtungID) REFERENCES Einrichtung(id)
 );
 
@@ -116,34 +117,34 @@ CREATE TABLE Abschlussarbeit (
 
 DROP TABLE Studiengang;
 CREATE TABLE Studiengang (
-	integer id not null PRIMARY KEY,
-	char(64) titel not null,
-	char(32) art not null,
-	integer einrichtungsID not null,
+	id integer not null PRIMARY KEY,
+	titel char(64) not null,
+	art char(32) not null,
+	einrichtungsID integer not null,
 	FOREIGN KEY (einrichtungID) REFERENCES Einrichtung(id)
 );
 
 /* Tabelle Kurs */
 DROP TABLE Kurs;
 CREATE TABLE Kurs (
-	integer nummer not null PRIMARY KEY, 
-	char(128) titel not null,
-	char(32) typ not null
+	nummer integer not null PRIMARY KEY, 
+	titel char(128) not null,
+	typ char(32) not null
 );
 
 -- Tabelle Studiengang_Kurs
 DROP TABLE Studiengang_Kurs;
 CREATE TABLE Studiengang_Kurs (
-	integer studiengangID not null,
-	integer kursnummer not null
+	studiengangID integer not null,
+	kursnummer integer not null
 	FOREIGN KEY (studiengangID) REFERENCES Studiengang(id)
 );
 
 /* Tabelle Person_Kurs */
 DROP TABLE Person_Kurs
 CREATE TABLE Person_Kurs (
-	integer personid not null,
-	integer kursID not null,
+	personid integer not null,
+	kursID integer not null,
 	FOREIGN KEY (personid) REFERENCES Person(id),
 	FOREIGN KEY (kursID) REFERENCES Kurs(id)
 );
@@ -152,16 +153,16 @@ CREATE TABLE Person_Kurs (
 DROP TABLE Kursmodul;
 CREATE TABLE Kursmodule (
 	integer id not null PRIMARY KEY,
-	char(32) bezeichnung not null,
-	integer studiengangID,
+	bezeichnung char(32) not null,
+	studiengangID integer,
 	FOREIGN KEY (studiengangID) REFERENCES Studiengang(id)
 );
 
 /* Tabelle Kursmodule_Kurs */
 DROP TABLE Kursmodul_Kurs;
 CREATE TABLE Kursmodule_Kurs (
-	integer kursID not null, 
-	integer modulID not null,
+	kursID integer not null, 
+	modulID integer not null,
 	FOREIGN KEY (kursID) REFERENCES Kurs(id),
 	FOREIGN KEY (kursmodulID) REFERENCES Kursmodul(id)
 );
