@@ -1,13 +1,14 @@
+DROP TABLE Version_Inhalt, CMSBenutzer, Medien, Inhalt, Webseitenvorlage, Version, Webseite;
+
+
 /* Tabelle Webseite */
-DROP TABLE Webseite;
 CREATE TABLE Webseite (
 	id integer not null primary key, 
-	vaterseiteID integer,
+	vaterseiteID integer
 );
 
 
 /* Tabelle Version */
-DROP TABLE Version;
 CREATE TABLE Version (
 	id integer not null primary key, 
 	versionsstand datetime not null, 
@@ -27,7 +28,6 @@ CREATE TABLE Version (
 
 
 /* Tabelle Webseitenvorlage */
-DROP TABLE Webseitenvorlage;
 CREATE TABLE Webseitenvorlage (
 	id integer not null primary key, 
 	name char(32) not null, 
@@ -36,7 +36,6 @@ CREATE TABLE Webseitenvorlage (
 
 
 /* Tabelle Inhalt */
-DROP TABLE Inhalt;
 CREATE TABLE Inhalt (
 	id integer not null primary key, 
 	inhaltstyp char(32) not null, 
@@ -45,7 +44,6 @@ CREATE TABLE Inhalt (
 
 
 /* Tabelle Medien */
-DROP TABLE Medien;
 CREATE TABLE Medien (
 	id integer not null primary key, 
 	medium BLOB
@@ -53,7 +51,6 @@ CREATE TABLE Medien (
 
 
 /* Tabelle CMSBenutzer */
-DROP TABLE CMSBenutzer;
 CREATE TABLE CMSBenutzer (
 	id integer not null primary key, 
 	grad char(16), 
@@ -66,7 +63,6 @@ CREATE TABLE CMSBenutzer (
 
 
 /* Tabelle Version_Inhalt */
-DROP TABLE Version_Inhalt;
 CREATE TABLE Version_Inhalt (
 	id integer not null primary key, 
 	position integer not null primary key, 
