@@ -1,27 +1,26 @@
 /* Tabelle Webseite */
 DROP TABLE Webseite;
 CREATE TABLE Webseite (
-	integer id not null primary key, 
-	integer vaterseite,
-	FOREIGN KEY (vaterseite) REFERENCES Webseite(id)
+	id integer not null primary key, 
+	vaterseiteID integer,
 );
 
 
 /* Tabelle Version */
 DROP TABLE Version;
 CREATE TABLE Version (
-	integer id not null primary key, 
-	datetime versionsstand not null, 
-	integer autor not null, 
-	char(128) titel not null, 
-	datetime gueltig_ab, 
-	datetime gueltig_bis, 
-	char(16) charset, 
-	char(2) sprache, 
-	integer format not null, 
-	byte statusID not null, 
-	integer seitenID, 
-	integer autor not null,
+	id integer not null primary key, 
+	versionsstand datetime not null, 
+	autor integer not null, 
+	titel char(128) not null, 
+	gueltig_ab datetime, 
+	gueltig_bis datetime, 
+	charset char(16), 
+	sprache char(2), 
+	format integer not null, 
+	statusIDbyte not null, 
+	seitenID integer, 
+	autor integer not null,
 	FOREIGN KEY (autor) REFERENCES CMSBenutzer(id),
 	FOREIGN KEY (format) REFERENCES Webseitenvorlage(id)
 );
@@ -30,47 +29,47 @@ CREATE TABLE Version (
 /* Tabelle Webseitenvorlage */
 DROP TABLE Webseitenvorlage;
 CREATE TABLE Webseitenvorlage (
-	integer id not null primary key, 
-	char(32) name not null, 
-	char(32) name not null
+	id integer not null primary key, 
+	name char(32) not null, 
+	name char(32) not null
 );
 
 
 /* Tabelle Inhalt */
 DROP TABLE Inhalt;
 CREATE TABLE Inhalt (
-	integer id not null primary key, 
-	char(32) inhaltstyp not null, 
-	text inhaltstext not null
+	id integer not null primary key, 
+	inhaltstyp char(32) not null, 
+	inhaltstext text not null
 );
 
 
 /* Tabelle Medien */
 DROP TABLE Medien;
 CREATE TABLE Medien (
-	integer id not null primary key, 
-	BLOB medium
+	id integer not null primary key, 
+	medium BLOB
 );
 
 
 /* Tabelle CMSBenutzer */
 DROP TABLE CMSBenutzer;
 CREATE TABLE CMSBenutzer (
-	integer id not null primary key, 
-	char(16) grad, 
-	char(32) name not null, 
-	char(32) vorname, 
-	char(4) telefon, 
-	char(64) email, 
-	char(16) rechte
+	id integer not null primary key, 
+	grad char(16), 
+	name char(32) not null, 
+	vorname char(32), 
+	telefon char(4), 
+	email char(64), 
+	rechte char(16)
 );
 
 
 /* Tabelle Version_Inhalt */
 DROP TABLE Version_Inhalt;
 CREATE TABLE Version_Inhalt (
-	integer id not null primary key, 
-	integer position not null primary key, 
-	integer inhaltsID not null,
+	id integer not null primary key, 
+	position integer not null primary key, 
+	inhaltsID integer not null,
 	FOREIGN KEY (inhaltsID) REFERENCES Inhalt(id)
 );
