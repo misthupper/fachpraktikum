@@ -8,6 +8,7 @@ import javax.swing.JFileChooser;
 
 import com.fun.fucms.Context;
 import com.fun.fucms.EvilException;
+import com.fun.fucms.InhaltsHelper;
 import com.fun.fucms.conf.Configuration;
 import com.fun.fucms.gui.MainFrame;
 import com.fun.fucms.gui.entities.EmployeeFrame;
@@ -23,6 +24,7 @@ public class MainController implements ActionListener {
 	
 	public MainController() throws EvilException {
 		mContext = new Context();
+        InhaltsHelper h = new InhaltsHelper(mContext);
 	}
 
 	public void actionPerformed(ActionEvent e) {

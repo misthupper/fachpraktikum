@@ -17,7 +17,11 @@ import com.fun.fucms.controller.MainController;
 
 public class MainFrame extends JFrame {
 
-    private static final String sAppName="FernuniCMS";
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	private static final String sAppName="FernuniCMS";
     private static final String sAppVersion="0.1";
     
     public static MainFrame sInstance;
@@ -32,7 +36,6 @@ public class MainFrame extends JFrame {
     public static void main(String[] args) {
         sInstance = new MainFrame(sAppName+ " " +sAppVersion);
         sInstance.init();
-        InhaltsHelper h = new InhaltsHelper();
     }
     
     public static void log(String s) {
