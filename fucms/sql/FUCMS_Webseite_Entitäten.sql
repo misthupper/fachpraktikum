@@ -1,4 +1,4 @@
--- Tabelle Webseite
+/* Tabelle Webseite */
 DROP TABLE Webseite;
 CREATE TABLE Webseite (
 	integer id not null primary key, 
@@ -7,7 +7,7 @@ CREATE TABLE Webseite (
 );
 
 
--- Tabelle Version
+/* Tabelle Version */
 DROP TABLE Version;
 CREATE TABLE Version (
 	integer id not null primary key, 
@@ -27,7 +27,7 @@ CREATE TABLE Version (
 );
 
 
--- Tabelle Webseitenvorlage
+/* Tabelle Webseitenvorlage */
 DROP TABLE Webseitenvorlage;
 CREATE TABLE Webseitenvorlage (
 	integer id not null primary key, 
@@ -36,7 +36,7 @@ CREATE TABLE Webseitenvorlage (
 );
 
 
--- Tabelle Inhalt
+/* Tabelle Inhalt */
 DROP TABLE Inhalt;
 CREATE TABLE Inhalt (
 	integer id not null primary key, 
@@ -45,7 +45,7 @@ CREATE TABLE Inhalt (
 );
 
 
--- Tabelle Medien
+/* Tabelle Medien */
 DROP TABLE Medien;
 CREATE TABLE Medien (
 	integer id not null primary key, 
@@ -53,7 +53,7 @@ CREATE TABLE Medien (
 );
 
 
--- Tabelle CMSBenutzer
+/* Tabelle CMSBenutzer */
 DROP TABLE CMSBenutzer;
 CREATE TABLE CMSBenutzer (
 	integer id not null primary key, 
@@ -66,7 +66,7 @@ CREATE TABLE CMSBenutzer (
 );
 
 
--- Tabelle Version_Inhalt
+/* Tabelle Version_Inhalt */
 DROP TABLE Version_Inhalt;
 CREATE TABLE Version_Inhalt (
 	integer id not null primary key, 
