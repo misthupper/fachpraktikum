@@ -61,7 +61,7 @@ public class InhaltsHelper {
 		Integer markerEnde=0;
 		String mMarkerString="";
 		String mSQLString="";
-		
+		/*
 		try {
 			markerStart=pseudoHTML.indexOf("<!-- FUCMS.");
 			if (markerStart !=-1) 
@@ -81,9 +81,9 @@ public class InhaltsHelper {
 					// Drei Token - Korrekter Aufbau
 					mSQLString = "Select " + mToken[2] + " from " + mToken[0] + " where id = " + mToken[1];
 			        System.out.println(mSQLString);
-			        ResultSet rs = mContext.executeQuery(mSQLString);
-			        String ergebnis = rs.getString(mToken[2]);
-			        System.out.println(ergebnis);
+			        // ResultSet rs = mContext.executeQuery(mSQLString);
+			        // String ergebnis = rs.getString(mToken[2]);
+			        // System.out.println(ergebnis);
 				} else {
 					// Fehler
 			        System.out.println("Fehler:"+mToken.length);
@@ -97,8 +97,8 @@ public class InhaltsHelper {
 				} 
 				else markerEnde =-1;
 			}
-		} catch (SQLException e) {}
-		
+		}  catch (SQLException e) {}
+		*/
 			return "";
 		
 
