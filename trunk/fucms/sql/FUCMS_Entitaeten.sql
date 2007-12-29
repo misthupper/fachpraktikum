@@ -77,6 +77,7 @@ CREATE TABLE Einrichtung (
 	obereinrichtung integer
 );
 
+
 /* Tabelle Person_Einrichtung */
 DROP TABLE Person_Einrichtung;
 CREATE TABLE Person_Einrichtung (
