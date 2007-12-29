@@ -7,30 +7,43 @@ import javax.swing.table.AbstractTableModel;
 public class EntityTableModel extends AbstractTableModel {
 	
 	private Entity mEntity;
+	private int mRows, mColumns;
+	private Object[] mEntities;
+	
+	private void update() {
+		ArrayList<Object> keys = TableMediator.getKeys(mEntity);
+		mRows = keys.size() +1;
+		mColumns = mEntity.getFields().length;
+		mEntities = new Object[mRows * mColumns];
+		for (int row = 0 ; row < mRows ; row++) {
+			for (int column = 0 ; column < mColumns ; column++) {
+				if (row == 0) {
+					mEntities[column] = mEntity.getFields()[column];
+				} else {
+					TableMediator.getRowByKey(mEntity, keys.get(row - 1));
+					mEntities[column + (row*(mColumns-1))] = mEntity.mValues[column];
+				}
+			}
+		}
+
+	}
 	
 
 	public EntityTableModel(Entity e) {
 		mEntity = e;
+		update();
 	}
 
 	public int getColumnCount() {
-		return mEntity.getFields().length;
+		return mColumns;
 	}
 
 	public int getRowCount() {
-		return TableMediator.getKeys(mEntity).size()+1;
+		return mRows;
 	}
 
 	public Object getValueAt(int rowIndex, int columnIndex) {
-		int row = rowIndex;
-		if (row == 0) {
-			return mEntity.getFields()[columnIndex];
-		} else {
-			ArrayList<Object> keys = TableMediator.getKeys(mEntity);
-			Object key = keys.get(--row);
-			TableMediator.getRowByKey(mEntity, key);
-			return mEntity.mValues[columnIndex];
-		}
+		return mEntities[columnIndex + (rowIndex*(mColumns-1))];
 	}
 
 }

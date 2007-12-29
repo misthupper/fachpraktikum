@@ -8,17 +8,17 @@ public class Person extends Entity {
 		TableMediator.SQL_TYPE_STRING,
 		TableMediator.SQL_TYPE_STRING,
 		TableMediator.SQL_TYPE_STRING,
-		TableMediator.SQL_TYPE_STRING,
-		TableMediator.SQL_TYPE_STRING,
+		//TableMediator.SQL_TYPE_STRING,
+		//TableMediator.SQL_TYPE_STRING,
 		};
 	
 	public static final String[] sFields= {
-		"persnr",
+		"id",
 		"name",
 		"vorname",
 		"titel",
-		"telefon",
-		"email"
+		//"telefon",
+		//"email"
 		};
 	
 	private static final String TABLE="person";
