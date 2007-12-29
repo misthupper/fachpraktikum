@@ -23,7 +23,7 @@ public class MainController implements ActionListener {
 	private Context mContext;
 	
 	public MainController() throws EvilException {
-		mContext = new Context();
+		mContext = Context.getInstance();
         InhaltsHelper h = new InhaltsHelper(mContext);
 	}
 
@@ -40,7 +40,7 @@ public class MainController implements ActionListener {
 	}
 	
 	public void excuteSingleSQLFile() {
-        JFileChooser chooser = new JFileChooser();
+        JFileChooser chooser = new JFileChooser(Configuration.getSQLDirectory());
         chooser.setDialogTitle("Select file");
         int returnVal = chooser.showOpenDialog(MainFrame.sInstance);
         if(returnVal == JFileChooser.APPROVE_OPTION) {

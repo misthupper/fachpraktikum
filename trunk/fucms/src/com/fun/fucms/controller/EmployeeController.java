@@ -2,9 +2,12 @@ package com.fun.fucms.controller;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 import com.fun.fucms.gui.MainFrame;
 import com.fun.fucms.gui.entities.EmployeeFrame;
+import com.fun.fucms.model.Person;
+import com.fun.fucms.model.TableMediator;
 
 public class EmployeeController implements ActionListener {
 	
@@ -21,7 +24,12 @@ public class EmployeeController implements ActionListener {
 	public void actionPerformed(ActionEvent ae) {
 		String actionCommand = ae.getActionCommand();
 		MainFrame.log("action: " + actionCommand);
-
+		Person p = new Person();
+		if (TableMediator.getRowByKey(p,5)) MainFrame.log(p.toString());
+		ArrayList<Object> keys = TableMediator.getKeys(p);
+		for (Object o: keys) {
+			MainFrame.log("key: " + o.toString());
+		}
 	}
 
 }

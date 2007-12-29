@@ -15,12 +15,21 @@ import com.fun.fucms.gui.MainFrame;
 public class Context {
 	
 	private static final SimpleDateFormat sSQLDATEFMT = new SimpleDateFormat("dd-MMM-yyyy", new Locale("en_US"));
+	private static Context sInstance;
+	
 	private Connection mConnection;
 	private Date mDate;
 	private Statement mStm;
 	private ResultSet mResultSet;
 	
-	public Context() throws EvilException {
+	public static Context getInstance() throws EvilException {
+		if (sInstance == null) {
+			sInstance = new Context();
+		}
+		return sInstance;
+	}
+	
+	private Context() throws EvilException {
 		try {
 			initDatabaseConnection();
 			mDate = new Date();
