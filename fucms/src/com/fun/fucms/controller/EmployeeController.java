@@ -5,7 +5,6 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 import com.fun.fucms.gui.MainFrame;
-import com.fun.fucms.gui.entities.EmployeeFrame;
 import com.fun.fucms.model.Person;
 import com.fun.fucms.model.TableMediator;
 
@@ -14,12 +13,12 @@ public class EmployeeController implements ActionListener {
 	public static final String ACTION_OK="action_ok";
 	public static final String ACTION_CANCEL="action_cancel";
 	
-	private EmployeeFrame mEmployee;
+	//private EmployeeFrame mEmployee;
 	
-	public EmployeeController(EmployeeFrame e) {
-		mEmployee = e;
+	//public EmployeeController(EmployeeFrame e) {
+	//	mEmployee = e;
 		
-	}
+	//}
 
 	public void actionPerformed(ActionEvent ae) {
 		String actionCommand = ae.getActionCommand();
