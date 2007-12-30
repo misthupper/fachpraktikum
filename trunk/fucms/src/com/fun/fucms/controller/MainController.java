@@ -11,7 +11,8 @@ import com.fun.fucms.EvilException;
 import com.fun.fucms.InhaltsHelper;
 import com.fun.fucms.conf.Configuration;
 import com.fun.fucms.gui.MainFrame;
-import com.fun.fucms.gui.entities.EmployeeFrame;
+import com.fun.fucms.gui.entities.EntityFrame;
+import com.fun.fucms.model.Person;
 import com.fun.fucms.sql.SQLUtils;
 
 public class MainController implements ActionListener {
@@ -35,7 +36,7 @@ public class MainController implements ActionListener {
 		} else if (actionCommand.equals(sEXECUTE_SINGLE_SQLFILE)) {
 			excuteSingleSQLFile();
 		} else if (actionCommand.equals(sOPEN_EMPLOYEE)) {
-			EmployeeFrame employeeFrame = new EmployeeFrame();
+			EntityFrame employeeFrame = new EntityFrame(new Person());
 		}
 	}
 	
