@@ -1,3 +1,5 @@
+/* Tabellen aus alten Versionsständen */
+
 DROP TABLE type;
 DROP TABLE page;
 DROP TABLE homepage;

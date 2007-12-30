@@ -23,7 +23,7 @@ CREATE TABLE Gebaeude (
 	strasse CHAR(64) not null,
 	hausnummer integer not null,
 	postleitzahl integer not null,
-	ort integer not null
+	ort CHAR(64) not null
 );
 
 /* Tabelle Raum */
@@ -42,13 +42,6 @@ CREATE TABLE Person (
 	titel char(16)
 );
 
-INSERT INTO Person (id, name, vorname, titel)
-VALUES (1, 'Doerfert', 'Frank', 'Dr.');
-
-INSERT INTO Person (id, name, vorname, titel)
-VALUES (2, 'Mustermann', 'Stefan', 'Prof. Dr.');
-
-
 /* Tabelle Person_Email */
 CREATE TABLE Person_Email (
 	id integer not null PRIMARY KEY,
@@ -56,12 +49,6 @@ CREATE TABLE Person_Email (
 	email char(64),
     FOREIGN KEY (personID) REFERENCES Person(id)ON DELETE CASCADE
 );
-
-INSERT INTO Person_Email (id, personid, email)
-VALUES (1, 1, 'senbeauf@fernuni-hagen.de');
-
-INSERT INTO Person_Email (id, personid, email)
-VALUES (2, 1, 'Frank.Doerfert@fernuni-hagen.de');
 
 /* Tabelle Person_Telefon */
 CREATE TABLE Person_Telefon (
@@ -71,12 +58,6 @@ CREATE TABLE Person_Telefon (
 	FOREIGN KEY (personID) REFERENCES Person(id)ON DELETE CASCADE
 );
 
-INSERT INTO Person_Telefon (id, personid, telefon)
-VALUES (1, 1, '02331 / 987 - 40 49');
-
-INSERT INTO Person_Telefon (id, personid, telefon)
-VALUES (2, 1, '02331 / 987 - 25 82');
-
 /* Tabelle Person_Raum */
 CREATE TABLE Person_Raum (
 	personID integer not null,
@@ -84,7 +65,6 @@ CREATE TABLE Person_Raum (
 	FOREIGN KEY (personID) REFERENCES Person(id) ON DELETE CASCADE,
 	FOREIGN KEY (raumID) REFERENCES Raum(id) ON DELETE CASCADE
 );
-
 
 /* Tabelle Forschungscluster */
 CREATE TABLE Forschungscluster (
@@ -104,7 +84,7 @@ CREATE TABLE Abschlussarbeit (
 /* Tabelle Einrichtung */
 CREATE TABLE Einrichtung (
 	id integer not null PRIMARY KEY,
-	name char(64) not null,
+	name char(128) not null,
 	typ char(32) not null,
 	obereinrichtung integer
 );
@@ -121,7 +101,7 @@ CREATE TABLE Einrichtung_Forschungscluster (
 CREATE TABLE Person_Einrichtung (
 	personID integer not null,
 	einrichtungID integer not null,
-	funktion char(64),
+	funktion char(128),
 	FOREIGN KEY (personID) REFERENCES Person(id) ON DELETE CASCADE,
 	FOREIGN KEY (einrichtungID) REFERENCES Einrichtung(id) ON DELETE CASCADE
 );
