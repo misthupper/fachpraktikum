@@ -19,6 +19,7 @@ DROP TABLE Einrichtung;
 /* Tabelle Gebäude */
 CREATE TABLE Gebaeude (
 	id integer not null PRIMARY KEY,
+	gebaeudename CHAR(32),
 	strasse CHAR(64) not null,
 	hausnummer integer not null
 );
