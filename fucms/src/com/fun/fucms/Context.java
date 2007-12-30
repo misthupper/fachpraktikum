@@ -68,6 +68,14 @@ public class Context {
 		return mResultSet;
 	}
 	
+	public int executeUpdate(String sqlstm) throws SQLException {
+		mStm = getConnection().createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,
+	            ResultSet.CONCUR_UPDATABLE);
+		MainFrame.log("executing (update): " + sqlstm);
+		int rs = mStm.executeUpdate(sqlstm);
+		return rs;
+	}
+	
 	public void closeLastQuery() {
 		try {
 			if (mResultSet != null) {
