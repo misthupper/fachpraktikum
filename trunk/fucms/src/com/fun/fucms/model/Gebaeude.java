@@ -50,6 +50,10 @@ public class Gebaeude extends Entity {
 	public String[] getTypes() {
 		return Gebaeude.sTypes;
 	}
+	
+	public Entity getNewInstance() {
+		return new Gebaeude();
+	}
 
 
 

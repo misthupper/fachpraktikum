@@ -8,12 +8,11 @@ import javax.swing.JFileChooser;
 
 import com.fun.fucms.Context;
 import com.fun.fucms.EvilException;
-import com.fun.fucms.InhaltsHelper;
 import com.fun.fucms.conf.Configuration;
 import com.fun.fucms.gui.MainFrame;
 import com.fun.fucms.gui.entities.EntityFrame;
+import com.fun.fucms.model.Gebaeude;
 import com.fun.fucms.model.Person;
-import com.fun.fucms.gui.entities.GebaeudeFrame;
 import com.fun.fucms.sql.SQLUtils;
 
 public class MainController implements ActionListener {
@@ -40,7 +39,7 @@ public class MainController implements ActionListener {
 		} else if (actionCommand.equals(sOPEN_EMPLOYEE)) {
 			EntityFrame employeeFrame = new EntityFrame(new Person());
 		} else if (actionCommand.equals(sOPEN_GEBAEUDE)) {
-			GebaeudeFrame gebaeudeFrame = new GebaeudeFrame();
+			EntityFrame gebaeudeFrame = new EntityFrame(new Gebaeude());
 		}
 	}
 	
