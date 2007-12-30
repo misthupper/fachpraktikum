@@ -24,8 +24,11 @@ public class GebaeudeFrame extends JFrame {
 	
 	private static final String ENTITY_TEXT = "Gebaeude";
 	private static final String ID_LABEL_TEXT = "ID: ";
-	private static final String SURNAME_LABEL_TEXT = "Strasse: ";
-	private static final String FIRSTNAME_LABEL_TEXT = "Hausnummer: ";
+	private static final String GEBAEUDENAME_LABEL_TEXT = "ID: ";
+	private static final String STRASSE_LABEL_TEXT = "Strasse: ";
+	private static final String HAUSNUMMER_LABEL_TEXT = "Hausnummer: ";
+	private static final String PLZ_LABEL_TEXT = "PLZ: ";
+	private static final String ORT_LABEL_TEXT = "ORT: ";
 	private static final String BUTTON_OK_TEXT = "OK";
 	private static final String BUTTON_CANEL_TEXT = "Cancel";
 	
@@ -76,13 +79,13 @@ public class GebaeudeFrame extends JFrame {
         mIdBox.add(mIdLabel);
         mIdBox.add(mIdField);
         
-        mSNameLabel = new JLabel(SURNAME_LABEL_TEXT);
+        mSNameLabel = new JLabel(GEBAEUDENAME_LABEL_TEXT);
         mSNameField = new JTextField();
         mSNameBox = new Box(BoxLayout.LINE_AXIS);
         mSNameBox.add(mSNameLabel);
         mSNameBox.add(mSNameField);
         
-        mFNameLabel = new JLabel(FIRSTNAME_LABEL_TEXT);
+        mFNameLabel = new JLabel(STRASSE_LABEL_TEXT);
         mFNameField = new JTextField();
         mFNameBox = new Box(BoxLayout.LINE_AXIS);
         mFNameBox.add(mFNameLabel);
