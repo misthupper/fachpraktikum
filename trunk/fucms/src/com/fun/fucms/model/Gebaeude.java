@@ -7,13 +7,15 @@ public class Gebaeude extends Entity {
 		TableMediator.SQL_TYPE_INTEGER,
 		TableMediator.SQL_TYPE_STRING,
 		TableMediator.SQL_TYPE_STRING,
-		TableMediator.SQL_TYPE_INTEGER,
-		TableMediator.SQL_TYPE_INTEGER,
-		TableMediator.SQL_TYPE_INTEGER,
+		TableMediator.SQL_TYPE_STRING,
+		TableMediator.SQL_TYPE_STRING,
+		TableMediator.SQL_TYPE_STRING,
+		TableMediator.SQL_TYPE_STRING
 		};
 	
 	public static final String[] sFields= {
 		"id",
+		"kuerzel",
 		"name",
 		"strasse",
 		"hausnummer",
