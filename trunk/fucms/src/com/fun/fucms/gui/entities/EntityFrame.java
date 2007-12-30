@@ -115,6 +115,7 @@ public class EntityFrame extends JFrame {
         	label = label + " "+ entity.getKeyString();
         }
         mJTabbedPane.add(label,mEntityPanel);
+        mJTabbedPane.setSelectedComponent(mEntityPanel);
 	}
 
 	public void closeEntityPanel(EntityPanel panel) {
