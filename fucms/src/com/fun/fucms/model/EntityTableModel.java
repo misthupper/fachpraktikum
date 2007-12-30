@@ -4,8 +4,6 @@ import java.util.ArrayList;
 
 import javax.swing.table.AbstractTableModel;
 
-import com.fun.fucms.gui.MainFrame;
-
 public class EntityTableModel extends AbstractTableModel {
 	
 	private Entity mEntity;

@@ -62,7 +62,7 @@ public class EntityFrame extends JFrame {
         mSelectPanel = new JPanel();
         mSelectPanel.setLayout(new BorderLayout());
         
-        mEntityTableModel = new EntityTableModel(new Person());
+        mEntityTableModel = new EntityTableModel(mEntity);
         mJTable = new JTable(mEntityTableModel);
         mJTable.setTableHeader(null);
         mJTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
