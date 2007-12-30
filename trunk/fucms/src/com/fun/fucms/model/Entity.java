@@ -85,5 +85,24 @@ public abstract class Entity {
 	public String getStringValue(String field) {
 		return (String) mValues[getFieldNo(field)];
 	}
+	
+	public String getValueAsString(int fieldNo) {
+		String s = "";
+		if (mValues[fieldNo] instanceof Integer) {
+			s = ((Integer) mValues[fieldNo]).toString();
+		} else if (mValues[fieldNo] instanceof String) {
+			s = (String) mValues[fieldNo];
+		}
+		return s;
+	}
+	
+	public void setValueAsString(int fieldNo, String value) {
+		if (getTypes()[fieldNo].equals(TableMediator.SQL_TYPE_INTEGER)) {
+			int intValue = Integer.parseInt(value.trim());
+			setIntValue(fieldNo,intValue);
+		} else if (getTypes()[fieldNo].equals(TableMediator.SQL_TYPE_STRING)) {
+			setStringValue(fieldNo,value);
+		}
+	}
 
 }
