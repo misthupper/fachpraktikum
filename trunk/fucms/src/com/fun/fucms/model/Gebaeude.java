@@ -6,18 +6,19 @@ public class Gebaeude extends Entity {
 	public static final String[] sTypes = {
 		TableMediator.SQL_TYPE_INTEGER,
 		TableMediator.SQL_TYPE_STRING,
+		TableMediator.SQL_TYPE_STRING,
 		TableMediator.SQL_TYPE_INTEGER,
-		//TableMediator.SQL_TYPE_STRING,
-		//TableMediator.SQL_TYPE_STRING,
-		//TableMediator.SQL_TYPE_STRING,
+		TableMediator.SQL_TYPE_INTEGER,
+		TableMediator.SQL_TYPE_INTEGER,
 		};
 	
 	public static final String[] sFields= {
 		"id",
+		"name",
 		"strasse",
 		"hausnummer",
-		//"titel",
-		//"telefon",
+		"plz",
+		"ort",
 		//"email"
 		};
 	
