@@ -22,10 +22,10 @@ public class GebaeudeFrame extends JFrame {
 	
 	private static final String SELECTION_TEXT = "Auswahl";
 	
-	private static final String ENTITY_TEXT = "Mitarbeiter";
+	private static final String ENTITY_TEXT = "Gebaeude";
 	private static final String ID_LABEL_TEXT = "ID: ";
-	private static final String SURNAME_LABEL_TEXT = "Name: ";
-	private static final String FIRSTNAME_LABEL_TEXT = "Vorname: ";
+	private static final String SURNAME_LABEL_TEXT = "Strasse: ";
+	private static final String FIRSTNAME_LABEL_TEXT = "Hausnummer: ";
 	private static final String BUTTON_OK_TEXT = "OK";
 	private static final String BUTTON_CANEL_TEXT = "Cancel";
 	
