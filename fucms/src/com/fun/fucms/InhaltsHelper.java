@@ -30,7 +30,7 @@ public class InhaltsHelper {
 	// Erst mal über eine DAtei laden - später aus der Datenbank
 	{
 		File templateFile = new File(Configuration.getInhaltsDirectory().getAbsolutePath() +
-		"/Bspinhalt.html");
+		"/Senatsbeauftragter.html");
 		try {
 			StringBuffer sb = new StringBuffer();
 			BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(templateFile), ENCODING));
@@ -56,11 +56,10 @@ public class InhaltsHelper {
 
 	private static String parser(String pHTML){
 		String pseudoHTML = pHTML;
-		String translatedHTML = "";
 
 		Integer markerStart=0;
 		Integer markerTabellenStart=0;
-		Integer markerIDStart=0;
+		Integer position=0;
 		Integer markerEnde=0;
 		String mMarkerString="";
 		String mSQLString="";
@@ -88,21 +87,19 @@ public class InhaltsHelper {
 				if (mToken.length == 3){
 					// Drei Token - Korrekter Aufbau
 					mSQLString = "select * from " + mToken[0] + " where id = " + mToken[1];
-					MainFrame.log(mSQLString);
 					ResultSet rs = Context.getInstance().executeQuery(mSQLString);
 					rs.first();
 					String ergebnis = rs.getString(mToken[2]);
-					MainFrame.log("Ergebnis: " + ergebnis);
-					pseudoHTML = pseudoHTML.substring(0,markerStart) +ergebnis + pseudoHTML.substring (markerEnde+3,pseudoHTML.length());
-					MainFrame.log(translatedHTML);
+					pseudoHTML = pseudoHTML.substring(0, markerStart) + ergebnis.trim() + pseudoHTML.substring(markerEnde+3,pseudoHTML.length());
 				} else {
 					// Fehler
 					MainFrame.log("Fehler:"+mToken.length);
 				}
 
-				markerStart=pseudoHTML.indexOf("<!-- FUCMS.",markerEnde);
+				markerStart=pseudoHTML.indexOf("<!-- FUCMS.",0);
 				if (markerStart !=-1) {
 					markerEnde=pseudoHTML.indexOf("-->",markerStart);
+
 				} 
 				else markerEnde =-1;
 			}
@@ -112,8 +109,8 @@ public class InhaltsHelper {
 		catch (EvilException e2) {
 			MainFrame.log(e2.getMessage());
 		}
-
-		return "";
+		MainFrame.log(pseudoHTML);
+		return pseudoHTML;
 
 	}	
 
