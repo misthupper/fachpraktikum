@@ -12,19 +12,26 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+import com.fun.fucms.controller.EntityFrameController;
 import com.fun.fucms.model.Entity;
 
 public class EntityPanel extends JPanel implements ActionListener {
 	
-	private static final String BUTTON_OK_TEXT = "OK";
-	private static final String BUTTON_CANEL_TEXT = "Cancel";
+	private static final String BUTTON_OK_TEXT = "Speichern";
+	private static final String BUTTON_CANEL_TEXT = "Schlieﬂen";
 	
 	private Box mFieldBox, mButtonBox;
 	private ArrayList<JTextField> mTextFields = new ArrayList<JTextField>();
 	private JButton mSaveButton,mCancelButton;
 	
-	public EntityPanel(Entity e) {
+	private EntityFrameController mEntityFrameController;
+	
+	private Entity mEntity;
+	
+	public EntityPanel(EntityFrameController efc, Entity e) {
 		super();
+		mEntityFrameController = efc;
+		mEntity = e;
 		this.setLayout(new BorderLayout());
 		mFieldBox = new Box(BoxLayout.PAGE_AXIS);
 		mButtonBox = new Box(BoxLayout.LINE_AXIS);
@@ -44,10 +51,8 @@ public class EntityPanel extends JPanel implements ActionListener {
 	    
 	    mSaveButton = new JButton(BUTTON_OK_TEXT);
 	    mSaveButton.addActionListener(this);
-	    //mSaveButton.setActionCommand(EmployeeController.ACTION_OK);
 	    mCancelButton = new JButton(BUTTON_CANEL_TEXT);
 	    mCancelButton.addActionListener(this);
-	    //mCancelButton.setActionCommand(EmployeeController.ACTION_CANCEL);
 	    mButtonBox.add(mCancelButton);
 	    mButtonBox.add(Box.createHorizontalGlue());
 	    mButtonBox.add(mSaveButton);
@@ -55,8 +60,24 @@ public class EntityPanel extends JPanel implements ActionListener {
 	}
 
 	public void actionPerformed(ActionEvent e) {
-		// TODO Auto-generated method stub
-		
+		if (e.getSource() == mCancelButton) {
+			mEntityFrameController.closeEntityPanel(this);
+		} else if (e.getSource() == mSaveButton) {
+			fillEntity();
+			mEntityFrameController.saveAndCloseEntityPanel(this);
+		}
+	}
+	
+	private void fillEntity() {
+		for (JTextField jtf : mTextFields) {
+			String field = jtf.getName();
+			String value = jtf.getText();
+			mEntity.setValueAsString(field, value);
+		}
+	}
+	
+	public Entity getEntity() {
+		return mEntity;
 	}
 	
 

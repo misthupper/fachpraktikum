@@ -7,6 +7,7 @@ public abstract class Entity {
 	public abstract String getKey();
 	public abstract String getTable();
 	public abstract String[] getTypes();
+	public abstract Entity getNewInstance();
 	
 	protected Object[] mValues;	
 	
@@ -54,6 +55,20 @@ public abstract class Entity {
 		throw new IllegalStateException(getTable() + " is not defined well(2)!");
 	}
 	
+	public String getKeyString() {
+		String s = getKey() + " : " + getValueAsString(getKey());
+		return s;
+	}
+	
+	public Object getKeyValue() {
+		if (getKeyType().equals(TableMediator.SQL_TYPE_INTEGER)) {
+			return new Integer(getIntValue(getKey()));
+		} else if (getKeyType().equals(TableMediator.SQL_TYPE_STRING)) {
+			return getStringValue(getKey());
+		}
+		return null;
+	}
+	
 	public void setIntValue(int fieldNo, int value) {
 		mValues[fieldNo] = new Integer(value);
 	}
@@ -96,12 +111,31 @@ public abstract class Entity {
 		return s;
 	}
 	
+	public String getValueAsString(String field) {
+		String s = "";
+		if (mValues[getFieldNo(field)] instanceof Integer) {
+			s = ((Integer) mValues[getFieldNo(field)]).toString();
+		} else if (mValues[getFieldNo(field)] instanceof String) {
+			s = (String) mValues[getFieldNo(field)];
+		}
+		return s;
+	}
+	
 	public void setValueAsString(int fieldNo, String value) {
 		if (getTypes()[fieldNo].equals(TableMediator.SQL_TYPE_INTEGER)) {
 			int intValue = Integer.parseInt(value.trim());
 			setIntValue(fieldNo,intValue);
 		} else if (getTypes()[fieldNo].equals(TableMediator.SQL_TYPE_STRING)) {
 			setStringValue(fieldNo,value);
+		}
+	}
+	
+	public void setValueAsString(String field, String value) {
+		if (getTypes()[getFieldNo(field)].equals(TableMediator.SQL_TYPE_INTEGER)) {
+			int intValue = Integer.parseInt(value.trim());
+			setIntValue(getFieldNo(field),intValue);
+		} else if (getTypes()[getFieldNo(field)].equals(TableMediator.SQL_TYPE_STRING)) {
+			setStringValue(getFieldNo(field),value);
 		}
 	}
 
