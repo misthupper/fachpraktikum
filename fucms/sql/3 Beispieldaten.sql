@@ -1,4 +1,4 @@
-/* Tabelle Geb‰ude */
+/* Tabelle Person */
 
 INSERT INTO Person (id, name, vorname, titel)
 VALUES (1, 'Doerfert', 'Frank', 'Dr.');
@@ -6,15 +6,31 @@ VALUES (1, 'Doerfert', 'Frank', 'Dr.');
 INSERT INTO Person (id, name, vorname, titel)
 VALUES (2, 'Mustermann', 'Stefan', 'Prof. Dr.');
 
+/* Tabelle Person_Email */
+
+INSERT INTO Person_Email (id, personid, email)
+VALUES (1, 1, 'senbeauf@fernuni-hagen.de');
+
+INSERT INTO Person_Email (id, personid, email)
+VALUES (2, 1, 'Frank.Doerfert@fernuni-hagen.de');
+
+/* Tabelle Person_Telefon */
+
+INSERT INTO Person_Telefon (id, personid, telefon)
+VALUES (1, 1, '02331 / 987 - 40 49');
+
+INSERT INTO Person_Telefon (id, personid, telefon)
+VALUES (2, 1, '02331 / 987 - 25 82');
+
 /* Tabelle Geb‰ude */
 
-INSERT INTO Gebaude (id, gebaeudename, strasse, hausnummer, postleitzahl, ort)
+INSERT INTO Gebaeude (id, gebaeudename, strasse, hausnummer, postleitzahl, ort)
 VALUES (1, 'AVZ', 'Universit‰tsstraﬂe', 21, 58097, 'Hagen');
 
-INSERT INTO Gebaude (id, gebaeudename, strasse, hausnummer, postleitzahl, ort)
+INSERT INTO Gebaeude (id, gebaeudename, strasse, hausnummer, postleitzahl, ort)
 VALUES (2, 'Informatikzentrum', 'musterweg', 78, 58097, 'Hagen');
 
-INSERT INTO Gebaude (id, gebaeudename, strasse, hausnummer, postleitzahl, ort)
+INSERT INTO Gebaeude (id, gebaeudename, strasse, hausnummer, postleitzahl, ort)
 VALUES (3, 'FI204', 'Fleyer Straﬂe', 204, 58097, 'Hagen');
 
 /* Tabelle Raum */
