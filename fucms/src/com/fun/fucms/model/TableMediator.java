@@ -49,7 +49,6 @@ public class TableMediator {
 				}
 			}
 			rs.close();
-			//MainFrame.log(e.toString());
 			return true;
 		} catch (SQLException e1) {
 			MainFrame.log(e1.getMessage());
@@ -141,6 +140,48 @@ public class TableMediator {
 			} 
 		} 
 		return false;
+	}
+	
+	public static void updateEntityTableModell(EntityTableModel etm) {
+		
+		Entity entity = etm.getNewEntity();
+		
+		int rows=1;
+		int columns=0;
+		ArrayList<Object> keys = new ArrayList<Object>();
+		ArrayList<Object> entities = new ArrayList<Object>();
+		
+		for (String field : entity.getFields()) {
+			entities.add(field);
+			columns++;
+		}
+		
+		StringBuffer sb = new StringBuffer();
+		sb.append("select * from " + etm.getNewEntity().getTable());
+		try {
+			ResultSet rs = Context.getInstance().executeQuery(sb.toString());
+			while (rs.next()) {
+				rows++;
+				for (int i=0; i < entity.getTypes().length; i++) {
+					Object o = null;
+					if (entity.getTypes()[i].equals(TableMediator.SQL_TYPE_INTEGER)) {
+						o = new Integer(rs.getInt(entity.getFields()[i]));
+					} else if (entity.getTypes()[i].equals(TableMediator.SQL_TYPE_STRING)) {
+						o = rs.getString(entity.getFields()[i]);
+					}
+					entities.add(o);
+					if (entity.getFields()[i].equals(entity.getKey())) {
+						keys.add(o);
+					}
+				}
+			}
+			rs.close();
+			etm.fillData(rows, columns, keys, entities);
+		} catch (SQLException e1) {
+			MainFrame.log(e1.getMessage());
+		} catch (EvilException e2) {
+			MainFrame.log(e2.getMessage());
+		}
 	}
 
 

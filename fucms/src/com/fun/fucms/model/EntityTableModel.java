@@ -9,25 +9,18 @@ public class EntityTableModel extends AbstractTableModel {
 	private Entity mEntity;
 	private int mRows, mColumns;
 	private ArrayList<Object> mKeys;
-	private Object[] mEntities;
+	private ArrayList<Object> mEntities;
 	
 	public void update() {
-		mKeys = TableMediator.getKeys(mEntity);
-		mRows = mKeys.size() +1;
-		mColumns = mEntity.getFields().length;
-		mEntities = new Object[mRows * mColumns];
-		for (int row = 0 ; row < mRows ; row++) {
-			if (row > 0) {
-				TableMediator.getRowByKey(mEntity, mKeys.get(row - 1));
-			}
-			for (int column = 0 ; column < mColumns ; column++) {
-				if (row == 0) {
-					mEntities[column] = mEntity.getFields()[column];
-				} else {
-					mEntities[column + (row*(mColumns))] = mEntity.mValues[column];
-				}
-			}
-		}
+		TableMediator.updateEntityTableModell(this);
+	}
+	
+	public void fillData(int rows, int columns,
+			ArrayList<Object> keys, ArrayList<Object> entities) {
+		mRows = rows;
+		mColumns = columns;
+		mKeys = keys;
+		mEntities = entities;
 	}
 	
 
@@ -45,7 +38,7 @@ public class EntityTableModel extends AbstractTableModel {
 	}
 
 	public Object getValueAt(int rowIndex, int columnIndex) {
-		return mEntities[columnIndex + (rowIndex*(mColumns))];
+		return mEntities.get(columnIndex + (rowIndex*(mColumns)));
 	}
 	
 	public Entity getEntity(int row) {
