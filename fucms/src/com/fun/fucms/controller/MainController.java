@@ -13,6 +13,7 @@ import com.fun.fucms.conf.Configuration;
 import com.fun.fucms.gui.MainFrame;
 import com.fun.fucms.gui.entities.EntityFrame;
 import com.fun.fucms.model.Person;
+import com.fun.fucms.gui.entities.GebaeudeFrame;
 import com.fun.fucms.sql.SQLUtils;
 
 public class MainController implements ActionListener {
@@ -20,6 +21,7 @@ public class MainController implements ActionListener {
 	public static final String sCREATE_TABLES = "createTables";
 	public static final String sEXECUTE_SINGLE_SQLFILE = "executeSingleFile";
 	public static final String sOPEN_EMPLOYEE = "openEmployeeFrame";
+	public static final String sOPEN_GEBAEUDE = "openGebaeudeFrame";
 	
 	private Context mContext;
 	
@@ -37,6 +39,8 @@ public class MainController implements ActionListener {
 			excuteSingleSQLFile();
 		} else if (actionCommand.equals(sOPEN_EMPLOYEE)) {
 			EntityFrame employeeFrame = new EntityFrame(new Person());
+		} else if (actionCommand.equals(sOPEN_GEBAEUDE)) {
+			GebaeudeFrame gebaeudeFrame = new GebaeudeFrame();
 		}
 	}
 	

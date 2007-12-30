@@ -17,7 +17,8 @@ public class MainMenu extends JMenuBar {
 	private static final String sMENU1_ITEM2 = "Einzelnes SQL script ausführen"; 
 	
 	private static final String sMENU2 = "Entities";
-	private static final String sMENU2_ITEM1 = "Mitarbeiter bearbeiten";  
+	private static final String sMENU2_ITEM1 = "Mitarbeiter bearbeiten";
+	private static final String sMENU2_ITEM2 = "Gebaeude bearbeiten";
 	
     JMenu mMenu1 = new JMenu(sMENU1);
     JMenu mMenu2 = new JMenu(sMENU2);
@@ -26,6 +27,7 @@ public class MainMenu extends JMenuBar {
     JMenuItem mMenu1Item2 = new JMenuItem(sMENU1_ITEM2);
     
     JMenuItem mMenu2Item1 = new JMenuItem(sMENU2_ITEM1);
+    JMenuItem mMenu2Item2 = new JMenuItem(sMENU2_ITEM2);
     
     public MainMenu() {
     	mMenu1.add(mMenu1Item1);
@@ -36,6 +38,8 @@ public class MainMenu extends JMenuBar {
     	
     	mMenu2.add(mMenu2Item1);
     	mMenu2Item1.setActionCommand(MainController.sOPEN_EMPLOYEE);
+    	mMenu2.add(mMenu2Item2);
+    	mMenu2Item2.setActionCommand(MainController.sOPEN_GEBAEUDE);
     	this.add(mMenu2);
     }
     
@@ -43,6 +47,7 @@ public class MainMenu extends JMenuBar {
     	mMenu1Item1.addActionListener(al);
     	mMenu1Item2.addActionListener(al);
     	mMenu2Item1.addActionListener(al);
+    	mMenu2Item2.addActionListener(al);
     }
 
 }
