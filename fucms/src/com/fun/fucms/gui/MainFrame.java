@@ -6,13 +6,11 @@ import java.awt.Dimension;
 import java.awt.HeadlessException;
 
 import javax.swing.JFrame;
-import javax.swing.JMenuBar;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.UIManager;
 
 import com.fun.fucms.EvilException;
-import com.fun.fucms.InhaltsHelper;
 import com.fun.fucms.controller.MainController;
 
 public class MainFrame extends JFrame {

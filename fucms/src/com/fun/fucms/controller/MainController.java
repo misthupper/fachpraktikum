@@ -29,6 +29,9 @@ public class MainController implements ActionListener {
         // InhaltsHelper h = new InhaltsHelper(mContext);
 	}
 
+	/**
+	 * dispatch actions from the main frame
+	 */
 	public void actionPerformed(ActionEvent e) {
 		String actionCommand = e.getActionCommand();
 		MainFrame.log("action: " + actionCommand);
@@ -43,6 +46,10 @@ public class MainController implements ActionListener {
 		}
 	}
 	
+	/**
+	 * open file chooser dialog and execute choosen file as sql statements
+	 *
+	 */
 	public void excuteSingleSQLFile() {
         JFileChooser chooser = new JFileChooser(Configuration.getSQLDirectory());
         chooser.setDialogTitle("Select file");

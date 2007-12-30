@@ -8,8 +8,6 @@ public class Person extends Entity {
 		TableMediator.SQL_TYPE_STRING,
 		TableMediator.SQL_TYPE_STRING,
 		TableMediator.SQL_TYPE_STRING,
-		//TableMediator.SQL_TYPE_STRING,
-		//TableMediator.SQL_TYPE_STRING,
 		};
 	
 	public static final String[] sFields= {
@@ -17,8 +15,6 @@ public class Person extends Entity {
 		"name",
 		"vorname",
 		"titel",
-		//"telefon",
-		//"email"
 		};
 	
 	private static final String TABLE="person";

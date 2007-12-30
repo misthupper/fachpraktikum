@@ -16,8 +16,12 @@ import javax.swing.ListSelectionModel;
 import com.fun.fucms.controller.EntityFrameController;
 import com.fun.fucms.model.Entity;
 import com.fun.fucms.model.EntityTableModel;
-import com.fun.fucms.model.Person;
 
+/**
+ * Frame for editing on type of Entity
+ * @author rod
+ *
+ */
 public class EntityFrame extends JFrame {
 	
 	public static final String SELECTION_TEXT_NEW = "Neu";
@@ -43,7 +47,10 @@ public class EntityFrame extends JFrame {
 	private EntityFrameController mEntityFrameController;
 	
 	
-	
+	/**
+	 * Construktor
+	 * @param e one Entity is needed to define the type of Entities to work with.
+	 */
 	public EntityFrame(Entity e) {
 		super();
 		mEntity = e;
@@ -51,7 +58,7 @@ public class EntityFrame extends JFrame {
 		init();
 	}
 	
-	public void init() {
+	private void init() {
 		
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         
@@ -106,19 +113,41 @@ public class EntityFrame extends JFrame {
 
 	}
 	
+	/**
+	 * enables or disables the buttons to edit or delete a row.
+	 * If no valid row is selected, the buttons should be disabled
+	 * @param b
+	 */
 	public void setIsDataRow(boolean b) {
 		mButtonEdit.setEnabled(b);
 		mButtonDelete.setEnabled(b);
 	}
 	
+	/**
+	 * returns the selected row in the table
+	 * @return
+	 */
 	public int getSelectedRow() {
 		return mJTable.getSelectedRow();
 	}
 	
+	/**
+	 * returns the TableModel
+	 * @return
+	 */
 	public EntityTableModel getTableModel() {
 		return mEntityTableModel;
 	}
 	
+	/**
+	 * adds an new Panel in the TabbedPane, for a new Entity (empty or loaded
+	 * from the database)
+	 * 
+	 * @param entity
+	 * @param newRecord
+	 *            yes, if the record does not exist in the database. Toggles the
+	 *            display of the key in the title
+	 */
 	public void addEntityPanel(Entity entity, boolean newRecord) {
         mEntityPanel = new EntityPanel(mEntityFrameController, entity);
         String label = mEntity.getTable();
@@ -129,10 +158,18 @@ public class EntityFrame extends JFrame {
         mJTabbedPane.setSelectedComponent(mEntityPanel);
 	}
 
+	/**
+	 * close the given EntityPanel (after saving for example)
+	 * @param panel
+	 */
 	public void closeEntityPanel(EntityPanel panel) {
 		mJTabbedPane.remove(panel);
 	}
 
+	/**
+	 * force a reload of the table
+	 *
+	 */
 	public void updateTable() {
 		mEntityTableModel.update();
 		mEntityTableModel.fireTableDataChanged();

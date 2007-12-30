@@ -15,6 +15,11 @@ import javax.swing.JTextField;
 import com.fun.fucms.controller.EntityFrameController;
 import com.fun.fucms.model.Entity;
 
+/**
+ * Displays one record of an Table (one entity)
+ * @author rod
+ *
+ */
 public class EntityPanel extends JPanel implements ActionListener {
 	
 	private static final String BUTTON_OK_TEXT = "Speichern";
@@ -28,6 +33,11 @@ public class EntityPanel extends JPanel implements ActionListener {
 	
 	private Entity mEntity;
 	
+	/**
+	 * Constructor
+	 * @param efc
+	 * @param e Entity to show (and edit...)
+	 */
 	public EntityPanel(EntityFrameController efc, Entity e) {
 		super();
 		mEntityFrameController = efc;
@@ -63,7 +73,6 @@ public class EntityPanel extends JPanel implements ActionListener {
 		if (e.getSource() == mCancelButton) {
 			mEntityFrameController.closeEntityPanel(this);
 		} else if (e.getSource() == mSaveButton) {
-			fillEntity();
 			mEntityFrameController.saveAndCloseEntityPanel(this);
 		}
 	}
@@ -76,7 +85,12 @@ public class EntityPanel extends JPanel implements ActionListener {
 		}
 	}
 	
+	/**
+	 * returns the data in an entity
+	 * @return
+	 */
 	public Entity getEntity() {
+		fillEntity();
 		return mEntity;
 	}
 	

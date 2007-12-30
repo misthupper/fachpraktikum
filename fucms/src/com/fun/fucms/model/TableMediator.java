@@ -8,28 +8,22 @@ import com.fun.fucms.Context;
 import com.fun.fucms.EvilException;
 import com.fun.fucms.gui.MainFrame;
 
+/**
+ * Some static methods for reading and updating Entitities
+ * @author rod
+ *
+ */
 public class TableMediator {
 	
 	public static final String SQL_TYPE_INTEGER = "INTEGER";
 	public static final String SQL_TYPE_STRING = "STRING";
 	
-	protected int mIntegerCount = 0;
-	protected int mStringCount = 0;
-	protected int[] mIntegers;
-	protected String[] mStrings;
-	
-	protected TableMediator(String[] types) {
-		for (String type : types) {
-			if (type.equals(SQL_TYPE_INTEGER)) {
-				mIntegerCount++;
-			} else if (type.equals(SQL_TYPE_STRING)) {
-				mStringCount++;
-			}
-		}
-		mIntegers = new int[mIntegerCount];
-		mStrings = new String[mStringCount];
-	}
-	
+	/**
+	 * fills Entity e with record for the given key
+	 * @param e Entity, values will be overwritten
+	 * @param key value of the key 
+	 * @return false if there was an exception
+	 */
 	public static boolean getRowByKey(Entity e, Object key) {
 		StringBuffer sb = new StringBuffer();
 		sb.append("select * from " + e.getTable()+" where ");
@@ -58,6 +52,11 @@ public class TableMediator {
 		return false;
 	}
 	
+	/**
+	 * returns an ArrayList with all values of the key field for the given entity
+	 * @param e the Entity
+	 * @return ArrayList<Object> filled with keys
+	 */
 	public static ArrayList<Object> getKeys(Entity e) {
 		ArrayList<Object> keys = new ArrayList<Object>();
 		StringBuffer sb = new StringBuffer();
@@ -80,6 +79,10 @@ public class TableMediator {
 		return keys;
 	}
 	
+	/**
+	 * save given entity, makes an insert. If key already exists, makes a delete before.
+	 * @param entity
+	 */
 	public static void saveEntity(Entity entity) {
 		StringBuffer sb = new StringBuffer();
 		if (keyExists(entity)) {
@@ -111,6 +114,10 @@ public class TableMediator {
 		}
 	}
 	
+	/**
+	 * delete record with key given in entity
+	 * @param entity
+	 */
 	public static void deleteEntity(Entity entity) {
 		StringBuffer sb = new StringBuffer();
 		sb.append("DELETE FROM " + entity.getTable() + " WHERE ");
@@ -131,6 +138,11 @@ public class TableMediator {
 		}
 	}
 	
+	/**
+	 * return true if key from entity already exists in DB, false otherwise
+	 * @param entity
+	 * @return
+	 */
 	public static boolean keyExists(Entity entity) {
 		String key= entity.getKeyValue().toString();
 		ArrayList<Object> keys = getKeys(entity);
@@ -142,6 +154,10 @@ public class TableMediator {
 		return false;
 	}
 	
+	/**
+	 * fills EntityTableModel with data of the whole table
+	 * @param etm EntityTableModel
+	 */
 	public static void updateEntityTableModell(EntityTableModel etm) {
 		
 		Entity entity = etm.getNewEntity();

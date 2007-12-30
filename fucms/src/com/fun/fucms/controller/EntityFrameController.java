@@ -21,6 +21,9 @@ public class EntityFrameController implements ActionListener, ListSelectionListe
 		mEntityFrame = ef;
 	}
 
+	/**
+	 * dispatch actions of the EntityFrame and the childs of EntityFrame
+	 */
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() instanceof JButton) {
 			String text = ((JButton) e.getSource()).getText();
@@ -44,6 +47,9 @@ public class EntityFrameController implements ActionListener, ListSelectionListe
 
 	}
 
+	/**
+	 * this method is called when a new row in the JTable is selected
+	 */
 	public void valueChanged(ListSelectionEvent e) {
 		mSelectedRow = mEntityFrame.getSelectedRow();
 		if (mSelectedRow < 1) {
