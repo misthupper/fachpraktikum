@@ -19,7 +19,7 @@ public class Gebaeude extends Entity {
 		"name",
 		"strasse",
 		"hausnummer",
-		"plz",
+		"postleitzahl",
 		"ort",
 		//"email"
 		};
