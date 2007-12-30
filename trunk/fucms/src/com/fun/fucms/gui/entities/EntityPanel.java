@@ -12,7 +12,6 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-import com.fun.fucms.controller.EmployeeController;
 import com.fun.fucms.model.Entity;
 
 public class EntityPanel extends JPanel implements ActionListener {
@@ -45,10 +44,10 @@ public class EntityPanel extends JPanel implements ActionListener {
 	    
 	    mSaveButton = new JButton(BUTTON_OK_TEXT);
 	    mSaveButton.addActionListener(this);
-	    mSaveButton.setActionCommand(EmployeeController.ACTION_OK);
+	    //mSaveButton.setActionCommand(EmployeeController.ACTION_OK);
 	    mCancelButton = new JButton(BUTTON_CANEL_TEXT);
 	    mCancelButton.addActionListener(this);
-	    mCancelButton.setActionCommand(EmployeeController.ACTION_CANCEL);
+	    //mCancelButton.setActionCommand(EmployeeController.ACTION_CANCEL);
 	    mButtonBox.add(mCancelButton);
 	    mButtonBox.add(Box.createHorizontalGlue());
 	    mButtonBox.add(mSaveButton);

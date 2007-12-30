@@ -3,18 +3,12 @@ package com.fun.fucms.gui.entities;
 import java.awt.BorderLayout;
 import java.awt.Container;
 
-import javax.swing.Box;
-import javax.swing.BoxLayout;
-import javax.swing.JButton;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 import javax.swing.JTable;
-import javax.swing.JTextField;
 
-import com.fun.fucms.controller.EmployeeController;
 import com.fun.fucms.model.Entity;
 import com.fun.fucms.model.EntityTableModel;
 import com.fun.fucms.model.Person;
