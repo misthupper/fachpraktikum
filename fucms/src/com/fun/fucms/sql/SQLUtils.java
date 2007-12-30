@@ -26,9 +26,10 @@ public class SQLUtils {
 	
 	public static void executeSQLStatementsFromFile(Context context, File sqlfile) {
 
+		BufferedReader br = null;
 		try {
 			StringBuffer sb = new StringBuffer();
-			BufferedReader br = new BufferedReader(new FileReader(sqlfile));
+			br = new BufferedReader(new FileReader(sqlfile));
 			String s = br.readLine();
 			while (s != null) {
 				if (s.trim().endsWith(";")) {
@@ -61,6 +62,13 @@ public class SQLUtils {
 		} catch (SQLException e) {
 			MainFrame.log("Error SU002 : for file " + sqlfile.getName() + " "+e.getMessage());
 			MainFrame.log("Error SU002 : for file " + sqlfile.getName() + " "+e.getErrorCode());
+		} finally {
+			if (br != null) {
+				try {
+					br.close();
+				} catch (IOException e) {
+				}
+			}
 		}
 		
 	}
