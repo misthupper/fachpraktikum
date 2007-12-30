@@ -48,6 +48,10 @@ public class Person extends Entity {
 		return Person.sTypes;
 	}
 
+	public Entity getNewInstance() {
+		return new Person();
+	}
+
 
 
 }

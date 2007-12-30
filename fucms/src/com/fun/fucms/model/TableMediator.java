@@ -49,6 +49,7 @@ public class TableMediator {
 				}
 			}
 			rs.close();
+			//MainFrame.log(e.toString());
 			return true;
 		} catch (SQLException e1) {
 			MainFrame.log(e1.getMessage());
@@ -79,5 +80,68 @@ public class TableMediator {
 		}
 		return keys;
 	}
+	
+	public static void saveEntity(Entity entity) {
+		StringBuffer sb = new StringBuffer();
+		if (keyExists(entity)) {
+			deleteEntity(entity);
+		}
+		sb.append("INSERT INTO " + entity.getTable() + " (");
+		for (String field : entity.getFields()) {
+			sb.append(field + ", ");
+		}
+		sb = new StringBuffer(sb.toString().substring(0,
+				sb.toString().length() - 2));
+		sb.append(") VALUES ( ");
+		for (int i = 0; i < entity.getFields().length; i++) {
+			if (entity.getTypes()[i].equals(SQL_TYPE_INTEGER)) {
+				sb.append(entity.getValueAsString(i) + " ,");
+			} else if (entity.getTypes()[i].equals(SQL_TYPE_STRING)) {
+				sb.append("'" + entity.getValueAsString(i).trim() + "' ,");
+			}
+		}
+		sb = new StringBuffer(sb.toString().substring(0,
+				sb.toString().length() - 2));
+		sb.append(")");
+		try {
+			Context.getInstance().executeUpdate(sb.toString());
+		} catch (SQLException e) {
+			MainFrame.log(e.getMessage());
+		} catch (EvilException e) {
+			MainFrame.log(e.getMessage());
+		}
+	}
+	
+	public static void deleteEntity(Entity entity) {
+		StringBuffer sb = new StringBuffer();
+		sb.append("DELETE FROM " + entity.getTable() + " WHERE ");
+		sb.append(entity.getKey() + " = ");
+		if (entity.getKeyType().equals(SQL_TYPE_STRING)) {
+			sb.append("'");
+		}
+		sb.append(entity.getKeyValue().toString().trim());
+		if (entity.getKeyType().equals(SQL_TYPE_STRING)) {
+			sb.append("'");
+		}
+		try {
+			Context.getInstance().executeUpdate(sb.toString());
+		} catch (SQLException e) {
+			MainFrame.log(e.getMessage());
+		} catch (EvilException e) {
+			MainFrame.log(e.getMessage());
+		}
+	}
+	
+	public static boolean keyExists(Entity entity) {
+		String key= entity.getKeyValue().toString();
+		ArrayList<Object> keys = getKeys(entity);
+		for (Object o : keys) {
+			if (o.toString().equals(key)) {
+				return true;
+			} 
+		} 
+		return false;
+	}
+
 
 }
