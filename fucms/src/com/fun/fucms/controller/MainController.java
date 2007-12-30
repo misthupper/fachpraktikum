@@ -27,7 +27,7 @@ public class MainController implements ActionListener {
 	
 	public MainController() throws EvilException {
 		mContext = Context.getInstance();
-        InhaltsHelper h = new InhaltsHelper(mContext);
+        // InhaltsHelper h = new InhaltsHelper(mContext);
 	}
 
 	public void actionPerformed(ActionEvent e) {
