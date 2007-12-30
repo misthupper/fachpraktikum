@@ -42,6 +42,9 @@ CREATE TABLE Person (
 INSERT INTO Person (id, name, vorname, titel)
 VALUES (1, 'Doerfert', 'Frank', 'Dr.');
 
+INSERT INTO Person (id, name, vorname, titel)
+VALUES (2, 'Mustermann', 'Stefan', 'Prof. Dr.');
+
 
 /* Tabelle Person_Email */
 CREATE TABLE Person_Email (
