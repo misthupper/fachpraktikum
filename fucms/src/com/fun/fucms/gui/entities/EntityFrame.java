@@ -23,6 +23,8 @@ public class EntityFrame extends JFrame {
 	public static final String SELECTION_TEXT_NEW = "Neu";
 	public static final String SELECTION_TEXT_EDIT = "Bearbeiten";
 	public static final String SELECTION_TEXT_DELETE = "Löschen";
+	public static final String SELECTION_TEXT_UPDATE = "Aktualisieren";
+	public static final String SELECTION_TEXT_CLOSE= "Schließen";
 	
 	private static final String SELECTION_TEXT = "Auswahl";
 	
@@ -32,7 +34,7 @@ public class EntityFrame extends JFrame {
 	private EntityPanel mEntityPanel;
 	private JScrollPane mTableScrollPane;
 	private Box mButtonBox;
-	private JButton mButtonNew, mButtonEdit, mButtonDelete;
+	private JButton mButtonNew, mButtonEdit, mButtonDelete, mButtonUpdate, mButtonClose;
 	
 	private Entity mEntity;
 	private JTable mJTable;
@@ -45,6 +47,7 @@ public class EntityFrame extends JFrame {
 	public EntityFrame(Entity e) {
 		super();
 		mEntity = e;
+		this.setTitle(mEntity.getTable());
 		init();
 	}
 	
@@ -78,12 +81,20 @@ public class EntityFrame extends JFrame {
         mButtonEdit.addActionListener(mEntityFrameController);
         mButtonDelete = new JButton(SELECTION_TEXT_DELETE);
         mButtonDelete.addActionListener(mEntityFrameController);
+        mButtonUpdate = new JButton(SELECTION_TEXT_UPDATE);
+        mButtonUpdate.addActionListener(mEntityFrameController);
+        mButtonClose = new JButton(SELECTION_TEXT_CLOSE);
+        mButtonClose.addActionListener(mEntityFrameController);
         mButtonBox = new Box(BoxLayout.LINE_AXIS);
         mButtonBox.add(mButtonNew);
         mButtonBox.add(Box.createHorizontalGlue());
         mButtonBox.add(mButtonEdit);
         mButtonBox.add(Box.createHorizontalGlue());
         mButtonBox.add(mButtonDelete);
+        mButtonBox.add(Box.createHorizontalGlue());
+        mButtonBox.add(mButtonUpdate);
+        mButtonBox.add(Box.createHorizontalGlue());
+        mButtonBox.add(mButtonClose);
         mSelectPanel.add(mButtonBox,BorderLayout.SOUTH);
         
         mJTabbedPane = new JTabbedPane();
