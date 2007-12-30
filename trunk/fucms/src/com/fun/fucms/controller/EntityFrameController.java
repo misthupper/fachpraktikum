@@ -34,6 +34,11 @@ public class EntityFrameController implements ActionListener, ListSelectionListe
 			} else if (text.equals(EntityFrame.SELECTION_TEXT_NEW)) {
 				Entity entity = mEntityFrame.getTableModel().getNewEntity();
 				mEntityFrame.addEntityPanel(entity, true);
+			} else if (text.equals(EntityFrame.SELECTION_TEXT_UPDATE)) {
+				mEntityFrame.updateTable();
+			} else if (text.equals(EntityFrame.SELECTION_TEXT_CLOSE)) {
+				mEntityFrame.setVisible(false);
+				mEntityFrame.dispose();
 			}
 		}
 
