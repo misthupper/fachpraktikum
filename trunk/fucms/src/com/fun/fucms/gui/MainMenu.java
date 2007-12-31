@@ -24,9 +24,14 @@ public class MainMenu extends JMenuBar {
 	private static final String sMENU3_ITEM1 = "CMS Benutzer";
 	//private static final String sMENU3_ITEM2 = " ";
 	
+	private static final String sMENU4 = "Hilfe";
+	private static final String sMENU4_ITEM1 = "About FUCMS";
+	//private static final String sMENU3_ITEM2 = " ";
+	
     JMenu mMenu1 = new JMenu(sMENU1);
     JMenu mMenu2 = new JMenu(sMENU2);
     JMenu mMenu3 = new JMenu(sMENU3);
+    JMenu mMenu4 = new JMenu(sMENU4);
     
     JMenuItem mMenu1Item1 = new JMenuItem(sMENU1_ITEM1);
     JMenuItem mMenu1Item2 = new JMenuItem(sMENU1_ITEM2);
@@ -35,6 +40,9 @@ public class MainMenu extends JMenuBar {
     JMenuItem mMenu2Item2 = new JMenuItem(sMENU2_ITEM2);
     
     JMenuItem mMenu3Item1 = new JMenuItem(sMENU3_ITEM1);
+    //JMenuItem mMenu3Item2 = new JMenuItem(sMENU3_ITEM2);
+    
+    JMenuItem mMenu4Item1 = new JMenuItem(sMENU4_ITEM1);
     //JMenuItem mMenu3Item2 = new JMenuItem(sMENU3_ITEM2);
     
     public MainMenu() {
@@ -53,6 +61,10 @@ public class MainMenu extends JMenuBar {
     	mMenu3.add(mMenu3Item1);
     	mMenu3Item1.setActionCommand(MainController.sOPEN_CMSBENUZER);
     	this.add(mMenu3);
+    	
+    	mMenu4.add(mMenu4Item1);
+    	mMenu4Item1.setActionCommand(MainController.sOPEN_ABOUT);
+    	this.add(mMenu4);
     }
     
     public void setActionListener(ActionListener al) {
@@ -61,6 +73,7 @@ public class MainMenu extends JMenuBar {
     	mMenu2Item1.addActionListener(al);
     	mMenu2Item2.addActionListener(al);
     	mMenu3Item1.addActionListener(al);
+    	mMenu4Item1.addActionListener(al);
     }
 
 }
