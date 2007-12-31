@@ -12,6 +12,7 @@ import javax.swing.UIManager;
 
 import com.fun.fucms.EvilException;
 import com.fun.fucms.controller.MainController;
+import com.fun.fucms.model.PageTreeModel;
 
 public class MainFrame extends JFrame {
 
@@ -26,8 +27,10 @@ public class MainFrame extends JFrame {
     
     private Container mContainer;
     private MainMenu mMainMenu;
-    private JScrollPane mJScrollPane;
+    private JScrollPane mJScrollPane, mTreeScrollPane;
     private JTextArea mJTextArea;
+    private PageTree mPageTree;
+    private PageTreeModel mPageTreeModel;
     
     private MainController mMainController;
     
@@ -73,7 +76,12 @@ public class MainFrame extends JFrame {
         mJTextArea = new JTextArea();
         mJTextArea.setEditable(false);
         mJScrollPane = new JScrollPane(mJTextArea);
-        mContainer.add(mJScrollPane, BorderLayout.CENTER);
+        mContainer.add(mJScrollPane, BorderLayout.SOUTH);
+        
+        //mPageTreeModel = new PageTreeModel();
+        mPageTree = new PageTree();
+        //mTreeScrollPane = new JScrollPane(mPageTree);
+        mContainer.add(mPageTree, BorderLayout.CENTER);
 
         pack();
         setVisible(true);

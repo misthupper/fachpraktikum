@@ -29,6 +29,10 @@ public class Context {
 		return sInstance;
 	}
 	
+	public static String getDateAsString(Date date) {
+		return sSQLDATEFMT.format(date);
+	}
+	
 	private Context() throws EvilException {
 		try {
 			initDatabaseConnection();
