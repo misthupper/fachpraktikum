@@ -11,6 +11,7 @@ import com.fun.fucms.EvilException;
 import com.fun.fucms.conf.Configuration;
 import com.fun.fucms.gui.MainFrame;
 import com.fun.fucms.gui.entities.EntityFrame;
+import com.fun.fucms.model.CMSBenutzer;
 import com.fun.fucms.model.Gebaeude;
 import com.fun.fucms.model.Person;
 import com.fun.fucms.sql.SQLUtils;
@@ -21,6 +22,7 @@ public class MainController implements ActionListener {
 	public static final String sEXECUTE_SINGLE_SQLFILE = "executeSingleFile";
 	public static final String sOPEN_EMPLOYEE = "openEmployeeFrame";
 	public static final String sOPEN_GEBAEUDE = "openGebaeudeFrame";
+	public static final String sOPEN_CMSBENUZER = "openCMSBenutzerFrame";
 	
 	private Context mContext;
 	
@@ -43,6 +45,8 @@ public class MainController implements ActionListener {
 			EntityFrame employeeFrame = new EntityFrame(new Person());
 		} else if (actionCommand.equals(sOPEN_GEBAEUDE)) {
 			EntityFrame gebaeudeFrame = new EntityFrame(new Gebaeude());
+		} else if (actionCommand.equals(sOPEN_CMSBENUZER)) {
+			EntityFrame cmsBenutzerFrame = new EntityFrame(new CMSBenutzer());
 		}
 	}
 	
