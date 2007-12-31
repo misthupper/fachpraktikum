@@ -3,7 +3,7 @@ insert into CMSBENUTZER (id, grad, name, vorname, telefon, email, rechte)
 values (0, 'dr', 'schmidt', 'hans', '05698-3521458', 'hans.schmidt@fuh.de', '1')
 
 insert into CMSBENUTZER (id, grad, name, vorname, telefon, email, rechte)
-values (0, 'prof', 'mueller', 'werner', '05698-3528596', 'mueller.werner@fuh.de', '0')
+values (1, 'prof', 'mueller', 'werner', '05698-3528596', 'mueller.werner@fuh.de', '0')
 
 
 /* Tabelle Person */
