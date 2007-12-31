@@ -87,7 +87,7 @@ public class MainFrame extends JFrame {
         setVisible(true);
         
         try {
-			mMainController = new MainController();
+			mMainController = new MainController(this);
 			mMainMenu.setActionListener(mMainController);
 		} catch (EvilException e) {
 			MainFrame.log(e.getMessage());
