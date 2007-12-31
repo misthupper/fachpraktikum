@@ -5,10 +5,12 @@ import java.awt.event.ActionListener;
 import java.io.File;
 
 import javax.swing.JFileChooser;
+import javax.swing.JFrame;
 
 import com.fun.fucms.Context;
 import com.fun.fucms.EvilException;
 import com.fun.fucms.conf.Configuration;
+import com.fun.fucms.gui.AboutFrame;
 import com.fun.fucms.gui.MainFrame;
 import com.fun.fucms.gui.entities.EntityFrame;
 import com.fun.fucms.model.CMSBenutzer;
@@ -23,12 +25,15 @@ public class MainController implements ActionListener {
 	public static final String sOPEN_EMPLOYEE = "openEmployeeFrame";
 	public static final String sOPEN_GEBAEUDE = "openGebaeudeFrame";
 	public static final String sOPEN_CMSBENUZER = "openCMSBenutzerFrame";
+	public static final String sOPEN_ABOUT = "openAboutFrame";
 	
 	private Context mContext;
+	private JFrame jFrame;
 	
-	public MainController() throws EvilException {
+	public MainController(JFrame jFrame) throws EvilException {
 		mContext = Context.getInstance();
         // InhaltsHelper h = new InhaltsHelper(mContext);
+		this.jFrame = jFrame;
 	}
 
 	/**
@@ -47,6 +52,8 @@ public class MainController implements ActionListener {
 			EntityFrame gebaeudeFrame = new EntityFrame(new Gebaeude());
 		} else if (actionCommand.equals(sOPEN_CMSBENUZER)) {
 			EntityFrame cmsBenutzerFrame = new EntityFrame(new CMSBenutzer());
+		} else if (actionCommand.equals(sOPEN_ABOUT)) {
+			AboutFrame af = new AboutFrame(jFrame);			
 		}
 	}
 	
