@@ -49,7 +49,7 @@ CREATE TABLE CMSBenutzer (
 	grad char(16), 
 	name char(32) not null, 
 	vorname char(32), 
-	telefon char(4), 
+	telefon char(32), 
 	email char(64), 
 	rechte char(16)
 );
