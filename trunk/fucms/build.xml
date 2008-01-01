@@ -1,4 +1,4 @@
-<project name="cms" default="compile" basedir=".">
+<project name="cms" default="dist" basedir=".">
 
 	<!-- set global properties -->
 	<property file="build.properties"/>
@@ -26,16 +26,31 @@
 	</target>
 
 	<!-- jar-file creation -->
-	<target name="jar" depends="compile">
+	<target name="dist" depends="compile">
 		<mkdir dir="${dist}"/>
 		<jar jarfile="${dist}/cms.jar" basedir="${cp}">
-			<zipfileset src="${jars}/*.jar">
-			</zipfileset>
 			<manifest>
 				<attribute name="Built-By" value="${user.name}"/>
 				<attribute name="Main-Class" value="com.fun.fucms.gui.MainFrame"/>
 			</manifest>
 		</jar>
+		
+		<copy todir="${dist}/">
+			<fileset dir="${jars}" includes="**/*.jar"/>
+		</copy>
+		
+		<copy file="./configuration.xml" todir="${dist}/"/>
+		
+		<mkdir dir="${dist}/sql"/>
+		<copy todir="${dist}/sql/">
+			<fileset dir="sql" includes="**/*.sql"/>
+		</copy>
+		
+		<echo file="${dist}/fucms.bat" append="false">java -cp cms.jar;dom4j-full.jar;ojdbc14.jar com.fun.fucms.gui.MainFrame</echo>
+		
+		<echo file="${dist}/fucms.sh" append="false">#!/bin/bash${line.separator}</echo>
+		<echo file="${dist}/fucms.sh" append="true">java -cp cms.jar:dom4j-full.jar:ojdbc14.jar com.fun.fucms.gui.MainFrame</echo>
+		
 	</target>
 
 	<!-- run -->
