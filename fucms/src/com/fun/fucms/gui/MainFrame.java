@@ -76,6 +76,7 @@ public class MainFrame extends JFrame {
         mJTextArea = new JTextArea();
         mJTextArea.setEditable(false);
         mJScrollPane = new JScrollPane(mJTextArea);
+        mJScrollPane.setPreferredSize(new Dimension(100,100));
         mContainer.add(mJScrollPane, BorderLayout.SOUTH);
         
         mPageTreeModel = new PageTreeModel();
