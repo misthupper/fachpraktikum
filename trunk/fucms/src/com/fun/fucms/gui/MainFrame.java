@@ -78,10 +78,10 @@ public class MainFrame extends JFrame {
         mJScrollPane = new JScrollPane(mJTextArea);
         mContainer.add(mJScrollPane, BorderLayout.SOUTH);
         
-        //mPageTreeModel = new PageTreeModel();
-        mPageTree = new PageTree();
-        //mTreeScrollPane = new JScrollPane(mPageTree);
-        mContainer.add(mPageTree, BorderLayout.CENTER);
+        mPageTreeModel = new PageTreeModel();
+        mPageTree = new PageTree(mPageTreeModel);
+        mTreeScrollPane = new JScrollPane(mPageTree);
+        mContainer.add(mTreeScrollPane, BorderLayout.CENTER);
 
         pack();
         setVisible(true);
