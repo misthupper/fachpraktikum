@@ -193,6 +193,7 @@ public class PageTreeModel implements TreeModel {
 		}
 		
 		public String toString() {
+			if (mPath != null) return mPath.trim();
 			return mPath;
 		}
 		
