@@ -11,6 +11,7 @@ import com.fun.fucms.Context;
 import com.fun.fucms.EvilException;
 import com.fun.fucms.conf.Configuration;
 import com.fun.fucms.gui.AboutFrame;
+import com.fun.fucms.gui.EditFrame;
 import com.fun.fucms.gui.MainFrame;
 import com.fun.fucms.gui.entities.EntityFrame;
 import com.fun.fucms.model.CMSBenutzer;
@@ -26,6 +27,8 @@ public class MainController implements ActionListener {
 	public static final String sOPEN_GEBAEUDE = "openGebaeudeFrame";
 	public static final String sOPEN_CMSBENUZER = "openCMSBenutzerFrame";
 	public static final String sOPEN_ABOUT = "openAboutFrame";
+	public static final String sOPEN_EDIT = "openEditFrame<";
+
 	
 	private Context mContext;
 	private JFrame jFrame;
@@ -35,6 +38,8 @@ public class MainController implements ActionListener {
         // InhaltsHelper h = new InhaltsHelper(mContext);
 		this.jFrame = jFrame;
 	}
+	
+	
 
 	/**
 	 * dispatch actions from the main frame
@@ -54,6 +59,8 @@ public class MainController implements ActionListener {
 			EntityFrame cmsBenutzerFrame = new EntityFrame(new CMSBenutzer());
 		} else if (actionCommand.equals(sOPEN_ABOUT)) {
 			AboutFrame af = new AboutFrame(jFrame);			
+		} else if (actionCommand.equals(sOPEN_EDIT)) {
+			EditFrame ef = new EditFrame();
 		}
 	}
 	
