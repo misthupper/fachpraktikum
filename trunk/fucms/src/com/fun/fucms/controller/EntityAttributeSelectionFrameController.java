@@ -75,7 +75,6 @@ public class EntityAttributeSelectionFrameController implements ActionListener, 
 		} else {
 			mEntityFrame.setIsDataRow(true);
 		}
-		//System.out.println("Auswahl geändert: " + mSelectedRow + "," + mSelectedCol);
 	}
 
 	public void closeEntityPanel(EntityAttributeSelectionPanel panel) {
