@@ -161,13 +161,13 @@ public class EditFrame extends JFrame {
 					fensterSchliessen();
 
 				if (label.equals("Einrichtung einfügen..."))
-					personEinfuegen(); 
+					einrichtungEinfuegen(); 
 
 				if (label.equals("Person einfügen..."))
 					personEinfuegen();
 
 				if (label.equals("Gebäude einfügen..."))
-					personEinfuegen(); 
+					gebaeudeEinfuegen(); 
 
 				if (label.equals("String suchen"))
 					stringSuchen();
@@ -218,7 +218,15 @@ public class EditFrame extends JFrame {
 	}
 
 	void personEinfuegen() {
-		EntityFrame employeeFrame = new EntityFrame(new Person());
+		EntityAttributeSelectionFrame personSelectionFrame = new EntityAttributeSelectionFrame(new Person());
+	}
+	
+	void gebaeudeEinfuegen() {
+		EntityAttributeSelectionFrame gebaeudeSelectionFrame = new EntityAttributeSelectionFrame(new Gebaeude());
+	}
+	
+	void einrichtungEinfuegen() {
+		EntityAttributeSelectionFrame einrichtungSelectionFrame = new EntityAttributeSelectionFrame(new Person());
 	}
 
 	// Eine Textdatei  laden
