@@ -40,15 +40,15 @@ public class EditFrame extends JFrame {
 
 	private static final String sMENU2_ITEM2 = "Kopieren";
 
-	private static final String sMENU2_ITEM3 = "Einfügen";
+	private static final String sMENU2_ITEM3 = "EinfŸgen";
 
-	private static final String sMENU3 = "Einfügen";
+	private static final String sMENU3 = "EinfŸgen";
 
-	private static final String sMENU3_ITEM1 = "Person einfügen";
+	private static final String sMENU3_ITEM1 = "Person einfŸgen";
 
-	private static final String sMENU3_ITEM2 = "Gebäude einfügen";
+	private static final String sMENU3_ITEM2 = "GebŠude einfŸgen";
 
-	private static final String sMENU3_ITEM3 = "Einrichtung einfügen";
+	private static final String sMENU3_ITEM3 = "Einrichtung einfŸgen";
 
 	private static final String sMENU4 = "Hilfe";
 
@@ -81,34 +81,34 @@ public class EditFrame extends JFrame {
 		JMenu menu1 = new JMenu(sMENU1);
 		JMenuItem item1_1 = new JMenuItem(sMENU1_ITEM1);
 		JMenuItem item1_2 = new JMenuItem(sMENU1_ITEM2);
-		JMenuItem item1_3 = new JMenuItem("Datei drucken");
-		JMenuItem item1_4 = new JMenuItem("Seiteneditor beenden");
+		JMenuItem item1_3 = new JMenuItem(sMENU1_ITEM3);
+		JMenuItem item1_4 = new JMenuItem(sMENU1_ITEM4);
 		menu1.add(item1_1);
 		menu1.add(item1_2);
 		menu1.add(item1_3);
 		menu1.add(item1_4);
 		menueleiste.add(menu1);
 
-		JMenu menu2 = new JMenu("Bearbeiten");
-		JMenuItem item2_1 = new JMenuItem("Ausscheiden");
-		JMenuItem item2_2 = new JMenuItem("Kopieren");
-		JMenuItem item2_3 = new JMenuItem("Einfügen");
+		JMenu menu2 = new JMenu(sMENU2);
+		JMenuItem item2_1 = new JMenuItem(sMENU2_ITEM1);
+		JMenuItem item2_2 = new JMenuItem(sMENU2_ITEM2);
+		JMenuItem item2_3 = new JMenuItem(sMENU2_ITEM3);
 		menu2.add(item2_1);
 		menu2.add(item2_2);
 		menu2.add(item2_3);
 		menueleiste.add(menu2);
 
-		JMenu menu3 = new JMenu("Einfügen");
-		JMenuItem item3_1 = new JMenuItem("Person einfügen...");
-		JMenuItem item3_2 = new JMenuItem("Gebäude einfügen...");
-		JMenuItem item3_3 = new JMenuItem("Einrichtung einfügen...");
+		JMenu menu3 = new JMenu(sMENU3);
+		JMenuItem item3_1 = new JMenuItem(sMENU3_ITEM1);
+		JMenuItem item3_2 = new JMenuItem(sMENU3_ITEM2);
+		JMenuItem item3_3 = new JMenuItem(sMENU3_ITEM3);
 		menu3.add(item3_1);
 		menu3.add(item3_2);
 		menu3.add(item3_3);
 		menueleiste.add(menu3);
 
-		JMenu menu4 = new JMenu("Suchen");
-		JMenuItem item4_1 = new JMenuItem("String suchen");
+		JMenu menu4 = new JMenu(sMENU4);
+		JMenuItem item4_1 = new JMenuItem(sMENU4_ITEM1);
 		menu4.add(item4_1);
 		menueleiste.add(menu4);
 
@@ -148,28 +148,28 @@ public class EditFrame extends JFrame {
 				label = e.getActionCommand();
 				System.out.println(label);
 
-				if (label.equals("Seite neu laden"))
+				if (label.equals(sMENU1_ITEM1))
 					seiteNeuLaden();
 
-				if (label.equals("Seite speichern und überprüfen"))
+				if (label.equals(sMENU1_ITEM2))
 					seiteSpeichern();
 
-				if (label.equals("Datei drucken"))
+				if (label.equals(sMENU1_ITEM3))
 					dateiDrucken();
 
-				if (label.equals("Seiteneditor beenden"))
+				if (label.equals(sMENU3_ITEM1))
 					fensterSchliessen();
 
-				if (label.equals("Einrichtung einfügen..."))
+				if (label.equals(sMENU3_ITEM3))
 					einrichtungEinfuegen(); 
 
-				if (label.equals("Person einfügen..."))
+				if (label.equals(sMENU3_ITEM1))
 					personEinfuegen();
 
-				if (label.equals("Gebäude einfügen..."))
+				if (label.equals(sMENU3_ITEM2))
 					gebaeudeEinfuegen(); 
 
-				if (label.equals("String suchen"))
+				if (label.equals(sMENU4_ITEM1))
 					stringSuchen();
 			}
 		}
