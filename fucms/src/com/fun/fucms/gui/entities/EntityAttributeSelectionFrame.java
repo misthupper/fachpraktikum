@@ -1,6 +1,7 @@
 package com.fun.fucms.gui.entities;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Container;
 
 import javax.swing.Box;
@@ -81,9 +82,8 @@ public class EntityAttributeSelectionFrame extends JFrame {
         mJTable.setTableHeader(null);
         mJTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         mJTable.setRowSelectionAllowed(false);
-        mJTable.setColumnSelectionAllowed(true);
-        //mJTable.setCellSelectionEnabled(true);
         mJTable.setColumnSelectionAllowed(false);
+        mJTable.setCellSelectionEnabled(true);
         mJTable.getSelectionModel().addListSelectionListener(mEntityAttributeSelectionFrameController);
         mTableScrollPane = new JScrollPane(mJTable);
         mSelectPanel.add(mTableScrollPane,BorderLayout.CENTER);
