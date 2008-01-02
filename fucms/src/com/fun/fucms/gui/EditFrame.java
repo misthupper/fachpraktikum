@@ -100,7 +100,7 @@ public class EditFrame extends JFrame {
 
 		JMenu menu3 = new JMenu("Einfügen");
 		JMenuItem item3_1 = new JMenuItem("Person einfügen...");
-		JMenuItem item3_2 = new JMenuItem("Gebäude einfuegen...");
+		JMenuItem item3_2 = new JMenuItem("Gebäude einfügen...");
 		JMenuItem item3_3 = new JMenuItem("Einrichtung einfügen...");
 		menu3.add(item3_1);
 		menu3.add(item3_2);
