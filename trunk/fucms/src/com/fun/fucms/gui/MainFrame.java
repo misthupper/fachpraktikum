@@ -12,6 +12,7 @@ import javax.swing.UIManager;
 
 import com.fun.fucms.EvilException;
 import com.fun.fucms.controller.MainController;
+import com.fun.fucms.controller.MainFrameMouseController;
 import com.fun.fucms.model.PageTreeModel;
 
 public class MainFrame extends JFrame {
@@ -83,7 +84,10 @@ public class MainFrame extends JFrame {
         mPageTree = new PageTree(mPageTreeModel);
         mTreeScrollPane = new JScrollPane(mPageTree);
         mContainer.add(mTreeScrollPane, BorderLayout.CENTER);
-
+        
+        mPageTree.addMouseListener(new MainFrameMouseController(mPageTreeModel));
+        
+        
         pack();
         setVisible(true);
         
