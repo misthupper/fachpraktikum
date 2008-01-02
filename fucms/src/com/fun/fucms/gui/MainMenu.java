@@ -28,10 +28,15 @@ public class MainMenu extends JMenuBar {
 	private static final String sMENU4_ITEM1 = "About FUCMS";
 	//private static final String sMENU3_ITEM2 = " ";
 	
+	private static final String sMENU5 = "Edit";
+	private static final String sMENU5_ITEM1 = "Edit Page";
+	//private static final String sMENU3_ITEM2 = " ";
+	
     JMenu mMenu1 = new JMenu(sMENU1);
     JMenu mMenu2 = new JMenu(sMENU2);
     JMenu mMenu3 = new JMenu(sMENU3);
     JMenu mMenu4 = new JMenu(sMENU4);
+    JMenu mMenu5 = new JMenu(sMENU5);
     
     JMenuItem mMenu1Item1 = new JMenuItem(sMENU1_ITEM1);
     JMenuItem mMenu1Item2 = new JMenuItem(sMENU1_ITEM2);
@@ -45,12 +50,21 @@ public class MainMenu extends JMenuBar {
     JMenuItem mMenu4Item1 = new JMenuItem(sMENU4_ITEM1);
     //JMenuItem mMenu3Item2 = new JMenuItem(sMENU3_ITEM2);
     
+    JMenuItem mMenu5Item1 = new JMenuItem(sMENU5_ITEM1);
+    //JMenuItem mMenu3Item2 = new JMenuItem(sMENU3_ITEM2);
+    
     public MainMenu() {
     	mMenu1.add(mMenu1Item1);
     	mMenu1Item1.setActionCommand(MainController.sCREATE_TABLES);
     	mMenu1.add(mMenu1Item2);
     	mMenu1Item2.setActionCommand(MainController.sEXECUTE_SINGLE_SQLFILE);
     	this.add(mMenu1);
+    	
+    	mMenu5.add(mMenu5Item1);
+    	mMenu5Item1.setActionCommand(MainController.sOPEN_EDIT);
+//    	mMenu1.add(mMenu1Item2);
+//    	mMenu1Item2.setActionCommand(MainController.sEXECUTE_SINGLE_SQLFILE);
+    	this.add(mMenu5);
     	
     	mMenu2.add(mMenu2Item1);
     	mMenu2Item1.setActionCommand(MainController.sOPEN_EMPLOYEE);
@@ -74,6 +88,7 @@ public class MainMenu extends JMenuBar {
     	mMenu2Item2.addActionListener(al);
     	mMenu3Item1.addActionListener(al);
     	mMenu4Item1.addActionListener(al);
+    	mMenu5Item1.addActionListener(al);
     }
 
 }
