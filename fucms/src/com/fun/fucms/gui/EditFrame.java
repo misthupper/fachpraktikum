@@ -36,14 +36,11 @@ public class EditFrame extends JFrame {
 	
 	private static final String sMENU3 = "Einfügen";
 	private static final String sMENU3_ITEM1 = "Person einfügen";
-	private static final String sMENU3_ITEM2 = " ";
+	private static final String sMENU3_ITEM2 = "Gebäude einfügen";
+	private static final String sMENU3_ITEM3 = "Einrichtung einfügen";
 	
 	private static final String sMENU4 = "Hilfe";
 	private static final String sMENU4_ITEM1 = "About FUCMS";
-	//private static final String sMENU3_ITEM2 = " ";
-	
-	private static final String sMENU5 = "Edit";
-	private static final String sMENU5_ITEM1 = "Edit Page";
 	//private static final String sMENU3_ITEM2 = " ";
 
 	// globale Variablen innerhalb der Klasse
@@ -71,9 +68,9 @@ public class EditFrame extends JFrame {
 		   JMenuBar menueleiste = new JMenuBar();
 		   setJMenuBar(menueleiste);
 
-		   JMenu menu1 = new JMenu("Seite");
-		   JMenuItem item1_1 = new JMenuItem("Seite neu laden");
-		   JMenuItem item1_2 = new JMenuItem("Seite speichern und überprüfen lassen");
+		   JMenu menu1 = new JMenu(sMENU1);
+		   JMenuItem item1_1 = new JMenuItem(sMENU1_ITEM1);
+		   JMenuItem item1_2 = new JMenuItem(sMENU1_ITEM2);
 		   JMenuItem item1_3 = new JMenuItem("Datei drucken"); 
 		   JMenuItem item1_4 = new JMenuItem("Seiteneditor beenden");
 		   menu1.add(item1_1);
