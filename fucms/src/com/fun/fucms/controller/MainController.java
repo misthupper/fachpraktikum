@@ -13,6 +13,7 @@ import com.fun.fucms.conf.Configuration;
 import com.fun.fucms.gui.AboutFrame;
 import com.fun.fucms.gui.EditFrame;
 import com.fun.fucms.gui.MainFrame;
+import com.fun.fucms.gui.entities.EntityAttributeSelectionFrame;
 import com.fun.fucms.gui.entities.EntityFrame;
 import com.fun.fucms.model.CMSBenutzer;
 import com.fun.fucms.model.Gebaeude;
