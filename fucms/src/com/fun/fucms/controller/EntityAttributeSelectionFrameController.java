@@ -36,6 +36,7 @@ public class EntityAttributeSelectionFrameController implements ActionListener, 
 				TableMediator.deleteEntity(entity);
 				mEntityFrame.updateTable();
 			} else if (text.equals(EntityAttributeSelectionFrame.SELECTION_TEXT_AUSWAHL)) {
+				mSelectedCol = mEntityFrame.getSelectedCol();
 				if (mEntityFrame.isDataRow()){
 					Entity entity = mEntityFrame.getTableModel().getEntity(mSelectedRow);
 					//String att = entity.getStringValue(mSelectedCol);
