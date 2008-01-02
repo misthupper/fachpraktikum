@@ -20,6 +20,31 @@ public class EditFrame extends JFrame {
 	//  Konstanten für die Größe der Textfläche
 	final int ZEILEN  = 100;
 	final int SPALTEN = 400;
+	
+	// Web Menue
+	private static final String sMENU1 = "Seite";
+	//private static final String sMENU1_ITEM1 = "DB löschen";  
+	private static final String sMENU1_ITEM1 = "Seite neu laden"; 
+	private static final String sMENU1_ITEM2 = "Seite speichern"; 
+	private static final String sMENU1_ITEM3 = "Seite drucken"; 
+	private static final String sMENU1_ITEM4 = "Seiteneditor beenden"; 
+	
+	private static final String sMENU2 = "Bearbeiten";
+	private static final String sMENU2_ITEM1 = "Ausschneiden";
+	private static final String sMENU2_ITEM2 = "Kopieren";
+	private static final String sMENU2_ITEM3 = "Einfügen";
+	
+	private static final String sMENU3 = "Einfügen";
+	private static final String sMENU3_ITEM1 = "Person einfügen";
+	private static final String sMENU3_ITEM2 = " ";
+	
+	private static final String sMENU4 = "Hilfe";
+	private static final String sMENU4_ITEM1 = "About FUCMS";
+	//private static final String sMENU3_ITEM2 = " ";
+	
+	private static final String sMENU5 = "Edit";
+	private static final String sMENU5_ITEM1 = "Edit Page";
+	//private static final String sMENU3_ITEM2 = " ";
 
 	// globale Variablen innerhalb der Klasse
 	private String m_dateiname;           // zu ladende/speichernde Datei
