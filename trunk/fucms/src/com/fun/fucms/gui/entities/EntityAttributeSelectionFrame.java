@@ -12,6 +12,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 import javax.swing.JTable;
+import javax.swing.JTextArea;
 import javax.swing.ListSelectionModel;
 
 import com.fun.fucms.controller.EntityAttributeSelectionFrameController;
@@ -51,15 +52,17 @@ public class EntityAttributeSelectionFrame extends JFrame {
 	
 	private EntityAttributeSelectionFrameController mEntityAttributeSelectionFrameController;
 	
+	private JTextArea textanzeige;
 	
 	/**
 	 * Construktor
 	 * @param e one Entity is needed to define the type of Entities to work with.
 	 */
-	public EntityAttributeSelectionFrame(Entity e) {
+	public EntityAttributeSelectionFrame(Entity e, JTextArea textanzeige) {
 		super();
 		mEntity = e;
 		this.setTitle(mEntity.getTable());
+		this.textanzeige = textanzeige;
 		init();
 	}
 	
@@ -70,7 +73,7 @@ public class EntityAttributeSelectionFrame extends JFrame {
         mContainer=this.getContentPane();
         mContainer.setLayout(new BorderLayout());
         
-        mEntityAttributeSelectionFrameController = new EntityAttributeSelectionFrameController(this);
+        mEntityAttributeSelectionFrameController = new EntityAttributeSelectionFrameController(this, textanzeige);
 
         
         //SelectPanel

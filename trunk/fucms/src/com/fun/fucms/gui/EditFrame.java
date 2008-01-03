@@ -218,15 +218,18 @@ public class EditFrame extends JFrame {
 	}
 
 	void personEinfuegen() {
-		EntityAttributeSelectionFrame personSelectionFrame = new EntityAttributeSelectionFrame(new Person());
+		EntityAttributeSelectionFrame personSelectionFrame = 
+			new EntityAttributeSelectionFrame(new Person(), m_textanzeige);
 	}
 	
 	void gebaeudeEinfuegen() {
-		EntityAttributeSelectionFrame gebaeudeSelectionFrame = new EntityAttributeSelectionFrame(new Gebaeude());
+		EntityAttributeSelectionFrame gebaeudeSelectionFrame = 
+			new EntityAttributeSelectionFrame(new Gebaeude(), m_textanzeige);
 	}
 	
 	void einrichtungEinfuegen() {
-		EntityAttributeSelectionFrame einrichtungSelectionFrame = new EntityAttributeSelectionFrame(new Person());
+		EntityAttributeSelectionFrame einrichtungSelectionFrame = 
+			new EntityAttributeSelectionFrame(new Person(), m_textanzeige);
 	}
 
 	// Eine Textdatei  laden
