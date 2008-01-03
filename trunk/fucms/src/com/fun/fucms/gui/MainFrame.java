@@ -94,6 +94,7 @@ public class MainFrame extends JFrame {
         try {
 			mMainController = new MainController(this);
 			mMainMenu.setActionListener(mMainController);
+	        mPageTree.getSelectionModel().addTreeSelectionListener(mMainController);
 		} catch (EvilException e) {
 			MainFrame.log(e.getMessage());
 		}

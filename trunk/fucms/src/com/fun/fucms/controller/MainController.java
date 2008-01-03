@@ -6,6 +6,8 @@ import java.io.File;
 
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
+import javax.swing.event.TreeSelectionEvent;
+import javax.swing.event.TreeSelectionListener;
 
 import com.fun.fucms.Context;
 import com.fun.fucms.EvilException;
@@ -18,10 +20,11 @@ import com.fun.fucms.gui.entities.EntityFrame;
 import com.fun.fucms.model.CMSBenutzer;
 import com.fun.fucms.model.Gebaeude;
 import com.fun.fucms.model.Person;
+import com.fun.fucms.model.PageTreeModel.TreeNode;
 import com.fun.fucms.sql.SQLUtils;
 import com.fun.fucms.InhaltsHelper;
 
-public class MainController implements ActionListener {
+public class MainController implements ActionListener, TreeSelectionListener {
 	
 	public static final String sCREATE_TABLES = "createTables";
 	public static final String sEXECUTE_SINGLE_SQLFILE = "executeSingleFile";
@@ -79,6 +82,14 @@ public class MainController implements ActionListener {
         	MainFrame.log("file choosen: "+file.getAbsolutePath());
         	SQLUtils.executeSQLStatementsFromFile(mContext, file);
         } 
+	}
+
+
+
+	public void valueChanged(TreeSelectionEvent e) {
+		TreeNode tn = (TreeNode) e.getPath().getLastPathComponent();
+		MainFrame.log(tn.toString());
+		
 	}
 
 }
