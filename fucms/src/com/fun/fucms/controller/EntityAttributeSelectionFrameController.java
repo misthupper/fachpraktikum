@@ -4,6 +4,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
+import javax.swing.JTextArea;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
@@ -20,8 +21,11 @@ public class EntityAttributeSelectionFrameController implements ActionListener, 
 	private int mSelectedRow = 0;
 	private int mSelectedCol = 0;
 	
-	public EntityAttributeSelectionFrameController(EntityAttributeSelectionFrame ef) {
+	private JTextArea textanzeige;
+	
+	public EntityAttributeSelectionFrameController(EntityAttributeSelectionFrame ef, JTextArea textanzeige) {
 		mEntityFrame = ef;
+		this.textanzeige = textanzeige;
 	}
 
 	/**
@@ -47,6 +51,7 @@ public class EntityAttributeSelectionFrameController implements ActionListener, 
 //					System.out.println("ID: " + id);
 					String ersetzungsmarke = "<!-- FUCMS."+ entity.getTable() + "." + id + "." + attributeName + " -->";
 					System.out.println(ersetzungsmarke);
+					textanzeige.setText(ersetzungsmarke);
 				}
 				
 			} else if (text.equals(EntityAttributeSelectionFrame.SELECTION_TEXT_EDIT)) {
