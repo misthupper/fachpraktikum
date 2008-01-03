@@ -51,7 +51,7 @@ public class EntityAttributeSelectionFrameController implements ActionListener, 
 //					System.out.println("ID: " + id);
 					String ersetzungsmarke = "<!-- FUCMS."+ entity.getTable() + "." + id + "." + attributeName + " -->";
 					System.out.println(ersetzungsmarke);
-					textanzeige.setText(ersetzungsmarke);
+					textanzeige.insert(ersetzungsmarke, textanzeige.getCaretPosition());
 				}
 				
 			} else if (text.equals(EntityAttributeSelectionFrame.SELECTION_TEXT_EDIT)) {
