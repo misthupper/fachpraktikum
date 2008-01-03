@@ -1,5 +1,13 @@
 package com.fun.fucms.model;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+
+import com.fun.fucms.Context;
+import com.fun.fucms.EvilException;
+import com.fun.fucms.gui.MainFrame;
+
 /**
  * An Entity holds the information of one DB Record. Entity must be extended to use it. 
  * @author rod
@@ -15,10 +23,14 @@ public abstract class Entity {
 	
 	protected Object[] mValues;	
 	
+	static protected ArrayList<String> mEntityTypes = loadEntityTypes(); 
+	static protected ArrayList<String> mRelationTypes = loadRelationTypes(); 
+	
 	protected Entity() {
 		if (getFields().length != getTypes().length) {
 			throw new IllegalStateException(getTable() + " is not defined well(1)!");
-		}
+		};
+		loadEntityTypes();
 		initEmptyEntity();
 	}
 	
@@ -223,4 +235,125 @@ public abstract class Entity {
 		}
 	}
 
+	/**
+	 * Check is the given name is an Entity or a Relation within the database schema
+	 * 
+	 * @param name
+	 */
+	public static Boolean isEntityOrRelation(String name)
+	{
+		return isEntity(name) || isRelation(name);
+	};
+	
+	/**
+	 * Check is the given name is an Entity within the database schema
+	 * 
+	 * @param name
+	 */
+	public static boolean isEntity(String name)
+	{
+		boolean isEntity = false;
+		
+		// Force loading of Entities, if not already done
+		mEntityTypes = loadEntityTypes(); 
+		
+		for (int i=0; i< mEntityTypes.size(); i++) {
+			if (mEntityTypes.get(i).equals(name)) {isEntity = true;};
+		};
+		return isEntity;
+	};
+	
+	/**
+	 * Check is the given name is a Relation within the database schema
+	 * 
+	 * @param name
+	 */
+	public static boolean isRelation(String name)
+	{
+		boolean isRelation = false;
+		
+		// Force loading of Relations, if not already done
+		mRelationTypes = loadRelationTypes(); 
+		
+		for (int i=0; i< mRelationTypes.size(); i++) {
+			if (mRelationTypes.get(i).equals(name)) {isRelation = true;};
+		};
+		return isRelation;
+	};
+	
+	/**
+	 * loads, inits and returns the static ArrayList<String> mEntityTypes with all the
+	 * Entities from the database schema
+	 * @return
+	 */
+	
+	private static ArrayList<String> loadEntityTypes()
+	{
+		mEntityTypes = initFromDB(mEntityTypes, "FUCMS_Entities", "name");
+		return mEntityTypes;
+	}
+
+	/**
+	 * loads, inits and returns the static ArrayList<String> mRelationTypes with all the
+	 * Relatons from the database schema
+	 * @return
+	 */
+	
+	private static ArrayList<String> loadRelationTypes()
+	{
+		mRelationTypes = initFromDB(mRelationTypes, "FUCMS_Relations", "name");
+		return mRelationTypes;
+	}
+
+	/**
+	 * loads, inits returns an ArrayList<T> from the Database Table mTable
+	 * @return
+	 * @param sVariable the ArrayList<T> to be initialized
+	 * @param mTable the database table from with the ArrayList<T> is loaded
+	 * @param mAttribute is the attribute to be read into the Array
+	 */	
+		private static <T> ArrayList<T> initFromDB(ArrayList<T> sVariable, String mTable, String mAttribute)
+	{
+		return initFromDB(sVariable, mTable , mAttribute, "*", "*" );
+	};
+	
+	/**
+	 * loads, inits returns an ArrayList<T> from the Database Table mTable
+	 * @return
+	 * @param sVariable the ArrayList<T> to be initialized
+	 * @param mTable the database table from with the ArrayList<T> is loaded
+	 * @param mAttribute is the attribute to be read into the Array
+	 * @param indexAttribute is the index attribute to check 
+	 * @param id is the id of the 
+	 */	
+		private static <T> ArrayList<T> initFromDB(ArrayList<T> sVariable, String mTable, String mAttribute, String indexAttribute, String id)
+	{
+		try {
+			if (sVariable == null) // load only once
+			{
+				String query = "select * from "+mTable;
+				if (!(indexAttribute=="*" || indexAttribute=="" || id=="*" || id=="")){
+					query += " where "+indexAttribute+" = "+id; };
+				ResultSet rs = Context.getInstance().executeQuery(query);
+	
+				// Initialize and load mEntityTypes
+				sVariable = new ArrayList<T>(); 
+				for (boolean isRow=rs.first(); isRow ;isRow=rs.next()) {
+					sVariable.add((T) rs.getObject(mAttribute));
+				};
+				
+				// Debug Print				
+				// for (int i=0; i< sVariable.size(); i++) {
+				//	System.out.println(i+ " " + sVariable.get(i));
+				// };
+			};
+			
+		}
+		catch (SQLException e) {
+			MainFrame.log(e.getMessage());}
+		catch (EvilException e2) {
+			MainFrame.log(e2.getMessage());}
+
+		return sVariable;
+	};
 }

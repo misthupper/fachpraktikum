@@ -10,6 +10,7 @@ import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.lang.AssertionError;
 
 import com.fun.fucms.conf.Configuration;
 import com.fun.fucms.gui.MainFrame;
@@ -29,6 +30,7 @@ public class InhaltsHelper {
 	private static String getInhalt()
 	// Erst mal über eine DAtei laden - später aus der Datenbank
 	{
+		String ergebnis="";
 		File templateFile = new File(Configuration.getInhaltsDirectory().getAbsolutePath() +
 		"/Senatsbeauftragter.html");
 		try {
@@ -40,7 +42,7 @@ public class InhaltsHelper {
 				s = br.readLine();
 			}
 			br.close();
-			String ergebnis = parser(sb.toString());
+			ergebnis = parser(sb.toString());
 
 			return sb.toString();
 		} catch (FileNotFoundException e) {
@@ -50,17 +52,15 @@ public class InhaltsHelper {
 		} catch (IOException e) {
 			System.out.println(e.getMessage());
 		}
-		return "";
+		return ergebnis;
 	}
 
 
 	private static String parser(String pHTML){
 		String pseudoHTML = pHTML;
 
-		Integer markerStart=0;
-		Integer markerTabellenStart=0;
-		Integer position=0;
-		Integer markerEnde=0;
+		int markerStart=0;
+		int markerEnde=0;
 		String mMarkerString="";
 		String mSQLString="";
 
@@ -86,14 +86,19 @@ public class InhaltsHelper {
 				String[] mToken = mMarkerString.split("\\.");
 				if (mToken.length == 3){
 					// Drei Token - Korrekter Aufbau
+					
+					//if (Entity.isEntityOrRelation(mToken[0])) throw AssertionError("Warning: "+mToken[0]+ " ist keine Entity oder Relation");
+					assert !Entity.isEntityOrRelation(mToken[0]) : "Warning: "+mToken[0]+ " ist keine Entity oder Relation";
+					
 					mSQLString = "select * from " + mToken[0] + " where id = " + mToken[1];
 					ResultSet rs = Context.getInstance().executeQuery(mSQLString);
 					rs.first();
 					String ergebnis = rs.getString(mToken[2]);
 					pseudoHTML = pseudoHTML.substring(0, markerStart) + ergebnis.trim() + pseudoHTML.substring(markerEnde+3,pseudoHTML.length());
-				} else {
-					// Fehler
-					MainFrame.log("Fehler:"+mToken.length);
+				} 
+				else {
+					// Fehler zu viele oder zu wenige Token
+					MainFrame.log("Fehler: Ersetzungsmarke '"+mMarkerString+"' hat "+mToken.length+" Token.");
 				}
 
 				markerStart=pseudoHTML.indexOf("<!-- FUCMS.",0);
@@ -109,7 +114,7 @@ public class InhaltsHelper {
 		catch (EvilException e2) {
 			MainFrame.log(e2.getMessage());
 		}
-		MainFrame.log(pseudoHTML);
+		// MainFrame.log(pseudoHTML);
 		return pseudoHTML;
 
 	}	

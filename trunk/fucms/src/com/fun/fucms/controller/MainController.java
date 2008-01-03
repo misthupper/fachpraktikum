@@ -19,6 +19,7 @@ import com.fun.fucms.model.CMSBenutzer;
 import com.fun.fucms.model.Gebaeude;
 import com.fun.fucms.model.Person;
 import com.fun.fucms.sql.SQLUtils;
+import com.fun.fucms.InhaltsHelper;
 
 public class MainController implements ActionListener {
 	
@@ -36,7 +37,7 @@ public class MainController implements ActionListener {
 	
 	public MainController(JFrame jFrame) throws EvilException {
 		mContext = Context.getInstance();
-        // InhaltsHelper h = new InhaltsHelper(mContext);
+        InhaltsHelper h = new InhaltsHelper(mContext);
 		this.jFrame = jFrame;
 	}
 	
