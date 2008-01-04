@@ -18,6 +18,7 @@ import com.fun.fucms.gui.MainFrame;
 public class PageTreeModel implements TreeModel {
 	
 	private TreeNode mRoot;
+	private TreeNode selectedTreeNode = null;
 	ArrayList<TreeNode> mNodes = new ArrayList<TreeNode>();
 	
 	public PageTreeModel() {
@@ -108,6 +109,14 @@ public class PageTreeModel implements TreeModel {
 			}
 		}
 		return null;
+	}
+	
+	public void setSelectedTreeNode(TreeNode stn) {
+		selectedTreeNode = stn;
+	}
+	
+	public TreeNode getSelectedTreeNode(){
+		return selectedTreeNode;
 	}
 	
 	public class TreeNode implements Comparable {
