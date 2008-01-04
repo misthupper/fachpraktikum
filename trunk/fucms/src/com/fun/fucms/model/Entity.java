@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import com.fun.fucms.Context;
 import com.fun.fucms.EvilException;
 import com.fun.fucms.gui.MainFrame;
+import com.fun.fucms.sql.*;
 
 /**
  * An Entity holds the information of one DB Record. Entity must be extended to use it. 
@@ -258,7 +259,7 @@ public abstract class Entity {
 		mEntityTypes = loadEntityTypes(); 
 		
 		for (int i=0; i< mEntityTypes.size(); i++) {
-			if (mEntityTypes.get(i).equals(name)) {isEntity = true;};
+			if (mEntityTypes.get(i).toUpperCase().trim().equals(name.toUpperCase().trim())) {isEntity = true;};
 		};
 		return isEntity;
 	};
@@ -314,46 +315,6 @@ public abstract class Entity {
 	 */	
 		private static <T> ArrayList<T> initFromDB(ArrayList<T> sVariable, String mTable, String mAttribute)
 	{
-		return initFromDB(sVariable, mTable , mAttribute, "*", "*" );
-	};
-	
-	/**
-	 * loads, inits returns an ArrayList<T> from the Database Table mTable
-	 * @return
-	 * @param sVariable the ArrayList<T> to be initialized
-	 * @param mTable the database table from with the ArrayList<T> is loaded
-	 * @param mAttribute is the attribute to be read into the Array
-	 * @param indexAttribute is the index attribute to check 
-	 * @param id is the id of the 
-	 */	
-		private static <T> ArrayList<T> initFromDB(ArrayList<T> sVariable, String mTable, String mAttribute, String indexAttribute, String id)
-	{
-		try {
-			if (sVariable == null) // load only once
-			{
-				String query = "select * from "+mTable;
-				if (!(indexAttribute=="*" || indexAttribute=="" || id=="*" || id=="")){
-					query += " where "+indexAttribute+" = "+id; };
-				ResultSet rs = Context.getInstance().executeQuery(query);
-	
-				// Initialize and load mEntityTypes
-				sVariable = new ArrayList<T>(); 
-				for (boolean isRow=rs.first(); isRow ;isRow=rs.next()) {
-					sVariable.add((T) rs.getObject(mAttribute));
-				};
-				
-				// Debug Print				
-				// for (int i=0; i< sVariable.size(); i++) {
-				//	System.out.println(i+ " " + sVariable.get(i));
-				// };
-			};
-			
-		}
-		catch (SQLException e) {
-			MainFrame.log(e.getMessage());}
-		catch (EvilException e2) {
-			MainFrame.log(e2.getMessage());}
-
-		return sVariable;
+		return SQLUtils.arrayFromDB(sVariable, mTable , mAttribute, "*", "*" );
 	};
 }

@@ -4,10 +4,13 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 
 import com.fun.fucms.Context;
+import com.fun.fucms.EvilException;
 import com.fun.fucms.gui.MainFrame;
 
 public class SQLUtils {
@@ -73,4 +76,68 @@ public class SQLUtils {
 		
 	}
 
+	/**
+	 * loads, inits returns an ArrayList<T> from the Database Table mTable
+	 * @return
+	 * @param sVariable the ArrayList<T> to be initialized
+	 * @param mTable the database table from with the ArrayList<T> is loaded
+	 * @param mAttribute is the attribute to be read into the Array
+	 * @param indexAttribute is the index attribute to check 
+	 * @param id is the id of the 
+	 */	
+		public static <T> ArrayList<T> arrayFromDB(ArrayList<T> sVariable, String mTable, String mAttribute, String indexAttribute, String id)
+	{
+		try {
+			if (sVariable == null) // load/initialize only once
+			{
+				String query = "select * from "+mTable;
+				if (!(indexAttribute=="*" || indexAttribute=="" || id=="*" || id=="")){
+					query += " where "+indexAttribute+" = "+id; };
+				
+				System.out.println(query);
+				ResultSet rs = Context.getInstance().executeQuery(query);
+	
+				// initialize and load mEntityTypes
+				sVariable = new ArrayList<T>(); 
+				for (boolean isRow=rs.first(); isRow ;isRow=rs.next()) {
+					if (mAttribute.equals("*") || mAttribute.equals("")){
+					// case 2-dimensional array: 1st = rows, 2nd=columns
+					// only works if <T>.toString() is properly set 
+						{ assert (sVariable.getClass() == new ArrayList<ArrayList<Object>>().getClass()) : ""; }
+						ArrayList<Object> o = new ArrayList<Object>();
+						System.out.println("Spalten:"+rs.getMetaData());
+						for (int i=1; i <= rs.getMetaData().getColumnCount(); i++){
+							System.out.println(rs.getMetaData().getColumnName(i)+" "+rs.getMetaData().getColumnTypeName(i).toString().trim()+" "+rs.getMetaData().getPrecision(i));	
+						}
+						for (int i=1; i <= rs.getMetaData().getColumnCount(); i++){
+							o.add(rs.getObject(i).toString().trim());
+						}
+						sVariable.add((T) o);
+					}
+					else {
+					// case 1 dimensional array (one column)
+						Object o=rs.getObject(mAttribute);
+						if (o instanceof String) {
+								String s =(String)o;
+								o= s.trim();
+						} 
+						sVariable.add((T) o);
+					}
+				};
+				
+				// Debug Print				
+				 for (int i=0; i< sVariable.size(); i++) {
+					System.out.println(i+ " " + sVariable.get(i).toString());
+				 };
+			};
+			
+		}
+		catch (SQLException e) {
+			MainFrame.log(e.getMessage());}
+		catch (EvilException e2) {
+			MainFrame.log(e2.getMessage());}
+
+		return sVariable;
+	};
+	
 }
