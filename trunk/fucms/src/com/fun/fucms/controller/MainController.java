@@ -16,7 +16,6 @@ import com.fun.fucms.conf.Configuration;
 import com.fun.fucms.gui.AboutFrame;
 import com.fun.fucms.gui.EditFrame;
 import com.fun.fucms.gui.MainFrame;
-import com.fun.fucms.gui.entities.EntityAttributeSelectionFrame;
 import com.fun.fucms.gui.entities.EntityFrame;
 import com.fun.fucms.model.CMSBenutzer;
 import com.fun.fucms.model.Gebaeude;
@@ -66,10 +65,11 @@ public class MainController implements ActionListener, TreeSelectionListener {
 		} else if (actionCommand.equals(sOPEN_EDIT)) {
 			if (MainFrame.getPageTreeModel().getSelectedTreeNode()!= null){
 				EditFrame ef = new EditFrame();
+				//TODO Hier muss statt des Webseitennamens der (zu bearbeitende) Inhalt der Seite aus der Db ausgelesen und übergeben werden.
 				ef.setEditorText(MainFrame.getPageTreeModel().getSelectedTreeNode().toString());
 			}
 			else {
-				JOptionPane.showMessageDialog(null, "Bitte wählen Sie eine Seite aus.", "Fehler!", JOptionPane.CANCEL_OPTION);
+				JOptionPane.showMessageDialog(null, "Bitte wählen Sie eine Seite aus.", "Achtung!", JOptionPane.CANCEL_OPTION);
 			}
 				
 		}
