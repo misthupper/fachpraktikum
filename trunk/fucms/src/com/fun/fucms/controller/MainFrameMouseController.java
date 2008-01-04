@@ -23,10 +23,7 @@ public class MainFrameMouseController implements MouseListener {
 		
 		if(e.getButton() == 2 || e.getButton() == 3) {
 			EditFrame ef = new EditFrame();
-			ef.setEditorText("Hallo Welt");
-			/**
-			 * @TODO zu übergebende Seite dem Tree entnehmen
-			 */
+			ef.setEditorText(pageTreeModel.getSelectedTreeNode().toString());
 		}
 	}
 
