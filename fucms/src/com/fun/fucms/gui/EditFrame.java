@@ -216,7 +216,7 @@ public class EditFrame extends JFrame {
 				.get(DefaultEditorKit.pasteAction));
 
 		setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
-		setTitle("Texteditor");
+		setTitle("Seiteneditor");
 		pack();
 		setVisible(true);
 	}
