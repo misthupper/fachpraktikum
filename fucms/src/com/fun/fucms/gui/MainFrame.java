@@ -43,6 +43,8 @@ public class MainFrame extends JFrame {
     public static void log(String s) {
     	if (sInstance != null) {
     		sInstance.mJTextArea.append("\n"+s);
+    		//sorgt dafür, dass immer der letzte Eintrag sichtbar ist
+    		sInstance.mJTextArea.setCaretPosition(sInstance.mJTextArea.getText().length());
     	}
     }
 
