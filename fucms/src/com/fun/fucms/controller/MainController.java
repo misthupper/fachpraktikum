@@ -66,6 +66,8 @@ public class MainController implements ActionListener, TreeSelectionListener {
 			AboutFrame af = new AboutFrame(jFrame);			
 		} else if (actionCommand.equals(sOPEN_EDIT)) {
 			EditFrame ef = new EditFrame();
+			ef.setEditorText("Hallo Welt");
+			// TODO Inhalt aus Tree lesen
 		}
 	}
 	
