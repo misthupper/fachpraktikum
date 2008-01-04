@@ -18,11 +18,15 @@ public class MainFrameMouseController implements MouseListener {
 	}
 	
 	public void mouseClicked(MouseEvent e) {
-		System.out.println(pageTreeModel.getRoot());
+//		System.out.println(pageTreeModel.getRoot());
+//		System.out.println(e.getSource());
 		
-		System.out.println(e.getSource());
 		if(e.getButton() == 2 || e.getButton() == 3) {
 			EditFrame ef = new EditFrame();
+			ef.setEditorText("Hallo Welt");
+			/**
+			 * @TODO zu übergebende Seite dem Tree entnehmen
+			 */
 		}
 	}
 

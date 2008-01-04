@@ -73,7 +73,15 @@ public class EditFrame extends JFrame {
 		super("Seiteneditor");
 		init();
 	}
-
+	
+	/**
+	 * Editor mit diesem Inhalt laden
+	 * @TODO inhalt aus DB lesen
+	 */
+	public void setEditorText(String inhalt) {
+		m_textanzeige.setText(inhalt);
+	}
+	
 	private void init() {
 		JMenuBar menueleiste = new JMenuBar();
 		setJMenuBar(menueleiste);
@@ -384,6 +392,8 @@ public class EditFrame extends JFrame {
 	} // Ende von 'stringSuchen' 
 
 } // Ende von Klasse 'CEditor' 
+
+
 
 // die Dialogklasse für die Eingabe des Suchstrings
 class CFrageDialog extends JDialog implements ActionListener {
