@@ -64,7 +64,9 @@ public class MainController implements ActionListener, TreeSelectionListener {
 			AboutFrame af = new AboutFrame(jFrame);			
 		} else if (actionCommand.equals(sOPEN_EDIT)) {
 			EditFrame ef = new EditFrame();
-			ef.setEditorText(MainFrame.getPageTreeModel().getSelectedTreeNode().toString());
+			
+			if (MainFrame.getPageTreeModel().getSelectedTreeNode()!= null)
+				ef.setEditorText(MainFrame.getPageTreeModel().getSelectedTreeNode().toString());
 		}
 	}
 	
@@ -87,9 +89,9 @@ public class MainController implements ActionListener, TreeSelectionListener {
 
 	public void valueChanged(TreeSelectionEvent e) {
 		TreeNode tn = (TreeNode) e.getPath().getLastPathComponent();
-		MainFrame.log(tn.toString());
 		// Speichert den selektierten TreeNode im PageTreeModel für spätere Abfragen
 		MainFrame.getPageTreeModel().setSelectedTreeNode(tn);
+		//MainFrame.log(tn.toString());
 	}
 
 }
