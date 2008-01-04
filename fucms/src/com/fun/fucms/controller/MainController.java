@@ -6,6 +6,7 @@ import java.io.File;
 
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.event.TreeSelectionEvent;
 import javax.swing.event.TreeSelectionListener;
 
@@ -63,10 +64,14 @@ public class MainController implements ActionListener, TreeSelectionListener {
 		} else if (actionCommand.equals(sOPEN_ABOUT)) {
 			AboutFrame af = new AboutFrame(jFrame);			
 		} else if (actionCommand.equals(sOPEN_EDIT)) {
-			EditFrame ef = new EditFrame();
-			
-			if (MainFrame.getPageTreeModel().getSelectedTreeNode()!= null)
+			if (MainFrame.getPageTreeModel().getSelectedTreeNode()!= null){
+				EditFrame ef = new EditFrame();
 				ef.setEditorText(MainFrame.getPageTreeModel().getSelectedTreeNode().toString());
+			}
+			else {
+				JOptionPane.showMessageDialog(null, "Bitte wählen Sie eine Seite aus.", "Fehler!", JOptionPane.CANCEL_OPTION);
+			}
+				
 		}
 	}
 	
