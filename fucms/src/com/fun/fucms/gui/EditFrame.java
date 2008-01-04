@@ -146,7 +146,7 @@ public class EditFrame extends JFrame {
 
 		class CMeinWindowAdapter extends WindowAdapter {
 			public void windowClosing(WindowEvent e) {
-				System.exit(0);
+//				System.exit(0);
 			}
 		}
 
