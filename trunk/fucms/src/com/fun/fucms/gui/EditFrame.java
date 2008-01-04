@@ -68,7 +68,8 @@ public class EditFrame extends JFrame {
 	private JComboBox m_farben; // Farbe
 
 	private Hashtable m_befehle;
-
+	
+	
 	public EditFrame() {
 		super("Seiteneditor");
 		init();

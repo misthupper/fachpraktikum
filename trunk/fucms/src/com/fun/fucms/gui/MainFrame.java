@@ -31,7 +31,7 @@ public class MainFrame extends JFrame {
     private JScrollPane mJScrollPane, mTreeScrollPane;
     private JTextArea mJTextArea;
     private PageTree mPageTree;
-    private PageTreeModel mPageTreeModel;
+    private static PageTreeModel mPageTreeModel;
     
     private MainController mMainController;
     
@@ -45,8 +45,6 @@ public class MainFrame extends JFrame {
     		sInstance.mJTextArea.append("\n"+s);
     	}
     }
-    
-
 
     public MainFrame(String title) throws HeadlessException {
         super(title);
@@ -61,9 +59,9 @@ public class MainFrame extends JFrame {
         }
     }
     
-    
-
-
+    public static PageTreeModel getPageTreeModel(){
+    	return mPageTreeModel;
+    }
     
     private void init() {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -99,5 +97,5 @@ public class MainFrame extends JFrame {
 			MainFrame.log(e.getMessage());
 		}
     } 
-
+    
 }
