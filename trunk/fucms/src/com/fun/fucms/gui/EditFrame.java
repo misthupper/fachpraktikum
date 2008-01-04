@@ -44,15 +44,15 @@ public class EditFrame extends JFrame {
 
 	private static final String sMENU3 = "Einfuegen";
 
-	private static final String sMENU3_ITEM1 = "Person einfuegen";
+	private static final String sMENU3_ITEM1 = "Person einfuegen...";
 
-	private static final String sMENU3_ITEM2 = "Gebaeude einfuegen";
+	private static final String sMENU3_ITEM2 = "Gebaeude einfuegen...";
 
-	private static final String sMENU3_ITEM3 = "Einrichtung einfuegen";
+	private static final String sMENU3_ITEM3 = "Einrichtung einfuegen...";
 
-	private static final String sMENU4 = "Hilfe";
+	private static final String sMENU4 = "Suchen";
 
-	private static final String sMENU4_ITEM1 = "About FUCMS";
+	private static final String sMENU4_ITEM1 = "String suchen...";
 
 	//private static final String sMENU3_ITEM2 = " ";
 
