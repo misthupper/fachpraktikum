@@ -76,10 +76,10 @@ public class EditFrame extends JFrame {
 	
 	/**
 	 * Editor mit diesem Inhalt laden
-	 * @TODO inhalt aus DB lesen
 	 */
 	public void setEditorText(String inhalt) {
 		m_textanzeige.setText(inhalt);
+		//TODO inhalt aus DB lesen
 	}
 	
 	private void init() {
