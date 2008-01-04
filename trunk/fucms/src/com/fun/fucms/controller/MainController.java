@@ -40,7 +40,7 @@ public class MainController implements ActionListener, TreeSelectionListener {
 	
 	public MainController(JFrame jFrame) throws EvilException {
 		mContext = Context.getInstance();
-        InhaltsHelper h = new InhaltsHelper(mContext);
+        // InhaltsHelper h = new InhaltsHelper(mContext);
 		this.jFrame = jFrame;
 	}
 	
