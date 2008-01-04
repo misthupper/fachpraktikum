@@ -165,7 +165,7 @@ public class EditFrame extends JFrame {
 				if (label.equals(sMENU1_ITEM3))
 					dateiDrucken();
 
-				if (label.equals(sMENU3_ITEM1))
+				if (label.equals(sMENU1_ITEM4))
 					fensterSchliessen();
 
 				if (label.equals(sMENU3_ITEM3))
@@ -228,6 +228,7 @@ public class EditFrame extends JFrame {
 	void personEinfuegen() {
 		EntityAttributeSelectionFrame personSelectionFrame = 
 			new EntityAttributeSelectionFrame(new Person(), m_textanzeige);
+			
 	}
 	
 	void gebaeudeEinfuegen() {
