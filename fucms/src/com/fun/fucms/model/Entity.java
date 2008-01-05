@@ -21,20 +21,23 @@ public abstract class Entity {
 	public abstract String getTable();
 	public abstract String[] getTypes();
 	public abstract Entity getNewInstance();
-	
+	// protected abstract void registerNewSubtype();
+		
 	protected Object[] mValues;	
 	
 	static protected ArrayList<String> mEntityTypes = loadEntityTypes(); 
 	static protected ArrayList<String> mRelationTypes = loadRelationTypes(); 
 	
 	protected Entity() {
-		/*if (getFields().length != getTypes().length) {
-			throw new IllegalStateException(getTable() + " is not defined well(1)!");
-		};*/
-		loadEntityTypes();
+		assert getFields().length>0 : "Table with 0 attributes?";
 		initEmptyEntity();
 	}
 	
+	static { // Make sure mEntitiyTypes are initialized when class is loaded
+		mEntityTypes = loadEntityTypes(); 
+		mRelationTypes = loadRelationTypes(); 
+	};
+
 	private void initEmptyEntity() {
 		mValues=new Object[getTypes().length];
 		for (int i=0; i < getTypes().length; i++) {
@@ -320,11 +323,9 @@ public abstract class Entity {
 	{
 		boolean isEntity = false;
 		
-		// Force loading of Entities, if not already done
-		mEntityTypes = loadEntityTypes(); 
-		
 		for (int i=0; i< mEntityTypes.size(); i++) {
-			if (mEntityTypes.get(i).toUpperCase().trim().equals(name.toUpperCase().trim())) {isEntity = true;};
+			if (mEntityTypes.get(i).toUpperCase().trim().equals(name.toUpperCase().trim()))
+				{isEntity = true;};
 		};
 		return isEntity;
 	};
@@ -338,11 +339,9 @@ public abstract class Entity {
 	{
 		boolean isRelation = false;
 		
-		// Force loading of Relations, if not already done
-		mRelationTypes = loadRelationTypes(); 
-		
 		for (int i=0; i< mRelationTypes.size(); i++) {
-			if (mRelationTypes.get(i).equals(name)) {isRelation = true;};
+			if (mRelationTypes.get(i).toUpperCase().trim().equals(name.toUpperCase().trim()))
+				{isRelation = true;};
 		};
 		return isRelation;
 	};

@@ -15,7 +15,14 @@ public class Person extends Entity {
 	private static final String[] sTypes=initTypes(TABLE);
 	private static String[] sFields=initFields(TABLE);
 	private static final String KEY=sFields[0];
+	/*
+	static {registerNewSubtype();};
 	
+	static protected void registerNewSubtype(){
+		Entity e = getNewInstance();
+		System.out.println("Register Type:"+e.getClass().toString());
+	}
+	*/
 	public Person() {
 		super();
 	}
