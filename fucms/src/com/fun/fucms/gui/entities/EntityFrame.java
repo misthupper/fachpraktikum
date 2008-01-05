@@ -108,6 +108,8 @@ public class EntityFrame extends JFrame {
         mJTabbedPane.add(SELECTION_TEXT,mSelectPanel);
         mContainer.add(mJTabbedPane,BorderLayout.CENTER);
 
+        setIsDataRow(false);
+        
         pack();
         setVisible(true);
 

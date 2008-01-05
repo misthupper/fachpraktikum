@@ -28,9 +28,9 @@ public abstract class Entity {
 	static protected ArrayList<String> mRelationTypes = loadRelationTypes(); 
 	
 	protected Entity() {
-		if (getFields().length != getTypes().length) {
+		/*if (getFields().length != getTypes().length) {
 			throw new IllegalStateException(getTable() + " is not defined well(1)!");
-		};
+		};*/
 		loadEntityTypes();
 		initEmptyEntity();
 	}
@@ -236,6 +236,71 @@ public abstract class Entity {
 		}
 	}
 
+	/**
+	 * Initialize entity type names from existing database
+	 * 
+	 * @param table
+	 */
+	protected static final String[] initTypes(String table)
+	{
+		String [] types=null;
+		try {
+				String query = "select * from "+table;
+				ResultSet rs = Context.getInstance().executeQuery(query);
+				assert (rs!=null) : "Tabelle existiert nicht: "+table;
+				
+				int length = rs.getMetaData().getColumnCount();
+				// initialize and load mEntityTypes
+				types = new String [length];
+				for (int i=1; i <= length; i++)
+				{
+					String s = rs.getMetaData().getColumnTypeName(i).toUpperCase().trim();
+					if (s.equals("CHAR")){
+						types[i-1]=TableMediator.SQL_TYPE_STRING;
+					}else if (s.equals("NUMBER")){
+						types[i-1]=TableMediator.SQL_TYPE_INTEGER;
+					}else {
+						assert (false) : "unsupported database format:"+s; 
+					}
+				}
+		}
+		catch (SQLException e) {
+			MainFrame.log(e.getMessage());}
+		catch (EvilException e2) {
+			MainFrame.log(e2.getMessage());}
+		
+		return types;
+	}
+
+	/**
+	 * Initialize entity field names from existing database
+	 * 
+	 * @param table
+	 */
+	protected static final String[] initFields(String table)
+	{
+		String [] fields=null;
+		try {
+				String query = "select * from "+table;
+				ResultSet rs = Context.getInstance().executeQuery(query);
+				assert (rs!=null) : "Tabelle existiert nicht: "+table;
+				
+				int length = rs.getMetaData().getColumnCount();
+				// initialize and load mEntityTypes
+				fields = new String [length];
+				for (int i=1; i <= length; i++)	{
+					fields[i-1] = rs.getMetaData().getColumnName(i).toUpperCase().trim();
+				}
+		}
+		catch (SQLException e) {
+			MainFrame.log(e.getMessage());}
+		catch (EvilException e2) {
+			MainFrame.log(e2.getMessage());}
+		
+		return fields;
+	}
+	
+	
 	/**
 	 * Check is the given name is an Entity or a Relation within the database schema
 	 * 

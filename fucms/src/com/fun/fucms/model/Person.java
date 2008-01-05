@@ -1,32 +1,24 @@
 package com.fun.fucms.model;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+
+import com.fun.fucms.Context;
+import com.fun.fucms.EvilException;
+import com.fun.fucms.gui.MainFrame;
 
 public class Person extends Entity {
-	
-	public static final String[] sTypes = {
-		TableMediator.SQL_TYPE_INTEGER,
-		TableMediator.SQL_TYPE_STRING,
-		TableMediator.SQL_TYPE_STRING,
-		TableMediator.SQL_TYPE_STRING,
-		};
-	
-	public static final String[] sFields= {
-		"id",
-		"name",
-		"vorname",
-		"titel",
-		};
-	
+
 	private static final String TABLE="person";
-	private static final String KEY=sFields[0];
 	
+	private static final String[] sTypes=initTypes(TABLE);
+	private static String[] sFields=initFields(TABLE);
+	private static final String KEY=sFields[0];
 	
 	public Person() {
 		super();
 	}
-	
-	
-
 
 	public String[] getFields() {
 		return Person.sFields;
@@ -47,7 +39,4 @@ public class Person extends Entity {
 	public Entity getNewInstance() {
 		return new Person();
 	}
-
-
-
 }
