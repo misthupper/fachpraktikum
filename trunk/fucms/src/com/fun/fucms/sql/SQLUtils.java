@@ -94,7 +94,7 @@ public class SQLUtils {
 				if (!(indexAttribute=="*" || indexAttribute=="" || id=="*" || id=="")){
 					query += " where "+indexAttribute+" = "+id; };
 				
-				System.out.println(query);
+				// System.out.println(query);
 				ResultSet rs = Context.getInstance().executeQuery(query);
 	
 				// initialize and load mEntityTypes
@@ -105,7 +105,6 @@ public class SQLUtils {
 					// only works if <T>.toString() is properly set 
 						{ assert (sVariable.getClass() == new ArrayList<ArrayList<Object>>().getClass()) : ""; }
 						ArrayList<Object> o = new ArrayList<Object>();
-						System.out.println("Spalten:"+rs.getMetaData());
 						for (int i=1; i <= rs.getMetaData().getColumnCount(); i++){
 							System.out.println(rs.getMetaData().getColumnName(i)+" "+rs.getMetaData().getColumnTypeName(i).toString().trim()+" "+rs.getMetaData().getPrecision(i));	
 						}
@@ -124,11 +123,10 @@ public class SQLUtils {
 						sVariable.add((T) o);
 					}
 				};
-				
 				// Debug Print				
-				 for (int i=0; i< sVariable.size(); i++) {
-					System.out.println(i+ " " + sVariable.get(i).toString());
-				 };
+				// for (int i=0; i< sVariable.size(); i++) {
+				//	System.out.println(i+ " " + sVariable.get(i).toString());
+				// };
 			};
 			
 		}

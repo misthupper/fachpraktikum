@@ -2,38 +2,16 @@ package com.fun.fucms.model;
 
 
 public class Gebaeude extends Entity {
-	
-	public static final String[] sTypes = {
-		TableMediator.SQL_TYPE_INTEGER,
-		TableMediator.SQL_TYPE_STRING,
-		TableMediator.SQL_TYPE_STRING,
-		TableMediator.SQL_TYPE_STRING,
-		TableMediator.SQL_TYPE_STRING,
-		TableMediator.SQL_TYPE_STRING,
-		TableMediator.SQL_TYPE_STRING
-		};
-	
-	public static final String[] sFields= {
-		"id",
-		"kuerzel",
-		"name",
-		"strasse",
-		"hausnummer",
-		"postleitzahl",
-		"ort",
-		//"email"
-		};
-	
+
 	private static final String TABLE="gebaeude";
-	private static final String KEY=sFields[0];
 	
+	private static final String[] sTypes=initTypes(TABLE);
+	private static String[] sFields=initFields(TABLE);
+	private static final String KEY=sFields[0];
 	
 	public Gebaeude() {
 		super();
 	}
-	
-	
-
 
 	public String[] getFields() {
 		return Gebaeude.sFields;

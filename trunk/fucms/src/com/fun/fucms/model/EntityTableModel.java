@@ -11,7 +11,7 @@ import javax.swing.table.AbstractTableModel;
  */
 public class EntityTableModel extends AbstractTableModel {
 	
-	private Entity mEntity;
+	public Entity mEntity;
 	private int mRows, mColumns;
 	private ArrayList<Object> mKeys;
 	private ArrayList<Object> mEntities;
@@ -76,6 +76,7 @@ public class EntityTableModel extends AbstractTableModel {
 	 * @return
 	 */
 	public Entity getEntity(int row) {
+		assert row>0 : "row muss größer 0 sein!";
 		Entity entity = mEntity.getNewInstance();
 		Object key = mKeys.get(row -1);
 		TableMediator.getRowByKey(entity, key);
