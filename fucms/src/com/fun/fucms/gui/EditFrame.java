@@ -4,12 +4,16 @@ import javax.swing.JFrame;
 import javax.swing.WindowConstants;
 
 import java.awt.*;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.*;
 import java.awt.event.*;
 import java.io.*;
 import javax.swing.*;
 import javax.swing.text.*;
 
+import com.fun.fucms.Context;
+import com.fun.fucms.EvilException;
 import com.fun.fucms.gui.entities.*;
 import com.fun.fucms.model.*;
 import com.fun.fucms.model.entities.Gebaeude;
@@ -71,9 +75,12 @@ public class EditFrame extends JFrame {
 
 	private Hashtable m_befehle;
 	
+	private int mWebseitenID; //ID der Webseite
 	
-	public EditFrame() {
+	
+	public EditFrame(int webseitenID) {
 		super("Seiteneditor");
+		mWebseitenID = webseitenID;
 		init();
 	}
 	
@@ -219,6 +226,31 @@ public class EditFrame extends JFrame {
 
 		setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 		setTitle("Seiteneditor");
+		
+		try {
+			//TODO
+			String mSQLString = "select * from Version where id=" + mWebseitenID;
+			//mSQLString = "Select * from Person where id=1";
+	        System.out.println(mSQLString);
+	        ResultSet rs = Context.getInstance().executeQuery(mSQLString);
+	        rs.first();
+	        setTitle("Seiteneditor: " + rs.getString("path").trim());
+
+	        // HauptseitenInhalt
+	        String hauptseitenID = rs.getString("HauptseitenInhaltID");
+	        System.out.println("HauptseitenInhaltsID: " + hauptseitenID);
+	        ResultSet rs2 = Context.getInstance().executeQuery("select * from Inhalt where id=" + hauptseitenID);
+	        rs2.first();
+	        System.out.println("Hauptinhalt:"+ rs2.getString("Inhaltstext"));
+	        setEditorText(rs2.getString("Inhaltstext").trim());
+		}  catch (SQLException e) {
+			System.out.println(e.getMessage());
+		} catch (EvilException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
 		pack();
 		setVisible(true);
 	}
