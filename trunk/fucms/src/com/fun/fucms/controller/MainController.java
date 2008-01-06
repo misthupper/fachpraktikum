@@ -21,7 +21,7 @@ import com.fun.fucms.model.CMSBenutzer;
 import com.fun.fucms.model.PageTreeModel.TreeNode;
 import com.fun.fucms.model.entities.*;
 import com.fun.fucms.sql.SQLUtils;
-import com.fun.fucms.InhaltsHelper;
+import com.fun.fucms.InhaltsParser;
 import com.fun.fucms.model.*;
 
 public class MainController implements ActionListener, TreeSelectionListener {
