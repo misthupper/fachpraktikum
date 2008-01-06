@@ -106,9 +106,7 @@ public class SQLUtils {
 						{ assert (sVariable.getClass() == new ArrayList<ArrayList<Object>>().getClass()) : ""; }
 						ArrayList<Object> o = new ArrayList<Object>();
 						for (int i=1; i <= rs.getMetaData().getColumnCount(); i++){
-							System.out.println(rs.getMetaData().getColumnName(i)+" "+rs.getMetaData().getColumnTypeName(i).toString().trim()+" "+rs.getMetaData().getPrecision(i));	
-						}
-						for (int i=1; i <= rs.getMetaData().getColumnCount(); i++){
+							// System.out.println(rs.getMetaData().getColumnName(i)+" "+rs.getMetaData().getColumnTypeName(i).toString().trim()+" "+rs.getMetaData().getPrecision(i));	
 							o.add(rs.getObject(i).toString().trim());
 						}
 						sVariable.add((T) o);
