@@ -1,38 +1,36 @@
-package com.fun.fucms.model;
+package com.fun.fucms.model.entities;
 
+import com.fun.fucms.model.Entity;
 
-public class Gebaeude extends Entity {
+public class Kurs extends Entity {
 
-	private static final String TABLE="gebaeude";
+	private static final String TABLE="Kurs";
 	
 	private static final String[] sTypes=initTypes(TABLE);
 	private static String[] sFields=initFields(TABLE);
 	private static final String KEY=sFields[0];
 	
-	public Gebaeude() {
+	public Kurs() {
 		super();
 	}
 
 	public String[] getFields() {
-		return Gebaeude.sFields;
+		return Kurs.sFields;
 	}
 
 	public String getKey() {
-		return Gebaeude.KEY;
+		return Kurs.KEY;
 	}
 
 	public String getTable() {
-		return Gebaeude.TABLE;
+		return Kurs.TABLE;
 	}
 
 	public String[] getTypes() {
-		return Gebaeude.sTypes;
+		return Kurs.sTypes;
 	}
 	
 	public Entity getNewInstance() {
-		return new Gebaeude();
+		return new Kurs();
 	}
-
-
-
 }

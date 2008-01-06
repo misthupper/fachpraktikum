@@ -18,11 +18,11 @@ import com.fun.fucms.gui.EditFrame;
 import com.fun.fucms.gui.MainFrame;
 import com.fun.fucms.gui.entities.EntityFrame;
 import com.fun.fucms.model.CMSBenutzer;
-import com.fun.fucms.model.Gebaeude;
-import com.fun.fucms.model.Person;
 import com.fun.fucms.model.PageTreeModel.TreeNode;
+import com.fun.fucms.model.entities.*;
 import com.fun.fucms.sql.SQLUtils;
 import com.fun.fucms.InhaltsHelper;
+import com.fun.fucms.model.*;
 
 public class MainController implements ActionListener, TreeSelectionListener {
 	
@@ -41,6 +41,7 @@ public class MainController implements ActionListener, TreeSelectionListener {
 	public MainController(JFrame jFrame) throws EvilException {
 		mContext = Context.getInstance();
         // InhaltsHelper h = new InhaltsHelper(mContext);
+		// Entity.testAllEntityTypes();
 		this.jFrame = jFrame;
 	}
 	

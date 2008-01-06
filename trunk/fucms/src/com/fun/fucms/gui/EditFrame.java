@@ -12,6 +12,8 @@ import javax.swing.text.*;
 
 import com.fun.fucms.gui.entities.*;
 import com.fun.fucms.model.*;
+import com.fun.fucms.model.entities.Gebaeude;
+import com.fun.fucms.model.entities.Person;
 
 import java.awt.print.*;
 

@@ -73,6 +73,14 @@ CREATE TABLE Forschungscluster (
 	name char(64) not null
 );
 
+/* Tabelle Einrichtung */
+CREATE TABLE Einrichtung (
+	id integer not null PRIMARY KEY,
+	name char(128) not null,
+	typ char(32) not null,
+	obereinrichtung integer
+);
+
 /* Tabelle Abschlussarbeit */
 CREATE TABLE Abschlussarbeit (
 	id integer not null PRIMARY KEY,
@@ -80,14 +88,6 @@ CREATE TABLE Abschlussarbeit (
 	titel char(128) not null,
 	einrichtungID integer not null,
 	FOREIGN KEY (einrichtungID) REFERENCES Einrichtung(id) ON DELETE CASCADE
-);
-
-/* Tabelle Einrichtung */
-CREATE TABLE Einrichtung (
-	id integer not null PRIMARY KEY,
-	name char(128) not null,
-	typ char(32) not null,
-	obereinrichtung integer
 );
 
 /* Tabelle Einrichtung_Forschungscluster */

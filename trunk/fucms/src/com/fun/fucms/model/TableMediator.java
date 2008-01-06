@@ -7,6 +7,8 @@ import java.util.ArrayList;
 import com.fun.fucms.Context;
 import com.fun.fucms.EvilException;
 import com.fun.fucms.gui.MainFrame;
+import com.fun.fucms.model.*;
+import com.fun.fucms.model.entities.*;
 
 /**
  * Some static methods for reading and updating Entitities
@@ -200,5 +202,31 @@ public class TableMediator {
 		}
 	}
 
-
+	public static Entity createEntitybyName(String name){
+		assert (Entity.isEntityOrRelation(name)) : "Tabellenname ist keine Entity oder Relation!";
+		Entity e=null;
+		name = name.toUpperCase().trim();
+		if (name.equals("Kursmodul_Kurs".toUpperCase())) e=new Kursmodul_Kurs();
+		else if (name.equals("Person_Kurs".toUpperCase())) e=new Person_Kurs();
+		else if (name.equals("Studiengang_Kurs".toUpperCase())) e=new Studiengang_Kurs();
+		else if (name.equals("Einrichtung_Forschungscluster".toUpperCase())) e=new Einrichtung_Forschungscluster();
+		else if (name.equals("Person_Einrichtung".toUpperCase())) e=new Person_Einrichtung();
+		else if (name.equals("Abschlussarbeit".toUpperCase())) e=new Abschlussarbeit();
+		else if (name.equals("Forschungscluster".toUpperCase())) e=new Forschungscluster();
+		else if (name.equals("Person_Raum".toUpperCase())) e=new Person_Raum();
+		else if (name.equals("Person_Telefon".toUpperCase())) e=new Person_Telefon();
+		else if (name.equals("Person_Email".toUpperCase())) e=new Person_Email();
+		else if (name.equals("Person".toUpperCase())) e=new Person();
+		else if (name.equals("Raum".toUpperCase())) e=new Raum();
+		else if (name.equals("Gebaeude".toUpperCase())) e=new Gebaeude();
+		else if (name.equals("Kurs".toUpperCase())) e=new Kurs();
+		else if (name.equals("Kursmodul".toUpperCase())) e=new Kursmodul();
+		else if (name.equals("Studiengang".toUpperCase())) e=new Studiengang();
+		else if (name.equals("Einrichtung".toUpperCase())) e=new Einrichtung();
+		else {
+			assert false: "Tabellenname ist keine Entity oder ist nicht implementiert!";
+		}
+			
+		return e;
+	};
 }

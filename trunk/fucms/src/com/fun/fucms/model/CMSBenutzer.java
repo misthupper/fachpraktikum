@@ -1,6 +1,7 @@
 package com.fun.fucms.model;
 
 
+
 public class CMSBenutzer extends Entity {
 	
 	public static final String[] sTypes = {
