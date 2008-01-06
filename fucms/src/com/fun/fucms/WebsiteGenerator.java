@@ -64,7 +64,8 @@ public class WebsiteGenerator {
 		mWebseitenID = WebseitenID;
 		//TODO Template je nach Webseite auslesen
 		mHtml = sTemplate;
-		generateWebsite();
+		mHtml = InhaltsParser.parse(generateWebsite());
+		write(new File(Configuration.getTemplateDirectory().getAbsolutePath() +"/generierteSeite.html"));
 	}
 	
 	private String generateWebsite(){
@@ -75,8 +76,31 @@ public class WebsiteGenerator {
 	        System.out.println(mSQLString);
 	        ResultSet rs = Context.getInstance().executeQuery(mSQLString);
 	        rs.first();
-	        String ergebnis = rs.getString("HauptseitenInhaltsID");
-	        System.out.println("Ergebnis: " + ergebnis);
+	        setTitle(rs.getString("path"));
+	        
+	        setTitleFather("Testüberschrift");
+	        
+	        setCSS("arbeiten.css");
+	        //TODO Menügenerierung
+	        setMenu("Testmenü");
+	        
+	        
+	        
+	        // HauptseitenInhalt
+	        String hauptseitenID = rs.getString("HauptseitenInhaltID");
+	        System.out.println("HauptseitenInhaltsID: " + hauptseitenID);
+	        ResultSet rs2 = Context.getInstance().executeQuery("select * from Inhalt where id=" + hauptseitenID);
+	        rs2.first();
+	        System.out.println("Hauptinhalt:"+ rs2.getString("Inhaltstext"));
+	        setInformation(rs2.getString("Inhaltstext"));
+	        
+	        // SeitenleistenInhalt
+	        String seitenleistenID = rs.getString("SeitenleistenInhaltID");
+	        System.out.println("SeitenleistenInhaltsID: " + seitenleistenID);
+	        ResultSet rs3 = Context.getInstance().executeQuery("select * from Inhalt where id=" + seitenleistenID);
+	        rs3.first();
+	        System.out.println("Seiteninhalt:"+ rs3.getString("Inhaltstext"));
+	        setZusatzInformationen(rs3.getString("Inhaltstext"));
 		}  catch (SQLException e) {
 			System.out.println(e.getMessage());
 		}
@@ -113,7 +137,7 @@ public class WebsiteGenerator {
 	
 	public void write(File file) {
 		try {
-			prepareDir(file.getParentFile());
+			//prepareDir(file.getParentFile());
 			BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(
 					new FileOutputStream(file), ENCODING));
 			bw.write(mHtml);
