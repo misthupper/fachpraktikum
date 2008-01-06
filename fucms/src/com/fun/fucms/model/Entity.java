@@ -53,10 +53,11 @@ public abstract class Entity {
 	
 	private int getFieldNo(String field) {
 		for (int i=0; i < getFields().length; i++) {
-			if (getFields()[i].equals(field)) {
+			if (getFields()[i].toUpperCase().equals(field.toUpperCase())) {
 				return i;
 			}
 		}
+		assert false : "field ist kein gültiger Feldname";
 		return -1;
 	}
 	
@@ -71,16 +72,22 @@ public abstract class Entity {
 		}
 		return sb.toString();
 	}
-	/*
+	
+	public String toHTML(String field) {
+		return getValueAsString(field);
+	}
+	
 	public String toHTML() {
 		StringBuffer sb = new StringBuffer();
-		sb.append("<TABLE>");
+		sb.append("<table> <tbody>");
 		for (int i=0; i < getTypes().length; i++) {
-			sb.append(getFields()[i] + " : " + mValues[i].toString() + "\n");
+			sb.append("<tr><th class=\"grau\"><strong>"+getFields()[i]+"</strong></th>");
+			sb.append("<td>"+toHTML(getFields()[i])+"</td></tr>");
 		}
+		sb.append("</tbody> </table>");
 		return sb.toString();
 	}
-	*/
+
 	/**
 	 * get the type of the key field 
 	 * The possible values are defined in TableMediator 
@@ -460,6 +467,7 @@ public abstract class Entity {
 			System.out.println(TableMediator.createEntitybyName(mRelationTypes.get(i)).toString());
 		}		
 	};
+	
 	public String classToString(){
 		StringBuffer sb = new StringBuffer();
 		String eol= System.getProperty("line.separator");
