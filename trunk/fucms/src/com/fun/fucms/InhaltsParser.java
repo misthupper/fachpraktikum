@@ -44,7 +44,7 @@ public class InhaltsParser {
 				s = br.readLine();
 			}
 			br.close();
-			ergebnis = parser(sb.toString());
+			ergebnis = parse(sb.toString());
 
 			return sb.toString();
 		} catch (FileNotFoundException e) {
@@ -58,7 +58,7 @@ public class InhaltsParser {
 	}
 
 
-	private static String parser(String pHTML){
+	public static String parse(String pHTML){
 		String pseudoHTML = pHTML;
 
 		int markerStart=0;
