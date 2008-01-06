@@ -67,9 +67,9 @@ public class MainController implements ActionListener, TreeSelectionListener {
 			AboutFrame af = new AboutFrame(jFrame);			
 		} else if (actionCommand.equals(sOPEN_EDIT)) {
 			if (MainFrame.getPageTreeModel().getSelectedTreeNode()!= null){
-				EditFrame ef = new EditFrame();
+				EditFrame ef = new EditFrame(9);
 				//TODO Hier muss statt des Webseitennamens der (zu bearbeitende) Inhalt der Seite aus der Db ausgelesen und übergeben werden.
-				ef.setEditorText(MainFrame.getPageTreeModel().getSelectedTreeNode().toString());
+				//ef.setEditorText(MainFrame.getPageTreeModel().getSelectedTreeNode().toString());
 			}
 			else {
 				JOptionPane.showMessageDialog(null, "Bitte wählen Sie eine Seite aus.", "Achtung!", JOptionPane.CANCEL_OPTION);
