@@ -66,7 +66,7 @@ CREATE TABLE Webseitenvorlage (
 CREATE TABLE Inhalt (
 	id integer not null primary key, 
 	inhaltstyp char(32) not null, 
-	inhaltstext long not null
+	inhaltstext varchar2(4000) not null
 );
 
 
