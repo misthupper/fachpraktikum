@@ -26,7 +26,8 @@ public abstract class Entity {
 	protected Object[] mValues;	
 	
 	static protected ArrayList<String> mEntityTypes = loadEntityTypes(); 
-	static protected ArrayList<String> mRelationTypes = loadRelationTypes(); 
+	static protected ArrayList<String> mRelationTypes = loadRelationTypes();
+	static protected ArrayList<ArrayList<String>> mForeignKeyRelations = loadForeignKeyRelations();
 	
 	protected Entity() {
 		assert getFields().length>0 : "Table with 0 attributes?";
@@ -36,6 +37,7 @@ public abstract class Entity {
 	static { // Make sure mEntitiyTypes are initialized when class is loaded
 		mEntityTypes = loadEntityTypes(); 
 		mRelationTypes = loadRelationTypes(); 
+		mForeignKeyRelations = loadForeignKeyRelations();
 	};
 
 	private void initEmptyEntity() {
@@ -61,6 +63,7 @@ public abstract class Entity {
 	/**
 	 * return the data of this record as string (for debugging purposes)
 	 */
+
 	public String toString() {
 		StringBuffer sb = new StringBuffer();
 		for (int i=0; i < getTypes().length; i++) {
@@ -68,7 +71,16 @@ public abstract class Entity {
 		}
 		return sb.toString();
 	}
-	
+	/*
+	public String toHTML() {
+		StringBuffer sb = new StringBuffer();
+		sb.append("<TABLE>");
+		for (int i=0; i < getTypes().length; i++) {
+			sb.append(getFields()[i] + " : " + mValues[i].toString() + "\n");
+		}
+		return sb.toString();
+	}
+	*/
 	/**
 	 * get the type of the key field 
 	 * The possible values are defined in TableMediator 
@@ -358,43 +370,154 @@ public abstract class Entity {
 	
 	private static ArrayList<String> loadEntityTypes()
 	{
-		mEntityTypes = initFromDB(mEntityTypes, "FUCMS_Entities", "name");
+		mEntityTypes = SQLUtils.arrayFromDB(mEntityTypes, "FUCMS_Entities", "name", "*", "*");
 		return mEntityTypes;
 	}
 
 	/**
 	 * loads, inits and returns the static ArrayList<String> mRelationTypes with all the
-	 * Relatons from the database schema
+	 * Relations from the database schema
 	 * @return
 	 */
 	
 	private static ArrayList<String> loadRelationTypes()
 	{
-		mRelationTypes = initFromDB(mRelationTypes, "FUCMS_Relations", "name");
+		mRelationTypes = SQLUtils.arrayFromDB(mRelationTypes, "FUCMS_Relations", "name", "*", "*");
 		return mRelationTypes;
 	}
-
+	
 	/**
-	 * loads, inits returns an ArrayList<T> from the Database Table mTable
+	 * loads, inits and returns the static ArrayList<ArrayList<String>> mForeignKeyRelations with all the
+	 * foreign key relationships from the database schema
 	 * @return
-	 * @param sVariable the ArrayList<T> to be initialized
-	 * @param mTable the database table from with the ArrayList<T> is loaded
-	 * @param mAttribute is the attribute to be read into the Array
-	 */	
-		private static <T> ArrayList<T> initFromDB(ArrayList<T> sVariable, String mTable, String mAttribute)
-	{
-		return SQLUtils.arrayFromDB(sVariable, mTable , mAttribute, "*", "*" );
+	 */
+	private static ArrayList<ArrayList<String>> loadForeignKeyRelations(){
+		mForeignKeyRelations = SQLUtils.arrayFromDB(mForeignKeyRelations, "FUCMS_Foreign_Keys", "*", "*", "*" );
+		return mForeignKeyRelations;
 	};
+	
+	public static String[] getForeignKey (String table, String attribute) {
+		String[] s = null;
+		for (int i=0; i< mForeignKeyRelations.size(); i++) {
+			if (table.toUpperCase().equals(mForeignKeyRelations.get(i).get(0).toUpperCase()) && attribute.toUpperCase().equals(mForeignKeyRelations.get(i).get(1).toUpperCase())) {
+				s = new String[] {mForeignKeyRelations.get(i).get(2),mForeignKeyRelations.get(i).get(3)};
+			};
+		};
+		return s;
+	}
+	
+	public static boolean isForeignKey (String table, String attribute) {
+		if (getForeignKey(table, attribute)!=null) return true;
+		else return false;
+	}
+	
+	public String[] getForeignKey (String attribute)
+		{return Entity.getForeignKey (this.getTable(), attribute);};
 
+	public boolean isForeignKey (String attribute)
+		{return Entity.isForeignKey (this.getTable(), attribute);};	
+		
+	public static String[][] getRelatedForeignKeys (String table, String attribute) {
+		String[][] s = null;
+		int count=0;
+		for (int i=0; i< mForeignKeyRelations.size(); i++) {
+			if (table.toUpperCase().equals(mForeignKeyRelations.get(i).get(2).toUpperCase()) && attribute.toUpperCase().equals(mForeignKeyRelations.get(i).get(3).toUpperCase())) 
+				count++;
+		};
+		if (count>0) {
+			s = new String[count][2];
+			count = 0;
+			for (int i=0; i< mForeignKeyRelations.size(); i++) {
+				if (table.toUpperCase().equals(mForeignKeyRelations.get(i).get(2).toUpperCase()) && attribute.toUpperCase().equals(mForeignKeyRelations.get(i).get(3).toUpperCase())) {
+					s [count][0] = mForeignKeyRelations.get(i).get(0);
+					s [count][1] = mForeignKeyRelations.get(i).get(1);
+					count++;
+				};
+			};
+		}
+		return s;
+	}
+	
+	public static boolean hasReleatedForeignKeys (String table, String attribute) {
+		if (getRelatedForeignKeys(table, attribute)!=null) return true;
+		else return false;
+	}
+
+	public String[][] getRelatedForeignKeys (String attribute)
+	{return Entity.getRelatedForeignKeys (this.getTable(), attribute);};
+
+	public boolean hasRalatedForeignKeys (String attribute)
+	{return Entity.hasReleatedForeignKeys (this.getTable(), attribute);};	
+	
 	/**
 	 * Creates one instance of each entity type to see if it works fine
 	 */	
 	public static void testAllEntityTypes(){
 		for (int i=0; i<mEntityTypes.size(); i++)	{
-			Entity e = TableMediator.createEntitybyName(mEntityTypes.get(i));
+			System.out.println(TableMediator.createEntitybyName(mEntityTypes.get(i)).toString());
 		}
 		for (int i=0; i<mRelationTypes.size(); i++)	{
-			Entity e = TableMediator.createEntitybyName(mRelationTypes.get(i));
+			System.out.println(TableMediator.createEntitybyName(mRelationTypes.get(i)).toString());
 		}		
+	};
+	public String classToString(){
+		StringBuffer sb = new StringBuffer();
+		String eol= System.getProperty("line.separator");
+		int count = getFields().length;
+		
+		sb.append("[TABLE: "+getTable()+eol);
+		{
+			sb.append("Fields: ");
+			for (int i=0; i<count-1; i++)
+				sb.append(getFields()[i]+", ");
+			sb.append(getFields()[count-1]+eol);
+		}
+		{
+			sb.append("Types:  ");
+			for (int i=0; i<count-1; i++)
+				sb.append(getTypes()[i]+", ");
+			sb.append(getTypes()[count-1]+eol);	
+			
+			sb.append("PKey:   "+getKey()+eol);
+		}
+		{
+			sb.append("FKeys:  ");
+			for (int i=0; i<count-1; i++){
+				String s[] = getForeignKey(getFields()[i]);
+				if (s!=null)
+					sb.append(s[0]+"."+s[1]+", ");
+				else 
+					sb.append("*, ");
+			}
+			String s[] = getForeignKey(getFields()[count-1]);
+			if (s!=null)
+				sb.append(s[0]+"."+s[1]+eol);
+			else 
+				sb.append("*"+eol);
+		}
+		{
+			sb.append("RFKeys: ");
+			for (int i=0; i<count-1; i++){
+				String s[][] = getRelatedForeignKeys(getFields()[i]);
+				if (s!=null){
+					sb.append("[");
+					for (int j=0; j<s.length; j++)
+						sb.append(s[j][0]+"."+s[j][1]+" ");
+					sb.append("], ");
+				}
+				else 
+					sb.append("*, ");
+			}
+			String s[][] = getRelatedForeignKeys(getFields()[count-1]);
+			if (s!=null){
+				sb.append("[");
+				for (int j=0; j<s.length; j++)
+					sb.append(s[j][0]+"."+s[j][1]+" ");
+				sb.append("]"+eol);
+			}
+			else 
+				sb.append("*"+eol);
+		}
+		return sb.toString();
 	};
 }
