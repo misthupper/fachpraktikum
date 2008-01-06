@@ -12,6 +12,7 @@ import javax.swing.event.TreeSelectionListener;
 
 import com.fun.fucms.Context;
 import com.fun.fucms.EvilException;
+import com.fun.fucms.WebsiteGenerator;
 import com.fun.fucms.conf.Configuration;
 import com.fun.fucms.gui.AboutFrame;
 import com.fun.fucms.gui.EditFrame;
@@ -21,7 +22,7 @@ import com.fun.fucms.model.CMSBenutzer;
 import com.fun.fucms.model.PageTreeModel.TreeNode;
 import com.fun.fucms.model.entities.*;
 import com.fun.fucms.sql.SQLUtils;
-import com.fun.fucms.InhaltsParser;
+import com.fun.fucms.InhaltsHelper;
 import com.fun.fucms.model.*;
 
 public class MainController implements ActionListener, TreeSelectionListener {
@@ -42,6 +43,7 @@ public class MainController implements ActionListener, TreeSelectionListener {
 		mContext = Context.getInstance();
         // InhaltsHelper h = new InhaltsHelper(mContext);
 		// Entity.testAllEntityTypes();
+		WebsiteGenerator wg = new WebsiteGenerator(9);
 		this.jFrame = jFrame;
 	}
 	
