@@ -21,7 +21,7 @@ public abstract class Entity {
 	public abstract String getTable();
 	public abstract String[] getTypes();
 	public abstract Entity getNewInstance();
-	// protected abstract void registerNewSubtype();
+
 		
 	protected Object[] mValues;	
 	
@@ -253,6 +253,8 @@ public abstract class Entity {
 				assert (rs!=null) : "Tabelle existiert nicht: "+table;
 				
 				int length = rs.getMetaData().getColumnCount();
+				assert (length!=0) : "Tabelle nicht korrekt definiert (0 Spalten): "+table;
+				
 				// initialize and load mEntityTypes
 				types = new String [length];
 				for (int i=1; i <= length; i++)
@@ -289,6 +291,8 @@ public abstract class Entity {
 				assert (rs!=null) : "Tabelle existiert nicht: "+table;
 				
 				int length = rs.getMetaData().getColumnCount();
+				assert (length!=0) : "Tabelle nicht korrekt definiert (0 Spalten): "+table;
+
 				// initialize and load mEntityTypes
 				fields = new String [length];
 				for (int i=1; i <= length; i++)	{
@@ -380,5 +384,17 @@ public abstract class Entity {
 		private static <T> ArrayList<T> initFromDB(ArrayList<T> sVariable, String mTable, String mAttribute)
 	{
 		return SQLUtils.arrayFromDB(sVariable, mTable , mAttribute, "*", "*" );
+	};
+
+	/**
+	 * Creates one instance of each entity type to see if it works fine
+	 */	
+	public static void testAllEntityTypes(){
+		for (int i=0; i<mEntityTypes.size(); i++)	{
+			Entity e = TableMediator.createEntitybyName(mEntityTypes.get(i));
+		}
+		for (int i=0; i<mRelationTypes.size(); i++)	{
+			Entity e = TableMediator.createEntitybyName(mRelationTypes.get(i));
+		}		
 	};
 }

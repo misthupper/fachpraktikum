@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import javax.swing.table.AbstractTableModel;
 
+
 /**
  * Holds the data for the table inside of the EntityFrame
  * @author rod

@@ -1,12 +1,6 @@
-package com.fun.fucms.model;
+package com.fun.fucms.model.entities;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.ArrayList;
-
-import com.fun.fucms.Context;
-import com.fun.fucms.EvilException;
-import com.fun.fucms.gui.MainFrame;
+import com.fun.fucms.model.Entity;
 
 public class Person extends Entity {
 
@@ -15,14 +9,7 @@ public class Person extends Entity {
 	private static final String[] sTypes=initTypes(TABLE);
 	private static String[] sFields=initFields(TABLE);
 	private static final String KEY=sFields[0];
-	/*
-	static {registerNewSubtype();};
-	
-	static protected void registerNewSubtype(){
-		Entity e = getNewInstance();
-		System.out.println("Register Type:"+e.getClass().toString());
-	}
-	*/
+
 	public Person() {
 		super();
 	}
