@@ -1,19 +1,39 @@
+/* Tabelle Webseitenvorlage */
+
+INSERT INTO WEBSEITENVORLAGE (ID, NAME, DATEINAME)
+VALUES (1, 'Fernuni', 'Template.html');
+
 /* Tabelle Version */
 
-INSERT INTO Version (id, vaterseiteID, path, hauptseiteninhaltID, seitenleisteInhaltID)
-VALUES (0, 0, 'root', 2, 1);
+INSERT INTO Version (id, vaterseiteID, path, titel, autor, format, statusid, hauptseiteninhaltID, seitenleisteInhaltID)
+VALUES (0, 0, 'root', 'Fernuni', 1, 1, 9, 2, 1);
 
-INSERT INTO Version (id, vaterseiteID, path, hauptseiteninhaltID, seitenleisteInhaltID)
-VALUES (1, 0, 'zwei', 2, 1);
+INSERT INTO Version (id, vaterseiteID, path, titel, autor, format, statusid, hauptseiteninhaltID, seitenleisteInhaltID)
+VALUES (1, 0, 'Universität', 'Universität', 1, 1, 9, 2, 1);
 
-INSERT INTO Version (id, vaterseiteID, path, hauptseiteninhaltID, seitenleisteInhaltID)
-VALUES (2, 0, 'drei', 2, 1);
+INSERT INTO Version (id, vaterseiteID, path, titel, autor, format, statusid, hauptseiteninhaltID, seitenleisteInhaltID)
+VALUES (2, 0, 'Studium', 'Studium', 1, 1, 9, 2, 1);
 
-INSERT INTO Version (id, vaterseiteID, path, hauptseiteninhaltID, seitenleisteInhaltID)
-VALUES (3, 1, 'vier', 2, 1);
+INSERT INTO Version (id, vaterseiteID, path, titel, autor, format, statusid, hauptseiteninhaltID, seitenleisteInhaltID)
+VALUES (3, 0, 'Forschung', 'Forschung', 1, 1, 9, 2, 1);
 
-INSERT INTO Version (id, vaterseiteID, path, hauptseiteninhaltID, seitenleisteInhaltID)
-VALUES (9, 0, 'Senatsbeauftragter', 2, 1);
+INSERT INTO Version (id, vaterseiteID, path, titel, autor, format, statusid, hauptseiteninhaltID, seitenleisteInhaltID)
+VALUES (4, 0, 'Uni intern', 'Uni intern', 1, 1, 9, 3, 4);
+
+INSERT INTO Version (id, vaterseiteID, path, titel, autor, format, statusid, hauptseiteninhaltID, seitenleisteInhaltID)
+VALUES (5, 4, 'OrganisationAnsprechpartner', 'Organisation/Ansprechpartner', 1, 1, 9, 4, 3);
+
+INSERT INTO Version (id, vaterseiteID, path, titel, autor, format, statusid, hauptseiteninhaltID, seitenleisteInhaltID)
+VALUES (6, 5, 'Senatsbeauftragter', 'Senatsbeauftragter für behinderte und chronisch kranke Studierende', 1, 1, 9, 2, 1);
+
+INSERT INTO Version (id, vaterseiteID, path, titel, autor, format, statusid, hauptseiteninhaltID, seitenleisteInhaltID)
+VALUES (7, 4, 'Finanzen und Beschaffung', 'Finanzen und Beschaffung', 1, 1, 9, 4, 3);
+
+INSERT INTO Version (id, vaterseiteID, path, titel, autor, format, statusid, hauptseiteninhaltID, seitenleisteInhaltID)
+VALUES (8, 5, 'Gleichstellung', 'Gleichstellungsbeauftragter', 1, 1, 9, 4, 3);
+
+INSERT INTO Version (id, vaterseiteID, path, titel, autor, format, statusid, hauptseiteninhaltID, seitenleisteInhaltID)
+VALUES (9, 4, 'Lehren und Forschen', 'Lehren und Forschen', 1, 1, 9, 2, 1);
 
 
 /* Tabelle Inhalt */

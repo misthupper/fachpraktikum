@@ -12,20 +12,16 @@ CREATE TABLE Version (
 	id integer not null primary key,
 	vaterseiteID integer, 
 	path char(64),
-/*	versionsstand timestamp not null, */
-/*	autor integer not null, */
-/*	titel char(128) not null,  */
+	autor integer not null, 
+	titel char(128) not null,  
 	gueltig_ab date, 
 	gueltig_bis date, 
 	charset char(16), 
 	sprache char(2),
 	hauptseiteninhaltID integer,
-	seitenleisteInhaltID integer
-/*	,format integer not null,
-	statusID integer not null, 
-	seitenID integer, 
-	FOREIGN KEY (autor) REFERENCES CMSBenutzer(id) ON DELETE CASCADE, 
-	FOREIGN KEY (format) REFERENCES Webseitenvorlage(id) ON DELETE CASCADE*/
+	seitenleisteInhaltID integer,
+	format integer not null,
+	statusID integer not null
 );
 
 
