@@ -40,6 +40,7 @@ public class WebsiteGenerator {
 	private static int mWebseitenID; // ID der zu generierenden Webseite
 	private static String webseitenTitel;
 	private static String websitePath;
+	private static String HTMLPath;
 	
 	private static String getTemplate() {
 		File templateFile = new File(Configuration.getTemplateDirectory().getAbsolutePath() +
@@ -69,7 +70,7 @@ public class WebsiteGenerator {
 		//TODO Template je nach Webseite auslesen
 		mHtml = sTemplate;
 		mHtml = InhaltsParser.parse(generateWebsiteContent());
-		write(new File(Configuration.getTemplateDirectory().getAbsolutePath() + websitePath + webseitenTitel + ".html"));
+		write(new File(Configuration.getHTMLDirectory().getAbsolutePath() + websitePath + webseitenTitel + ".html"));
 	}
 	
 	public static void generateWebsite(int WebseitenID){
@@ -77,8 +78,8 @@ public class WebsiteGenerator {
 		//TODO Template je nach Webseite auslesen
 		mHtml = sTemplate;
 		mHtml = InhaltsParser.parse(generateWebsiteContent());
-		write(new File(Configuration.getTemplateDirectory().getAbsolutePath() + websitePath + webseitenTitel + ".html"));
-		JOptionPane.showMessageDialog(null, "Die Seite wurde generiert und im Ordner: Templates" + websitePath + " abgespeichert.", "Achtung!", JOptionPane.CANCEL_OPTION);
+		write(new File(Configuration.getHTMLDirectory().getAbsolutePath() + websitePath + webseitenTitel + ".html"));
+		JOptionPane.showMessageDialog(null, "Die Seite wurde generiert und im Ordner 'HTML" + websitePath + "' abgespeichert.", "Fertig!", JOptionPane.CANCEL_OPTION);
 	}
 	
 	private static String generateWebsiteContent(){
@@ -91,10 +92,14 @@ public class WebsiteGenerator {
 			webseitenTitel = rs.getString("path").trim();
 	        setTitle(webseitenTitel);
 			
-			websitePath = generateWebsitePath();
+			websitePath = generateWebsitePath(mWebseitenID);
 			System.out.println("Fernuni" + websitePath + webseitenTitel);
 			setPfad("Fernuni" + websitePath + webseitenTitel);
-			//TODO       
+			System.out.println(Configuration.getHTMLDirectory().getAbsolutePath());
+			
+			HTMLPath = Configuration.getHTMLDirectory().getAbsolutePath();
+			HTMLPath = HTMLPath.replaceAll("\\\\","/");
+			setFolder(HTMLPath);
 	        
 	        
 	        //Übergeordneter Titel feststellen
@@ -102,7 +107,7 @@ public class WebsiteGenerator {
 	        rs_fathertitel.first();
 	        setTitleFather(rs_fathertitel.getString("path"));
 	        
-	        setCSS(Configuration.getTemplateDirectory().getAbsolutePath() + "/arbeiten.css");
+	        setCSS("arbeiten.css");
 	        //TODO Menügenerierung
 	        setMenu();
 	        
@@ -141,6 +146,10 @@ public class WebsiteGenerator {
 	public static void setTitle(String title) {
 		mHtml = mHtml.replaceAll(FUCMS_TITLE, title);
 	}
+	
+	public static void setFolder(String folder){
+		mHtml = mHtml.replaceAll(FUCMS_PATH, folder + "/");
+	}
 	public static void setPfad(String pfad) {
 		mHtml = mHtml.replaceAll(FUCMS_BROTKRUEMELPFAD, pfad);
 	}
@@ -158,13 +167,15 @@ public class WebsiteGenerator {
 	}
 	public static void setMenu() throws SQLException, EvilException {
 		// holt alle Seiten mit der gleichen Vaterseite
-		ResultSet rs = Context.getInstance().executeQuery("select * from Version where VaterseiteID= (select vaterseiteID from Version where id=" + mWebseitenID + ")");
+		ResultSet rs = Context.getInstance().executeQuery("select * from Version where VaterseiteID=" + mWebseitenID);
         String link = "";
+        String seitentitel = "";
 		
 		while (rs.next()){
 			if (!(rs.getString("path").contains("root"))){
 				//System.out.println(rs.getString("path"));
-				link = link + "<li><a href='' >" + rs.getString("path").trim() + "</a></li>\n";
+				seitentitel = rs.getString("path").trim();
+				link = link + "<li><a href='" + HTMLPath + generateWebsitePath(rs.getInt("ID")) + seitentitel + ".html" + "' >" + seitentitel + "</a></li>\n";
 			}
 		}
 		mHtml = mHtml.replaceAll(FUCMS_MENU, link);
@@ -176,10 +187,10 @@ public class WebsiteGenerator {
 	 * @throws SQLException
 	 * @throws EvilException
 	 */
-	public static String generateWebsitePath() throws SQLException, EvilException{
+	public static String generateWebsitePath(int websiteID) throws SQLException, EvilException{
 		String path = "";
 		
-		String tempid = Integer.toString(mWebseitenID);
+		String tempid = Integer.toString(websiteID);
 		ResultSet rs = Context.getInstance().executeQuery("select * from version where id = " + tempid);
 		rs.first();
 		tempid = rs.getString("vaterseiteid");
