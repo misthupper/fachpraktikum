@@ -3,6 +3,8 @@ package com.fun.fucms.controller;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
@@ -12,7 +14,6 @@ import javax.swing.event.TreeSelectionListener;
 
 import com.fun.fucms.Context;
 import com.fun.fucms.EvilException;
-import com.fun.fucms.WebsiteGenerator;
 import com.fun.fucms.conf.Configuration;
 import com.fun.fucms.gui.AboutFrame;
 import com.fun.fucms.gui.EditFrame;
@@ -20,10 +21,9 @@ import com.fun.fucms.gui.MainFrame;
 import com.fun.fucms.gui.entities.EntityFrame;
 import com.fun.fucms.model.CMSBenutzer;
 import com.fun.fucms.model.PageTreeModel.TreeNode;
-import com.fun.fucms.model.entities.*;
+import com.fun.fucms.model.entities.Gebaeude;
+import com.fun.fucms.model.entities.Person;
 import com.fun.fucms.sql.SQLUtils;
-import com.fun.fucms.InhaltsParser;
-import com.fun.fucms.model.*;
 
 public class MainController implements ActionListener, TreeSelectionListener {
 	
@@ -77,8 +77,25 @@ public class MainController implements ActionListener, TreeSelectionListener {
 			}
 				
 		} else if (actionCommand.equals(sOPEN_NEWPAGE)) {
-			System.out.println("OPEN NEWPAGE");
-			EditFrame ef = new EditFrame();
+			int x,y;
+			//selektierte ID ermitteln
+			TreeNode tn = MainFrame.getPageTreeModel().getSelectedTreeNode();
+			x = tn.getId();
+			//selektierte ebene ermitteln
+			try {
+				ResultSet rs = Context.getInstance().executeQuery("select VATERSEITEID from VERSION where ID="+x);
+				rs.first();
+//				System.out.println(rs.getInt("VATERSEITEID"));
+				y = rs.getInt("VATERSEITEID");
+			} catch (SQLException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			} catch (EvilException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+			
+//			EditFrame ef = new EditFrame();
 			
 		}
 	}
