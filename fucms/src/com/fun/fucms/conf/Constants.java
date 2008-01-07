@@ -16,4 +16,5 @@ public interface Constants {
 	public static final String OUT_DIR = "html";
 	public static final String TEMPLATE_DIR = "templates";
 	public static final String INHALTS_DIR = "inhalt";
+	public static final String HTML_DIR = "html";
 }
