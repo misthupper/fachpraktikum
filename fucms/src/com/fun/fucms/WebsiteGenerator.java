@@ -40,6 +40,7 @@ public class WebsiteGenerator {
 	private static int mWebseitenID; // ID der zu generierenden Webseite
 	private static String webseitenTitel;
 	private static String websitePath;
+	private static int pathDepth;
 	private static String HTMLPath;
 	
 	private static String getTemplate() {
@@ -99,7 +100,7 @@ public class WebsiteGenerator {
 			
 			HTMLPath = Configuration.getHTMLDirectory().getAbsolutePath().trim();
 			//HTMLPath = HTMLPath.replaceAll("\\\\", "/");
-			setFolder(HTMLPath);
+			setFolder(generateLinkPath(websitePath.replaceAll("\\\\", "/")));
 	        
 	        
 	        //Übergeordneter Titel feststellen
@@ -149,7 +150,7 @@ public class WebsiteGenerator {
 	
 	public static void setFolder(String folder){
 		while (mHtml.contains(FUCMS_PATH))
-			mHtml = mHtml.replace(FUCMS_PATH, folder + "\\");
+			mHtml = mHtml.replace(FUCMS_PATH, folder);
 	}
 	public static void setPfad(String pfad) {
 		mHtml = mHtml.replaceAll(FUCMS_BROTKRUEMELPFAD, pfad);
@@ -176,7 +177,7 @@ public class WebsiteGenerator {
 			if (!(rs.getString("path").contains("root"))){
 				//System.out.println(rs.getString("path"));
 				seitentitel = rs.getString("path").trim();
-				link = link + "<li><a href='" + HTMLPath + generateWebsitePath(rs.getInt("ID")) + seitentitel + ".html" + "' >" + seitentitel + "</a></li>\n";
+				link = link + "<li><a href='"  + webseitenTitel + "/" + seitentitel + ".html" + "' >" + seitentitel + "</a></li>\n";
 			}
 		}
 		mHtml = mHtml.replaceAll(FUCMS_MENU, link);
@@ -190,7 +191,7 @@ public class WebsiteGenerator {
 	 */
 	public static String generateWebsitePath(int websiteID) throws SQLException, EvilException{
 		String path = "";
-		
+		pathDepth = 0;
 		String tempid = Integer.toString(websiteID);
 		ResultSet rs = Context.getInstance().executeQuery("select * from version where id = " + tempid);
 		rs.first();
@@ -198,14 +199,25 @@ public class WebsiteGenerator {
 		rs = Context.getInstance().executeQuery("select * from version where id = " + tempid);
 		rs.first();
 		while (!(rs.getString("path").contains("root"))){
-			path = rs.getString("path").trim() + "\\\\" + path; // pfad anhängen
+			path = rs.getString("path").trim() + "/" + path; // pfad anhängen
 			// tempid wird mit vaterseitenid geladen
 			tempid = rs.getString("vaterseiteid");
+			pathDepth++;
 			rs = Context.getInstance().executeQuery("select * from version where id = " + tempid);
 			rs.first();
 		}
-		
 		return "/" + path;
+	}
+	
+	public static String generateLinkPath(String path){
+		String linkPath = "";
+		path = path.replaceFirst("/","");
+		while (path.indexOf("/")!=-1){
+			path = path.replaceFirst("/","");
+			linkPath = linkPath + "../";
+		}
+		System.out.println("Link-Pfad: " + linkPath);
+		return linkPath;
 	}
 	
 	public static void write(File file) {
