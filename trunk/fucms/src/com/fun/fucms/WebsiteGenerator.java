@@ -13,6 +13,8 @@ import java.io.UnsupportedEncodingException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import javax.swing.JOptionPane;
+
 import com.fun.fucms.conf.Configuration;
 
 public class WebsiteGenerator {
@@ -34,10 +36,10 @@ public class WebsiteGenerator {
 	protected static Context mContext;
 	private static final String sTemplate = getTemplate();
 	
-	private String mHtml;
-	private int mWebseitenID; // ID der zu generierenden Webseite
-	private String webseitenTitel;
-	private String websitePath;
+	private static String mHtml;
+	private static int mWebseitenID; // ID der zu generierenden Webseite
+	private static String webseitenTitel;
+	private static String websitePath;
 	
 	private static String getTemplate() {
 		File templateFile = new File(Configuration.getTemplateDirectory().getAbsolutePath() +
@@ -66,11 +68,20 @@ public class WebsiteGenerator {
 		mWebseitenID = WebseitenID;
 		//TODO Template je nach Webseite auslesen
 		mHtml = sTemplate;
-		mHtml = InhaltsParser.parse(generateWebsite());
+		mHtml = InhaltsParser.parse(generateWebsiteContent());
 		write(new File(Configuration.getTemplateDirectory().getAbsolutePath() + websitePath + webseitenTitel + ".html"));
 	}
 	
-	private String generateWebsite(){
+	public static void generateWebsite(int WebseitenID){
+		mWebseitenID = WebseitenID;
+		//TODO Template je nach Webseite auslesen
+		mHtml = sTemplate;
+		mHtml = InhaltsParser.parse(generateWebsiteContent());
+		write(new File(Configuration.getTemplateDirectory().getAbsolutePath() + websitePath + webseitenTitel + ".html"));
+		JOptionPane.showMessageDialog(null, "Die Seite wurde generiert und im Ordner: Templates" + websitePath + " abgespeichert.", "Achtung!", JOptionPane.CANCEL_OPTION);
+	}
+	
+	private static String generateWebsiteContent(){
 		try {
 			String mSQLString = "select * from Version where id=" + mWebseitenID;
 			ResultSet rs = Context.getInstance().executeQuery(mSQLString);
@@ -127,25 +138,25 @@ public class WebsiteGenerator {
 		return mHtml;
 	}
 	
-	public void setTitle(String title) {
+	public static void setTitle(String title) {
 		mHtml = mHtml.replaceAll(FUCMS_TITLE, title);
 	}
-	public void setPfad(String pfad) {
+	public static void setPfad(String pfad) {
 		mHtml = mHtml.replaceAll(FUCMS_BROTKRUEMELPFAD, pfad);
 	}
-	public void setTitleFather(String titleFather) {
+	public static void setTitleFather(String titleFather) {
 		mHtml = mHtml.replaceAll(FUCMS_TITLE_FATHER, titleFather);
 	}
-	public void setCSS(String css) {
+	public static void setCSS(String css) {
 		mHtml = mHtml.replaceAll(FUCMS_CSS, css);
 	}
-	public void setInformation(String information) {
+	public static void setInformation(String information) {
 		mHtml = mHtml.replaceAll(FUCMS_INFORMATION, information);
 	}
-	public void setZusatzInformationen(String zusatzinformation) {
+	public static void setZusatzInformationen(String zusatzinformation) {
 		mHtml = mHtml.replaceAll(FUCMS_ZUSATZINFORMATIONEN, zusatzinformation);
 	}
-	public void setMenu() throws SQLException, EvilException {
+	public static void setMenu() throws SQLException, EvilException {
 		// holt alle Seiten mit der gleichen Vaterseite
 		ResultSet rs = Context.getInstance().executeQuery("select * from Version where VaterseiteID= (select vaterseiteID from Version where id=" + mWebseitenID + ")");
         String link = "";
@@ -165,7 +176,7 @@ public class WebsiteGenerator {
 	 * @throws SQLException
 	 * @throws EvilException
 	 */
-	public String generateWebsitePath() throws SQLException, EvilException{
+	public static String generateWebsitePath() throws SQLException, EvilException{
 		String path = "";
 		
 		String tempid = Integer.toString(mWebseitenID);
@@ -185,7 +196,7 @@ public class WebsiteGenerator {
 		return "/" + path;
 	}
 	
-	public void write(File file) {
+	public static void write(File file) {
 		try {
 			prepareDir(file.getParentFile());
 			BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(
@@ -203,7 +214,7 @@ public class WebsiteGenerator {
 		}
 	}
 	
-	private void prepareDir(File dir) {
+	private static void prepareDir(File dir) {
 		File[] files = Configuration.getTemplateDirectory().listFiles();
 		dir.mkdirs();
 		/*

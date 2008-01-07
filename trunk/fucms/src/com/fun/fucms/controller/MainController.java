@@ -14,6 +14,7 @@ import javax.swing.event.TreeSelectionListener;
 
 import com.fun.fucms.Context;
 import com.fun.fucms.EvilException;
+import com.fun.fucms.WebsiteGenerator;
 import com.fun.fucms.conf.Configuration;
 import com.fun.fucms.gui.AboutFrame;
 import com.fun.fucms.gui.EditFrame;
@@ -35,15 +36,13 @@ public class MainController implements ActionListener, TreeSelectionListener {
 	public static final String sOPEN_ABOUT = "openAboutFrame";
 	public static final String sOPEN_EDIT = "openEditFrame";
 	public static final String sOPEN_NEWPAGE = "openNewEditFrame";
+	public static final String sGENERATE_WEBSITE = "generateWebsite";
 		
 	private Context mContext;
 	private JFrame jFrame;
 	
 	public MainController(JFrame jFrame) throws EvilException {
 		mContext = Context.getInstance();
-//		InhaltsHelper h = new InhaltsHelper(mContext);
-//		Entity.testAllEntityTypes();
-//		WebsiteGenerator wg = new WebsiteGenerator(9);
 		this.jFrame = jFrame;
 	}
 	
@@ -73,6 +72,18 @@ public class MainController implements ActionListener, TreeSelectionListener {
 				int x = tn.getId();
 				System.out.println("ID des selektierten Knoten "+x);
 				EditFrame ef = new EditFrame(x);
+			}
+			else {
+				JOptionPane.showMessageDialog(null, "Bitte wählen Sie eine Seite aus.", "Achtung!", JOptionPane.CANCEL_OPTION);
+			}
+				
+		} else if (actionCommand.equals(sGENERATE_WEBSITE)) {
+			if (MainFrame.getPageTreeModel().getSelectedTreeNode()!= null){
+				TreeNode tn = MainFrame.getPageTreeModel().getSelectedTreeNode();
+				int x = tn.getId();
+				System.out.println("ID des selektierten Knoten "+x);
+				WebsiteGenerator.generateWebsite(x);
+				
 			}
 			else {
 				JOptionPane.showMessageDialog(null, "Bitte wählen Sie eine Seite aus.", "Achtung!", JOptionPane.CANCEL_OPTION);
