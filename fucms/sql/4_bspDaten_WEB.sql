@@ -12,7 +12,7 @@ VALUES (2, 0, 'drei');
 INSERT INTO Version (id, vaterseiteID, path)
 VALUES (3, 1, 'vier');
 
-INSERT INTO Version (id, vaterseiteID, path, hauptseiteninhaltid, seitenleisteninhaltsid)
+INSERT INTO Version (id, vaterseiteID, path, hauptseiteninhaltid, seitenleisteninhaltid)
 VALUES (9, 0, 'Senatsbeauftragter', 2, 1);
 
 

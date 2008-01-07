@@ -85,8 +85,14 @@ public class MainController implements ActionListener, TreeSelectionListener {
 			try {
 				ResultSet rs = Context.getInstance().executeQuery("select VATERSEITEID from VERSION where ID="+x);
 				rs.first();
-//				System.out.println(rs.getInt("VATERSEITEID"));
 				y = rs.getInt("VATERSEITEID");
+				
+				Context.getInstance().executeQuery("INSERT INTO Version " +
+						"(id, vaterseiteID, path, hauptseiteninhaltid, seitenleisteninhaltid) " +
+						"VALUES (10, "+x+", 'testEintragNeu', 2, 1)");
+				
+				
+				
 			} catch (SQLException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
@@ -94,6 +100,8 @@ public class MainController implements ActionListener, TreeSelectionListener {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
+			
+			
 			
 //			EditFrame ef = new EditFrame();
 			
