@@ -139,12 +139,9 @@ public class WebsiteGenerator {
 		while (rs.next()){
 			if (!(rs.getString("path").contains("root"))){
 				System.out.println(rs.getString("path"));
-				link = link + "<li><a href='' >" + rs.getString("path")+ "</a></li>";
+				link = link + "<li><a href='' >" + rs.getString("path").trim() + "</a></li>\n";
 			}
-			//<li id="navigation_css_id_1160998674"><a href="/arbeiten/organisation/beauftragte/gleichstellungsbeauftragte.shtml">Gleichstellungs- <br />beauftragte</a></li>
-			
 		}
-		
 		mHtml = mHtml.replaceAll(FUCMS_MENU, link);
 	}
 	
