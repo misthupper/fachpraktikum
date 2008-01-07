@@ -97,8 +97,8 @@ public class WebsiteGenerator {
 			setPfad("Fernuni" + websitePath + webseitenTitel);
 			System.out.println(Configuration.getHTMLDirectory().getAbsolutePath());
 			
-			HTMLPath = Configuration.getHTMLDirectory().getAbsolutePath();
-			HTMLPath = HTMLPath.replaceAll("\\\\","/");
+			HTMLPath = Configuration.getHTMLDirectory().getAbsolutePath().trim();
+			//HTMLPath = HTMLPath.replaceAll("\\\\", "/");
 			setFolder(HTMLPath);
 	        
 	        
@@ -148,7 +148,8 @@ public class WebsiteGenerator {
 	}
 	
 	public static void setFolder(String folder){
-		mHtml = mHtml.replaceAll(FUCMS_PATH, folder + "/");
+		while (mHtml.contains(FUCMS_PATH))
+			mHtml = mHtml.replace(FUCMS_PATH, folder + "\\");
 	}
 	public static void setPfad(String pfad) {
 		mHtml = mHtml.replaceAll(FUCMS_BROTKRUEMELPFAD, pfad);
@@ -197,7 +198,7 @@ public class WebsiteGenerator {
 		rs = Context.getInstance().executeQuery("select * from version where id = " + tempid);
 		rs.first();
 		while (!(rs.getString("path").contains("root"))){
-			path = rs.getString("path").trim() + "/" + path; // pfad anhängen
+			path = rs.getString("path").trim() + "\\\\" + path; // pfad anhängen
 			// tempid wird mit vaterseitenid geladen
 			tempid = rs.getString("vaterseiteid");
 			rs = Context.getInstance().executeQuery("select * from version where id = " + tempid);
