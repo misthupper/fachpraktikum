@@ -28,7 +28,7 @@ public class WebsiteGenerator {
 	private static final String FUCMS_MENU = "FUCMS_MENU";
 	private static final String FUCMS_INFORMATION = "FUCMS_INFORMATION";
 	private static final String FUCMS_ZUSATZINFORMATIONEN = "FUCMS_ZUSATZINFORMATIONEN";
-	
+	private static final String FUCMS_PATH = "FUCMS_PATH";
 	
 	private static final String ENCODING = "ISO-8859-1";
 	protected static Context mContext;
@@ -36,6 +36,8 @@ public class WebsiteGenerator {
 	
 	private String mHtml;
 	private int mWebseitenID; // ID der zu generierenden Webseite
+	private String webseitenTitel;
+	private String websitePath;
 	
 	private static String getTemplate() {
 		File templateFile = new File(Configuration.getTemplateDirectory().getAbsolutePath() +
@@ -65,24 +67,33 @@ public class WebsiteGenerator {
 		//TODO Template je nach Webseite auslesen
 		mHtml = sTemplate;
 		mHtml = InhaltsParser.parse(generateWebsite());
-		write(new File(Configuration.getTemplateDirectory().getAbsolutePath() +"/generierteSeite.html"));
+		write(new File(Configuration.getTemplateDirectory().getAbsolutePath() + websitePath + webseitenTitel + ".html"));
 	}
 	
 	private String generateWebsite(){
 		try {
-			//TODO
 			String mSQLString = "select * from Version where id=" + mWebseitenID;
-			//mSQLString = "Select * from Person where id=1";
-	        //System.out.println(mSQLString);
-	        ResultSet rs = Context.getInstance().executeQuery(mSQLString);
+			ResultSet rs = Context.getInstance().executeQuery(mSQLString);
 	        rs.first();
-	        setTitle(rs.getString("path"));
+	        webseitenTitel = rs.getString("path").trim();
+	        setTitle(webseitenTitel);
+			webseitenTitel = rs.getString("path").trim();
+	        setTitle(webseitenTitel);
+			
+			websitePath = generateWebsitePath();
+			System.out.println("Fernuni" + websitePath + webseitenTitel);
+			setPfad("Fernuni" + websitePath + webseitenTitel);
+			//TODO       
 	        
-	        setTitleFather("Testüberschrift");
 	        
-	        setCSS("arbeiten.css");
+	        //Übergeordneter Titel feststellen
+	        ResultSet rs_fathertitel = Context.getInstance().executeQuery("select * from Version where id = (select vaterseiteid from version where id =" + mWebseitenID + ")");
+	        rs_fathertitel.first();
+	        setTitleFather(rs_fathertitel.getString("path"));
+	        
+	        setCSS(Configuration.getTemplateDirectory().getAbsolutePath() + "/arbeiten.css");
 	        //TODO Menügenerierung
-	        setMenu("Testmenü");
+	        setMenu();
 	        
 	        
 	        
@@ -95,7 +106,7 @@ public class WebsiteGenerator {
 	        setInformation(rs2.getString("Inhaltstext"));
 	        
 	        // SeitenleistenInhalt
-	        String seitenleistenID = rs.getString("SeitenleistenInhaltID");
+	        String seitenleistenID = rs.getString("SeitenleisteInhaltID");
 	        //System.out.println("SeitenleistenInhaltsID: " + seitenleistenID);
 	        ResultSet rs3 = Context.getInstance().executeQuery("select * from Inhalt where id=" + seitenleistenID);
 	        rs3.first();
@@ -119,6 +130,9 @@ public class WebsiteGenerator {
 	public void setTitle(String title) {
 		mHtml = mHtml.replaceAll(FUCMS_TITLE, title);
 	}
+	public void setPfad(String pfad) {
+		mHtml = mHtml.replaceAll(FUCMS_BROTKRUEMELPFAD, pfad);
+	}
 	public void setTitleFather(String titleFather) {
 		mHtml = mHtml.replaceAll(FUCMS_TITLE_FATHER, titleFather);
 	}
@@ -131,23 +145,49 @@ public class WebsiteGenerator {
 	public void setZusatzInformationen(String zusatzinformation) {
 		mHtml = mHtml.replaceAll(FUCMS_ZUSATZINFORMATIONEN, zusatzinformation);
 	}
-	public void setMenu(String menu) throws SQLException, EvilException {
+	public void setMenu() throws SQLException, EvilException {
 		// holt alle Seiten mit der gleichen Vaterseite
 		ResultSet rs = Context.getInstance().executeQuery("select * from Version where VaterseiteID= (select vaterseiteID from Version where id=" + mWebseitenID + ")");
         String link = "";
 		
 		while (rs.next()){
 			if (!(rs.getString("path").contains("root"))){
-				System.out.println(rs.getString("path"));
+				//System.out.println(rs.getString("path"));
 				link = link + "<li><a href='' >" + rs.getString("path").trim() + "</a></li>\n";
 			}
 		}
 		mHtml = mHtml.replaceAll(FUCMS_MENU, link);
 	}
 	
+	/**
+	 * Generiert den (relativen) Ordner-Pfad der Webseite basierend auf der Baumstruktur der Seiten
+	 * @return
+	 * @throws SQLException
+	 * @throws EvilException
+	 */
+	public String generateWebsitePath() throws SQLException, EvilException{
+		String path = "";
+		
+		String tempid = Integer.toString(mWebseitenID);
+		ResultSet rs = Context.getInstance().executeQuery("select * from version where id = " + tempid);
+		rs.first();
+		tempid = rs.getString("vaterseiteid");
+		rs = Context.getInstance().executeQuery("select * from version where id = " + tempid);
+		rs.first();
+		while (!(rs.getString("path").contains("root"))){
+			path = rs.getString("path").trim() + "/" + path; // pfad anhängen
+			// tempid wird mit vaterseitenid geladen
+			tempid = rs.getString("vaterseiteid");
+			rs = Context.getInstance().executeQuery("select * from version where id = " + tempid);
+			rs.first();
+		}
+		
+		return "/" + path;
+	}
+	
 	public void write(File file) {
 		try {
-			//prepareDir(file.getParentFile());
+			prepareDir(file.getParentFile());
 			BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(
 					new FileOutputStream(file), ENCODING));
 			bw.write(mHtml);
@@ -166,6 +206,7 @@ public class WebsiteGenerator {
 	private void prepareDir(File dir) {
 		File[] files = Configuration.getTemplateDirectory().listFiles();
 		dir.mkdirs();
+		/*
 		for (File f : files) {
 			if (f.isDirectory()) continue;
 			File target = new File(dir.getAbsolutePath() + "/" +f.getName());
@@ -188,6 +229,7 @@ public class WebsiteGenerator {
 				System.out.println(e.getMessage());
 			}
 		}
+		*/
 	}
 
 }
