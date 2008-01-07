@@ -22,15 +22,15 @@ public class MainMenu extends JMenuBar {
 	
 	private static final String sMENU3 = "Benutzerverwaltung";
 	private static final String sMENU3_ITEM1 = "CMS Benutzer";
-	//private static final String sMENU3_ITEM2 = " ";
 	
 	private static final String sMENU4 = "Hilfe";
 	private static final String sMENU4_ITEM1 = "About FUCMS";
-	//private static final String sMENU3_ITEM2 = " ";
 	
-	private static final String sMENU5 = "Edit";
-	private static final String sMENU5_ITEM1 = "Edit Page";
-	//private static final String sMENU3_ITEM2 = " ";
+	private static final String sMENU5 = "Seitenverwaltung";
+	private static final String sMENU5_ITEM1 = "Seite bearbeiten";
+	private static final String sMENU5_ITEM2 = "Neue Seite anlegen";
+	private static final String sMENU5_ITEM3 = "Inhalt bearbeiten";
+	private static final String sMENU5_ITEM4 = "Seitenleiste bearbeiten";
 	
     JMenu mMenu1 = new JMenu(sMENU1);
     JMenu mMenu2 = new JMenu(sMENU2);
@@ -45,13 +45,13 @@ public class MainMenu extends JMenuBar {
     JMenuItem mMenu2Item2 = new JMenuItem(sMENU2_ITEM2);
     
     JMenuItem mMenu3Item1 = new JMenuItem(sMENU3_ITEM1);
-    //JMenuItem mMenu3Item2 = new JMenuItem(sMENU3_ITEM2);
     
     JMenuItem mMenu4Item1 = new JMenuItem(sMENU4_ITEM1);
-    //JMenuItem mMenu3Item2 = new JMenuItem(sMENU3_ITEM2);
     
     JMenuItem mMenu5Item1 = new JMenuItem(sMENU5_ITEM1);
-    //JMenuItem mMenu3Item2 = new JMenuItem(sMENU3_ITEM2);
+    JMenuItem mMenu5Item2 = new JMenuItem(sMENU5_ITEM2);
+    JMenuItem mMenu5Item3 = new JMenuItem(sMENU5_ITEM3);
+    JMenuItem mMenu5Item4 = new JMenuItem(sMENU5_ITEM4);
     
     public MainMenu() {
     	mMenu1.add(mMenu1Item1);
@@ -62,8 +62,12 @@ public class MainMenu extends JMenuBar {
     	
     	mMenu5.add(mMenu5Item1);
     	mMenu5Item1.setActionCommand(MainController.sOPEN_EDIT);
-//    	mMenu1.add(mMenu1Item2);
-//    	mMenu1Item2.setActionCommand(MainController.sEXECUTE_SINGLE_SQLFILE);
+    	mMenu5.add(mMenu5Item2);
+    	mMenu5Item2.setActionCommand(MainController.sOPEN_NEWPAGE);
+    	mMenu5.add(mMenu5Item3);
+//    	mMenu5Item1.setActionCommand(MainController.sOPEN_EDIT);
+    	mMenu5.add(mMenu5Item4);
+//    	mMenu5Item1.setActionCommand(MainController.sOPEN_EDIT);
     	this.add(mMenu5);
     	
     	mMenu2.add(mMenu2Item1);
@@ -89,6 +93,9 @@ public class MainMenu extends JMenuBar {
     	mMenu3Item1.addActionListener(al);
     	mMenu4Item1.addActionListener(al);
     	mMenu5Item1.addActionListener(al);
+    	mMenu5Item2.addActionListener(al);
+    	mMenu5Item3.addActionListener(al);
+    	mMenu5Item4.addActionListener(al);
     }
 
 }

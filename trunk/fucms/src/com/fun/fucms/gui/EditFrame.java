@@ -84,6 +84,11 @@ public class EditFrame extends JFrame {
 		init();
 	}
 	
+	public EditFrame() {
+		super("Seiteneditor");
+		init();
+	}
+	
 	/**
 	 * Editor mit diesem Inhalt laden
 	 */

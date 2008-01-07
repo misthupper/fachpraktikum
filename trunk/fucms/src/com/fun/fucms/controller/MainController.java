@@ -33,17 +33,17 @@ public class MainController implements ActionListener, TreeSelectionListener {
 	public static final String sOPEN_GEBAEUDE = "openGebaeudeFrame";
 	public static final String sOPEN_CMSBENUZER = "openCMSBenutzerFrame";
 	public static final String sOPEN_ABOUT = "openAboutFrame";
-	public static final String sOPEN_EDIT = "openEditFrame<";
-
-	
+	public static final String sOPEN_EDIT = "openEditFrame";
+	public static final String sOPEN_NEWPAGE = "openNewEditFrame";
+		
 	private Context mContext;
 	private JFrame jFrame;
 	
 	public MainController(JFrame jFrame) throws EvilException {
 		mContext = Context.getInstance();
-        // InhaltsHelper h = new InhaltsHelper(mContext);
-		// Entity.testAllEntityTypes();
-		WebsiteGenerator wg = new WebsiteGenerator(9);
+//		InhaltsHelper h = new InhaltsHelper(mContext);
+//		Entity.testAllEntityTypes();
+//		WebsiteGenerator wg = new WebsiteGenerator(9);
 		this.jFrame = jFrame;
 	}
 	
@@ -67,14 +67,19 @@ public class MainController implements ActionListener, TreeSelectionListener {
 			AboutFrame af = new AboutFrame(jFrame);			
 		} else if (actionCommand.equals(sOPEN_EDIT)) {
 			if (MainFrame.getPageTreeModel().getSelectedTreeNode()!= null){
-				EditFrame ef = new EditFrame(9);
-				//TODO Hier muss statt des Webseitennamens der (zu bearbeitende) Inhalt der Seite aus der Db ausgelesen und übergeben werden.
-				//ef.setEditorText(MainFrame.getPageTreeModel().getSelectedTreeNode().toString());
+				TreeNode tn = MainFrame.getPageTreeModel().getSelectedTreeNode();
+				int x = tn.getId();
+				System.out.println("ID des selektierten Knoten "+x);
+				EditFrame ef = new EditFrame(x);
 			}
 			else {
 				JOptionPane.showMessageDialog(null, "Bitte wählen Sie eine Seite aus.", "Achtung!", JOptionPane.CANCEL_OPTION);
 			}
 				
+		} else if (actionCommand.equals(sOPEN_NEWPAGE)) {
+			System.out.println("OPEN NEWPAGE");
+			EditFrame ef = new EditFrame();
+			
 		}
 	}
 	
