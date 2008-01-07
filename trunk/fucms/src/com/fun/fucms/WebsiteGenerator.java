@@ -90,8 +90,6 @@ public class WebsiteGenerator {
 	        rs.first();
 	        webseitenTitel = rs.getString("path").trim();
 	        setTitle(webseitenTitel);
-			webseitenTitel = rs.getString("path").trim();
-	        setTitle(webseitenTitel);
 			
 			websitePath = generateWebsitePath(mWebseitenID);
 			System.out.println("Fernuni" + websitePath + webseitenTitel);
@@ -156,6 +154,8 @@ public class WebsiteGenerator {
 		mHtml = mHtml.replaceAll(FUCMS_BROTKRUEMELPFAD, pfad);
 	}
 	public static void setTitleFather(String titleFather) {
+		if (titleFather.contains("root"))
+			titleFather = "Fernuni";
 		mHtml = mHtml.replaceAll(FUCMS_TITLE_FATHER, titleFather);
 	}
 	public static void setCSS(String css) {
