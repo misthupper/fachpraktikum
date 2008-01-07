@@ -73,7 +73,7 @@ public class WebsiteGenerator {
 			//TODO
 			String mSQLString = "select * from Version where id=" + mWebseitenID;
 			//mSQLString = "Select * from Person where id=1";
-	        System.out.println(mSQLString);
+	        //System.out.println(mSQLString);
 	        ResultSet rs = Context.getInstance().executeQuery(mSQLString);
 	        rs.first();
 	        setTitle(rs.getString("path"));
@@ -88,18 +88,18 @@ public class WebsiteGenerator {
 	        
 	        // HauptseitenInhalt
 	        String hauptseitenID = rs.getString("HauptseitenInhaltID");
-	        System.out.println("HauptseitenInhaltsID: " + hauptseitenID);
+	        //System.out.println("HauptseitenInhaltsID: " + hauptseitenID);
 	        ResultSet rs2 = Context.getInstance().executeQuery("select * from Inhalt where id=" + hauptseitenID);
 	        rs2.first();
-	        System.out.println("Hauptinhalt:"+ rs2.getString("Inhaltstext"));
+	        //System.out.println("Hauptinhalt:"+ rs2.getString("Inhaltstext"));
 	        setInformation(rs2.getString("Inhaltstext"));
 	        
 	        // SeitenleistenInhalt
 	        String seitenleistenID = rs.getString("SeitenleistenInhaltID");
-	        System.out.println("SeitenleistenInhaltsID: " + seitenleistenID);
+	        //System.out.println("SeitenleistenInhaltsID: " + seitenleistenID);
 	        ResultSet rs3 = Context.getInstance().executeQuery("select * from Inhalt where id=" + seitenleistenID);
 	        rs3.first();
-	        System.out.println("Seiteninhalt:"+ rs3.getString("Inhaltstext"));
+	        //System.out.println("Seiteninhalt:"+ rs3.getString("Inhaltstext"));
 	        setZusatzInformationen(rs3.getString("Inhaltstext"));
 		}  catch (SQLException e) {
 			System.out.println(e.getMessage());
@@ -131,8 +131,21 @@ public class WebsiteGenerator {
 	public void setZusatzInformationen(String zusatzinformation) {
 		mHtml = mHtml.replaceAll(FUCMS_ZUSATZINFORMATIONEN, zusatzinformation);
 	}
-	public void setMenu(String menu) {
-		mHtml = mHtml.replaceAll(FUCMS_MENU, menu);
+	public void setMenu(String menu) throws SQLException, EvilException {
+		// holt alle Seiten mit der gleichen Vaterseite
+		ResultSet rs = Context.getInstance().executeQuery("select * from Version where VaterseiteID= (select vaterseiteID from Version where id=" + mWebseitenID + ")");
+        String link = "";
+		
+		while (rs.next()){
+			if (!(rs.getString("path").contains("root"))){
+				System.out.println(rs.getString("path"));
+				link = link + "<li><a href='' >" + rs.getString("path")+ "</a></li>";
+			}
+			//<li id="navigation_css_id_1160998674"><a href="/arbeiten/organisation/beauftragte/gleichstellungsbeauftragte.shtml">Gleichstellungs- <br />beauftragte</a></li>
+			
+		}
+		
+		mHtml = mHtml.replaceAll(FUCMS_MENU, link);
 	}
 	
 	public void write(File file) {
