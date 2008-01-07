@@ -18,11 +18,13 @@ CREATE TABLE Version (
 	gueltig_ab date, 
 	gueltig_bis date, 
 	charset char(16), 
-	sprache char(2) 
-/*	format integer not null, 
+	sprache char(2),
+	hauptseiteninhaltID integer,
+	seitenleisteInhaltID integer
+/*	,format integer not null,
 	statusID integer not null, 
 	seitenID integer, 
-	FOREIGN KEY (autor) REFERENCES CMSBenutzer(id) ON DELETE CASCADE,
+	FOREIGN KEY (autor) REFERENCES CMSBenutzer(id) ON DELETE CASCADE, 
 	FOREIGN KEY (format) REFERENCES Webseitenvorlage(id) ON DELETE CASCADE*/
 );
 
