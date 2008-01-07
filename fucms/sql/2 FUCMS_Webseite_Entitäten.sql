@@ -9,7 +9,7 @@ DROP TABLE Webseite;
 
 /* Tabelle Version */
 CREATE TABLE Version (
-	id integer autoincrement not null primary key,
+	id integer not null primary key,
 	vaterseiteID integer, 
 	path char(64),
 /*	versionsstand timestamp not null, */
