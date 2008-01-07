@@ -51,6 +51,8 @@ public class MainController implements ActionListener, TreeSelectionListener {
 	 * dispatch actions from the main frame
 	 */
 	public void actionPerformed(ActionEvent e) {
+		int treenode_id, vaterseite_id, last_id, new_id=0;
+		
 		String actionCommand = e.getActionCommand();
 		MainFrame.log("action: " + actionCommand);
 		if (actionCommand.equals(sCREATE_TABLES)) {
@@ -77,19 +79,27 @@ public class MainController implements ActionListener, TreeSelectionListener {
 			}
 				
 		} else if (actionCommand.equals(sOPEN_NEWPAGE)) {
-			int x,y;
+			
 			//selektierte ID ermitteln
 			TreeNode tn = MainFrame.getPageTreeModel().getSelectedTreeNode();
-			x = tn.getId();
-			//selektierte ebene ermitteln
+			treenode_id = tn.getId();
+			
 			try {
-				ResultSet rs = Context.getInstance().executeQuery("select VATERSEITEID from VERSION where ID="+x);
+				//VaterID holen
+				ResultSet rs = Context.getInstance().executeQuery("select VATERSEITEID from VERSION where ID="+treenode_id);
 				rs.first();
-				y = rs.getInt("VATERSEITEID");
+				vaterseite_id = rs.getInt("VATERSEITEID");
 				
+				//letzte id holen zum inkrementieren
+				ResultSet rs_id = Context.getInstance().executeQuery("select ID from VERSION order by ID DESC");
+				rs_id.first();
+				last_id = rs_id.getInt("ID");
+				new_id = last_id + 1;
+				
+				//neue Seite anlegen
 				Context.getInstance().executeQuery("INSERT INTO Version " +
-						"(id, vaterseiteID, path, hauptseiteninhaltid, seitenleisteninhaltid) " +
-						"VALUES (10, "+x+", 'testEintragNeu', 2, 1)");
+						"(id, vaterseiteID, path, hauptseiteninhaltID, seitenleisteInhaltID) " +
+						"VALUES ("+new_id+", "+vaterseite_id+", 'testEintragNeu', 2, 1)");
 				
 				
 				
@@ -100,10 +110,8 @@ public class MainController implements ActionListener, TreeSelectionListener {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
-			
-			
-			
-//			EditFrame ef = new EditFrame();
+	
+			EditFrame ef = new EditFrame(new_id);
 			
 		}
 	}
