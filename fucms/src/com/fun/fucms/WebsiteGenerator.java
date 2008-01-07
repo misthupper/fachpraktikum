@@ -89,7 +89,7 @@ public class WebsiteGenerator {
 			ResultSet rs = Context.getInstance().executeQuery(mSQLString);
 	        rs.first();
 	        webseitenTitel = rs.getString("path").trim();
-	        setTitle(webseitenTitel);
+	        setTitle(rs.getString("titel").trim());
 			
 			websitePath = generateWebsitePath(mWebseitenID);
 			System.out.println("Fernuni" + websitePath + webseitenTitel);
