@@ -75,10 +75,8 @@ public class WebsiteGenerator {
 		} catch (IOException e) {
 			System.out.println(e.getMessage());
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (EvilException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
