@@ -514,6 +514,8 @@ class CTextAnzeige extends JTextArea implements Printable {
 	// der Konstruktor
 	CTextAnzeige(int zeilen, int spalten) {
 		super(zeilen, spalten);
+		this.setLineWrap(true);
+		this.setWrapStyleWord(true);
 	}
 
 	// die print Methode des Interface Printable
