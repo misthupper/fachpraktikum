@@ -42,6 +42,7 @@ public class MainController implements ActionListener, TreeSelectionListener {
 	public static final String sGENERATE_WEBSITE = "generateWebsite";
 	public static final String sGENERATE_WEBSITES = "generateAllWebsites";
 	public static final String sTREE_REFRESH = "refreshTree";
+	public static final String sDELETE_PAGE = "deletePage";
 
 		
 	private Context mContext;
@@ -105,10 +106,8 @@ public class MainController implements ActionListener, TreeSelectionListener {
 				}
 				rs.close();
 			} catch (SQLException e1) {
-				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			} catch (EvilException e1) {
-				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
 				
@@ -138,10 +137,8 @@ public class MainController implements ActionListener, TreeSelectionListener {
 				
 				
 			} catch (SQLException e1) {
-				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			} catch (EvilException e1) {
-				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
 	
@@ -153,8 +150,25 @@ public class MainController implements ActionListener, TreeSelectionListener {
 			MainFrame mf = (MainFrame) jFrame;
 			PageTree pt = mf.getPageTree();
 			
+		} else if (actionCommand.equals(sDELETE_PAGE)) {
+			TreeNode tn = MainFrame.getPageTreeModel().getSelectedTreeNode();
+			int x = tn.getId();
+			System.out.println(x);
+			try {
+				//die seite mit der id loschen
+				//TODO die zugehörigen inhalte loeschen
+				Context.getInstance().executeQuery(
+						"DELETE FROM Version WHERE ID='"+x+"'");
+				
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			} catch (EvilException e1) {
+				e1.printStackTrace();
+			}
 			
 		}
+		
+		
 	}
 	
 	/**
