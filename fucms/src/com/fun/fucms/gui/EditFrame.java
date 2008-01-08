@@ -260,18 +260,14 @@ public class EditFrame extends JFrame {
 		try {
 			//TODO
 			String mSQLString = "select * from Version where id=" + mWebseitenID;
-			//mSQLString = "Select * from Person where id=1";
-	        System.out.println(mSQLString);
 	        ResultSet rs = Context.getInstance().executeQuery(mSQLString);
 	        rs.first();
 	        setTitle("Seiteneditor: " + rs.getString("path").trim());
 
 	        // HauptseitenInhalt
 	        String hauptseitenID = rs.getString("HauptseitenInhaltID");
-	        System.out.println("HauptseitenInhaltsID: " + hauptseitenID);
 	        ResultSet rs2 = Context.getInstance().executeQuery("select * from Inhalt where id=" + hauptseitenID);
 	        rs2.first();
-	        System.out.println("Hauptinhalt:"+ rs2.getString("Inhaltstext"));
 	        setEditorText(rs2.getString("Inhaltstext").trim());
 		}  catch (SQLException e) {
 			System.out.println(e.getMessage());

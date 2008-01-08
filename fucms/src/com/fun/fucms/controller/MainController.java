@@ -40,7 +40,9 @@ public class MainController implements ActionListener, TreeSelectionListener {
 	public static final String sOPEN_EDIT = "openEditFrame";
 	public static final String sOPEN_NEWPAGE = "openNewEditFrame";
 	public static final String sGENERATE_WEBSITE = "generateWebsite";
+	public static final String sGENERATE_WEBSITES = "generateAllWebsites";
 	public static final String sTREE_REFRESH = "refreshTree";
+
 		
 	private Context mContext;
 	private JFrame jFrame;
@@ -74,7 +76,7 @@ public class MainController implements ActionListener, TreeSelectionListener {
 			if (MainFrame.getPageTreeModel().getSelectedTreeNode()!= null){
 				TreeNode tn = MainFrame.getPageTreeModel().getSelectedTreeNode();
 				int x = tn.getId();
-				System.out.println("ID des selektierten Knoten "+x);
+				//System.out.println("ID des selektierten Knoten "+x);
 				EditFrame ef = new EditFrame(x);
 			}
 			else {
@@ -85,12 +87,29 @@ public class MainController implements ActionListener, TreeSelectionListener {
 			if (MainFrame.getPageTreeModel().getSelectedTreeNode()!= null){
 				TreeNode tn = MainFrame.getPageTreeModel().getSelectedTreeNode();
 				int x = tn.getId();
-				System.out.println("ID des selektierten Knoten "+x);
+				//System.out.println("ID des selektierten Knoten "+x);
 				WebsiteGenerator.generateWebsite(x);
-				
+				System.out.println("Webseite generiert!");
 			}
 			else {
 				JOptionPane.showMessageDialog(null, "Bitte wählen Sie eine Seite aus.", "Achtung!", JOptionPane.CANCEL_OPTION);
+			}
+				
+		}else if (actionCommand.equals(sGENERATE_WEBSITES)) {
+			ResultSet rs;
+			try {
+				rs = Context.getInstance().executeQuery("select * from Version");
+				while (rs.next()){
+	        		WebsiteGenerator.generateWebsite(rs.getInt("id"));
+	        		System.out.println("Webseite " + rs.getString("titel").trim() + " generiert!");
+				}
+				rs.close();
+			} catch (SQLException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			} catch (EvilException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
 			}
 				
 		} else if (actionCommand.equals(sOPEN_NEWPAGE)) {
