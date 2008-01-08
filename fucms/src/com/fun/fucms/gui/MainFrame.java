@@ -65,6 +65,10 @@ public class MainFrame extends JFrame {
     	return mPageTreeModel;
     }
     
+    public PageTree getPageTree() {
+    	return mPageTree;
+    }
+    
     private void init() {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         

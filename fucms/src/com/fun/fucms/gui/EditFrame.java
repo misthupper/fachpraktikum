@@ -1,25 +1,50 @@
 package com.fun.fucms.gui;
 
-import javax.swing.JFrame;
-import javax.swing.WindowConstants;
-
-import java.awt.*;
+import java.awt.BorderLayout;
+import java.awt.Dimension;
+import java.awt.FileDialog;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.awt.print.PageFormat;
+import java.awt.print.Printable;
+import java.awt.print.PrinterException;
+import java.awt.print.PrinterJob;
+import java.io.EOFException;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.*;
-import java.awt.event.*;
-import java.io.*;
-import javax.swing.*;
-import javax.swing.text.*;
+import java.util.Hashtable;
+
+import javax.swing.Action;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JDialog;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
+import javax.swing.JTextField;
+import javax.swing.WindowConstants;
+import javax.swing.text.DefaultEditorKit;
 
 import com.fun.fucms.Context;
 import com.fun.fucms.EvilException;
-import com.fun.fucms.gui.entities.*;
-import com.fun.fucms.model.*;
+import com.fun.fucms.gui.entities.EntityAttributeSelectionFrame;
 import com.fun.fucms.model.entities.Gebaeude;
 import com.fun.fucms.model.entities.Person;
-
-import java.awt.print.*;
 
 public class EditFrame extends JFrame {
 
@@ -284,7 +309,31 @@ public class EditFrame extends JFrame {
 	// Eine Textdatei  laden
 	// Methode von CEditor
 	void seiteNeuLaden() {
-		FileDialog d = new FileDialog(this, "Text laden...", FileDialog.LOAD);
+		try {
+			//TODO
+			String mSQLString = "select * from Version where id=" + mWebseitenID;
+			//mSQLString = "Select * from Person where id=1";
+	        System.out.println(mSQLString);
+	        ResultSet rs = Context.getInstance().executeQuery(mSQLString);
+	        rs.first();
+	        setTitle("Seiteneditor: " + rs.getString("path").trim());
+
+	        // HauptseitenInhalt
+	        String hauptseitenID = rs.getString("HauptseitenInhaltID");
+	        System.out.println("HauptseitenInhaltsID: " + hauptseitenID);
+	        ResultSet rs2 = Context.getInstance().executeQuery("select * from Inhalt where id=" + hauptseitenID);
+	        rs2.first();
+	        System.out.println("Hauptinhalt:"+ rs2.getString("Inhaltstext"));
+	        setEditorText(rs2.getString("Inhaltstext").trim());
+		}  catch (SQLException e) {
+			System.out.println(e.getMessage());
+		} catch (EvilException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+		/**FileDialog d = new FileDialog(this, "Text laden...", FileDialog.LOAD);
 
 		d.show();
 		m_dateiname = d.getDirectory();
@@ -339,14 +388,39 @@ public class EditFrame extends JFrame {
 			System.out.println("Fehler beim Lesen der Datei " + m_dateiname
 					+ "\n");
 			m_dateiname = null;
-		}
+		}*/
 
 	} // Ende von 'dateiLaden' 
 
-	// Den aktuellen Text abspeichern
-	// Methode von CEditor
+	// Den aktuellen Text in DB abspeichern - Methode von CEditor
 	void seiteSpeichern() {
-		// lokale Variablen
+		try {
+			//id für Inhaltstext holen
+			String mSQLString = "select * from Version where id=" + mWebseitenID;
+			ResultSet rs = Context.getInstance().executeQuery(mSQLString);
+	        rs.first();
+//	        // HauptseitenInhalt
+	        String hauptseitenID = rs.getString("HauptseitenInhaltID");
+//	        ResultSet rs2 = Context.getInstance().executeQuery("select * from Inhalt where id=" + hauptseitenID);
+//	        rs2.first();
+////	        System.out.println("Hauptinhalt:"+ rs2.getString("Inhaltstext"));
+//	        //Ende
+////	        create table konto (kontonummer varchar(5), kontostand float) type=InnoDB
+////	        update konto set kontostand=kontostand-100 where kontonummer=3301
+	        
+	        
+			String text = m_textanzeige.getText();
+			Context.getInstance().executeQuery(
+					"update INHALT set INHALTSTEXT='"+text+"' where ID='"+hauptseitenID+"'");
+			
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} catch (EvilException e) {
+			e.printStackTrace();
+		}
+		
+	/**	// lokale Variablen
 		int zeichen, i;
 
 		FileDialog d = new FileDialog(this, "Text speichern...",
@@ -380,7 +454,7 @@ public class EditFrame extends JFrame {
 			System.out.println("Fehler beim Schreiben der Datei  "
 					+ m_dateiname + "\n");
 			m_dateiname = null;
-		}
+		}*/
 
 	} // Ende von 'dateiSpeichern' 
 
