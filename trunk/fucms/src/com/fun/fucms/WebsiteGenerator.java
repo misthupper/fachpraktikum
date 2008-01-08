@@ -12,6 +12,8 @@ import java.io.OutputStreamWriter;
 import java.io.UnsupportedEncodingException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
+import java.util.Date;
 
 import javax.swing.JOptionPane;
 
@@ -34,7 +36,7 @@ public class WebsiteGenerator {
 	
 	private static final String ENCODING = "ISO-8859-1";
 	protected static Context mContext;
-	private static final String sTemplate = getTemplate();
+	private static String sTemplate = "";
 	
 	private static String mHtml;
 	private static int mWebseitenID; // ID der zu generierenden Webseite
@@ -43,10 +45,20 @@ public class WebsiteGenerator {
 	private static int pathDepth;
 	private static String HTMLPath;
 	
-	private static String getTemplate() {
-		File templateFile = new File(Configuration.getTemplateDirectory().getAbsolutePath() +
-				"/template.html");
+	// holt die Template-Datei der Webseite und speichert den Inhalt zur weiteren Bearbeitung in sTemplate ab.
+	private static void getTemplate() {
+		String templateFileName = "template.html";
 		try {
+			ResultSet rs = Context.getInstance().executeQuery("select * from Version where id = " + mWebseitenID);
+			rs.first();
+			int formatID = rs.getInt("format");
+			rs = Context.getInstance().executeQuery("select * from Webseitenvorlage where id = " + formatID);
+			rs.first();
+			templateFileName = rs.getString("dateiname").trim();
+        
+			File templateFile = new File(Configuration.getTemplateDirectory().getAbsolutePath() +
+				"/" + templateFileName);
+		
 			StringBuffer sb = new StringBuffer();
 			BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(templateFile), ENCODING));
 			String s = br.readLine();
@@ -55,34 +67,37 @@ public class WebsiteGenerator {
 				s = br.readLine();
 			}
 			br.close();
-			return sb.toString();
+			sTemplate =  sb.toString();
 		} catch (FileNotFoundException e) {
 			System.out.println(e.getMessage());
 		} catch (UnsupportedEncodingException e) {
 			System.out.println(e.getMessage());
 		} catch (IOException e) {
 			System.out.println(e.getMessage());
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (EvilException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
-		return "";
 	}
 	
 	public WebsiteGenerator(int WebseitenID) {
-		mWebseitenID = WebseitenID;
-		//TODO Template je nach Webseite auslesen
-		mHtml = sTemplate;
-		mHtml = InhaltsParser.parse(generateWebsiteContent());
-		write(new File(Configuration.getHTMLDirectory().getAbsolutePath() + websitePath + webseitenTitel + ".html"));
+		WebsiteGenerator.generateWebsite(WebseitenID);
 	}
 	
+	// Generiert die Webseite basierend auf dem Template
 	public static void generateWebsite(int WebseitenID){
 		mWebseitenID = WebseitenID;
+		getTemplate();
 		//TODO Template je nach Webseite auslesen
 		mHtml = sTemplate;
 		mHtml = InhaltsParser.parse(generateWebsiteContent());
 		write(new File(Configuration.getHTMLDirectory().getAbsolutePath() + websitePath + webseitenTitel + ".html"));
-		JOptionPane.showMessageDialog(null, "Die Seite wurde generiert und im Ordner 'HTML" + websitePath + "' abgespeichert.", "Fertig!", JOptionPane.CANCEL_OPTION);
 	}
 	
+	// Führt die Ersetzung der Inhaltsmarken durch und liest dazu die Inhalte aus der DB aus.
 	private static String generateWebsiteContent(){
 		try {
 			String mSQLString = "select * from Version where id=" + mWebseitenID;
@@ -92,33 +107,25 @@ public class WebsiteGenerator {
 	        setTitle(rs.getString("titel").trim());
 			
 			websitePath = generateWebsitePath(mWebseitenID);
-			System.out.println("Fernuni" + websitePath + webseitenTitel);
 			setPfad("Fernuni" + websitePath + webseitenTitel);
-			System.out.println(Configuration.getHTMLDirectory().getAbsolutePath());
 			
 			HTMLPath = Configuration.getHTMLDirectory().getAbsolutePath().trim();
 			//HTMLPath = HTMLPath.replaceAll("\\\\", "/");
-			setFolder(generateLinkPath(websitePath.replaceAll("\\\\", "/")));
+			setFolder(generateRelativeLinkPath(websitePath.replaceAll("\\\\", "/")));
 	        
 	        
-	        //Übergeordneter Titel feststellen
-	        ResultSet rs_fathertitel = Context.getInstance().executeQuery("select * from Version where id = (select vaterseiteid from version where id =" + mWebseitenID + ")");
-	        rs_fathertitel.first();
 	        setTitleFather(rs.getString("titel").trim());
 	        
 	        setCSS("arbeiten.css");
 	        //TODO Menügenerierung
 	        setMenu();
 	        
-	        
-	        
-	        // HauptseitenInhalt
+	        // HauptseitenInhalt einlesen und ersetzen
 	        String hauptseitenID = rs.getString("HauptseitenInhaltID");
-	        //System.out.println("HauptseitenInhaltsID: " + hauptseitenID);
 	        ResultSet rs2 = Context.getInstance().executeQuery("select * from Inhalt where id=" + hauptseitenID);
 	        rs2.first();
 	        //System.out.println("Hauptinhalt:"+ rs2.getString("Inhaltstext"));
-	        setInformation(rs2.getString("Inhaltstext"));
+	        setHauptinhalt(rs2.getString("Inhaltstext"));
 	        
 	        // SeitenleistenInhalt
 	        String seitenleistenID = rs.getString("SeitenleisteInhaltID");
@@ -126,14 +133,16 @@ public class WebsiteGenerator {
 	        ResultSet rs3 = Context.getInstance().executeQuery("select * from Inhalt where id=" + seitenleistenID);
 	        rs3.first();
 	        //System.out.println("Seiteninhalt:"+ rs3.getString("Inhaltstext"));
-	        setZusatzInformationen(rs3.getString("Inhaltstext"));
+	        setSeitenleisteninhalt(rs3.getString("Inhaltstext"));
+	        
+	        rs.close();
+	        rs2.close();
 		}  catch (SQLException e) {
 			System.out.println(e.getMessage());
 		}
 		catch (EvilException e2) {
 			System.out.println(e2.getMessage());
 		}
-
 		return mHtml;
 	}
 	
@@ -144,13 +153,15 @@ public class WebsiteGenerator {
 	public static void setTitle(String title) {
 		mHtml = mHtml.replaceAll(FUCMS_TITLE, title);
 	}
-	
+	public static void setDate(String date) {
+		mHtml = mHtml.replaceAll(FUCMS_DATE, date);
+	}
 	public static void setFolder(String folder){
 		while (mHtml.contains(FUCMS_PATH))
 			mHtml = mHtml.replace(FUCMS_PATH, folder);
 	}
 	public static void setPfad(String pfad) {
-		mHtml = mHtml.replaceAll(FUCMS_BROTKRUEMELPFAD, pfad);
+		mHtml = mHtml.replaceAll(FUCMS_BROTKRUEMELPFAD, pfad.replaceAll("/", " | "));
 	}
 	public static void setTitleFather(String titleFather) {
 		if (titleFather.contains("root"))
@@ -160,10 +171,10 @@ public class WebsiteGenerator {
 	public static void setCSS(String css) {
 		mHtml = mHtml.replaceAll(FUCMS_CSS, css);
 	}
-	public static void setInformation(String information) {
+	public static void setHauptinhalt(String information) {
 		mHtml = mHtml.replaceAll(FUCMS_INFORMATION, information);
 	}
-	public static void setZusatzInformationen(String zusatzinformation) {
+	public static void setSeitenleisteninhalt(String zusatzinformation) {
 		mHtml = mHtml.replaceAll(FUCMS_ZUSATZINFORMATIONEN, zusatzinformation);
 	}
 	public static void setMenu() throws SQLException, EvilException {
@@ -191,14 +202,12 @@ public class WebsiteGenerator {
 				}
 			}
 		} while (rs.next());
+		rs.close();
 		mHtml = mHtml.replaceAll(FUCMS_MENU, link);
 	}
 	
 	/**
-	 * Generiert den (relativen) Ordner-Pfad der Webseite basierend auf der Baumstruktur der Seiten
-	 * @return
-	 * @throws SQLException
-	 * @throws EvilException
+	 * Generiert den Ordner-Pfad der Webseite basierend auf der Baumstruktur der Seiten
 	 */
 	public static String generateWebsitePath(int websiteID) throws SQLException, EvilException{
 		String path = "";
@@ -217,17 +226,17 @@ public class WebsiteGenerator {
 			rs = Context.getInstance().executeQuery("select * from version where id = " + tempid);
 			rs.first();
 		}
+		rs.close();
 		return "/" + path;
 	}
 	
-	public static String generateLinkPath(String path){
+	public static String generateRelativeLinkPath(String path){
 		String linkPath = "";
 		path = path.replaceFirst("/","");
 		while (path.indexOf("/")!=-1){
 			path = path.replaceFirst("/","");
 			linkPath = linkPath + "../";
 		}
-		System.out.println("Link-Pfad: " + linkPath);
 		return linkPath;
 	}
 	

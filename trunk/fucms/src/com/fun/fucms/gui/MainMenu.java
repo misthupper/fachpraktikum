@@ -34,6 +34,7 @@ public class MainMenu extends JMenuBar {
 	
 	private static final String sMENU6 = "Webseitengenerierung";
 	private static final String sMENU6_ITEM1 = "Seite generieren";
+	private static final String sMENU6_ITEM2 = "Alle Seiten neu generieren";
 	
 	private static final String sMENU7 = "Refresh";
 	private static final String sMENU7_ITEM1 = "Baumstruktur neu laden";
@@ -62,6 +63,7 @@ public class MainMenu extends JMenuBar {
 //    JMenuItem mMenu5Item4 = new JMenuItem(sMENU5_ITEM4);
     
     JMenuItem mMenu6Item1 = new JMenuItem(sMENU6_ITEM1);
+    JMenuItem mMenu6Item2 = new JMenuItem(sMENU6_ITEM2);
     
     JMenuItem mMenu7Item1 = new JMenuItem(sMENU7_ITEM1);
     
@@ -93,7 +95,9 @@ public class MainMenu extends JMenuBar {
     	this.add(mMenu3);
     	
     	mMenu6.add(mMenu6Item1);
+    	mMenu6.add(mMenu6Item2);
     	mMenu6Item1.setActionCommand(MainController.sGENERATE_WEBSITE);
+    	mMenu6Item2.setActionCommand(MainController.sGENERATE_WEBSITES);
     	this.add(mMenu6);
     	
     	mMenu7.add(mMenu7Item1);
@@ -117,6 +121,7 @@ public class MainMenu extends JMenuBar {
 //    	mMenu5Item3.addActionListener(al);
 //    	mMenu5Item4.addActionListener(al);
     	mMenu6Item1.addActionListener(al);
+    	mMenu6Item2.addActionListener(al);
     	mMenu7Item1.addActionListener(al);
     }
 
