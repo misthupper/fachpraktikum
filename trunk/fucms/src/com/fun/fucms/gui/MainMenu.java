@@ -29,19 +29,22 @@ public class MainMenu extends JMenuBar {
 	private static final String sMENU5 = "Seitenverwaltung";
 	private static final String sMENU5_ITEM1 = "Seite bearbeiten";
 	private static final String sMENU5_ITEM2 = "Neue Seite anlegen";
-	private static final String sMENU5_ITEM3 = "Inhalt bearbeiten";
-	private static final String sMENU5_ITEM4 = "Seitenleiste bearbeiten";
+//	private static final String sMENU5_ITEM3 = "Inhalt bearbeiten";
+//	private static final String sMENU5_ITEM4 = "Seitenleiste bearbeiten";
 	
 	private static final String sMENU6 = "Webseitengenerierung";
 	private static final String sMENU6_ITEM1 = "Seite generieren";
-
 	
+	private static final String sMENU7 = "Refresh";
+	private static final String sMENU7_ITEM1 = "Baumstruktur neu laden";
+
     JMenu mMenu1 = new JMenu(sMENU1);
     JMenu mMenu2 = new JMenu(sMENU2);
     JMenu mMenu3 = new JMenu(sMENU3);
     JMenu mMenu4 = new JMenu(sMENU4);
     JMenu mMenu5 = new JMenu(sMENU5);
     JMenu mMenu6 = new JMenu(sMENU6);
+    JMenu mMenu7 = new JMenu(sMENU7);
     
     JMenuItem mMenu1Item1 = new JMenuItem(sMENU1_ITEM1);
     JMenuItem mMenu1Item2 = new JMenuItem(sMENU1_ITEM2);
@@ -55,10 +58,12 @@ public class MainMenu extends JMenuBar {
     
     JMenuItem mMenu5Item1 = new JMenuItem(sMENU5_ITEM1);
     JMenuItem mMenu5Item2 = new JMenuItem(sMENU5_ITEM2);
-    JMenuItem mMenu5Item3 = new JMenuItem(sMENU5_ITEM3);
-    JMenuItem mMenu5Item4 = new JMenuItem(sMENU5_ITEM4);
+//    JMenuItem mMenu5Item3 = new JMenuItem(sMENU5_ITEM3);
+//    JMenuItem mMenu5Item4 = new JMenuItem(sMENU5_ITEM4);
     
     JMenuItem mMenu6Item1 = new JMenuItem(sMENU6_ITEM1);
+    
+    JMenuItem mMenu7Item1 = new JMenuItem(sMENU7_ITEM1);
     
     public MainMenu() {
     	mMenu1.add(mMenu1Item1);
@@ -71,10 +76,10 @@ public class MainMenu extends JMenuBar {
     	mMenu5Item1.setActionCommand(MainController.sOPEN_EDIT);
     	mMenu5.add(mMenu5Item2);
     	mMenu5Item2.setActionCommand(MainController.sOPEN_NEWPAGE);
-    	mMenu5.add(mMenu5Item3);
+//    	mMenu5.add(mMenu5Item3);
 //    	mMenu5Item1.setActionCommand(MainController.sOPEN_EDIT);
-    	mMenu5.add(mMenu5Item4);
-//    	mMenu5Item1.setActionCommand(MainController.sOPEN_EDIT);
+//    	mMenu5.add(mMenu5Item4);
+    	mMenu5Item1.setActionCommand(MainController.sOPEN_EDIT);
     	this.add(mMenu5);
     	
     	mMenu2.add(mMenu2Item1);
@@ -91,6 +96,10 @@ public class MainMenu extends JMenuBar {
     	mMenu6Item1.setActionCommand(MainController.sGENERATE_WEBSITE);
     	this.add(mMenu6);
     	
+    	mMenu7.add(mMenu7Item1);
+    	mMenu7Item1.setActionCommand(MainController.sTREE_REFRESH);
+    	this.add(mMenu7);
+    	
     	mMenu4.add(mMenu4Item1);
     	mMenu4Item1.setActionCommand(MainController.sOPEN_ABOUT);
     	this.add(mMenu4);
@@ -105,9 +114,10 @@ public class MainMenu extends JMenuBar {
     	mMenu4Item1.addActionListener(al);
     	mMenu5Item1.addActionListener(al);
     	mMenu5Item2.addActionListener(al);
-    	mMenu5Item3.addActionListener(al);
-    	mMenu5Item4.addActionListener(al);
+//    	mMenu5Item3.addActionListener(al);
+//    	mMenu5Item4.addActionListener(al);
     	mMenu6Item1.addActionListener(al);
+    	mMenu7Item1.addActionListener(al);
     }
 
 }

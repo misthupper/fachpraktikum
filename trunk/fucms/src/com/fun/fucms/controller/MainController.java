@@ -3,6 +3,7 @@ package com.fun.fucms.controller;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
@@ -19,8 +20,10 @@ import com.fun.fucms.conf.Configuration;
 import com.fun.fucms.gui.AboutFrame;
 import com.fun.fucms.gui.EditFrame;
 import com.fun.fucms.gui.MainFrame;
+import com.fun.fucms.gui.PageTree;
 import com.fun.fucms.gui.entities.EntityFrame;
 import com.fun.fucms.model.CMSBenutzer;
+import com.fun.fucms.model.PageTreeModel;
 import com.fun.fucms.model.PageTreeModel.TreeNode;
 import com.fun.fucms.model.entities.Gebaeude;
 import com.fun.fucms.model.entities.Person;
@@ -37,6 +40,7 @@ public class MainController implements ActionListener, TreeSelectionListener {
 	public static final String sOPEN_EDIT = "openEditFrame";
 	public static final String sOPEN_NEWPAGE = "openNewEditFrame";
 	public static final String sGENERATE_WEBSITE = "generateWebsite";
+	public static final String sTREE_REFRESH = "refreshTree";
 		
 	private Context mContext;
 	private JFrame jFrame;
@@ -123,6 +127,13 @@ public class MainController implements ActionListener, TreeSelectionListener {
 			}
 	
 			EditFrame ef = new EditFrame(new_id);
+			
+		} else if (actionCommand.equals(sTREE_REFRESH)) {
+			//TODO Baumstruktur neu laden
+			PageTreeModel ptm = MainFrame.getPageTreeModel();
+			MainFrame mf = (MainFrame) jFrame;
+			PageTree pt = mf.getPageTree();
+			
 			
 		}
 	}
