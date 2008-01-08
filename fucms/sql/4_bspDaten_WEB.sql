@@ -1,7 +1,10 @@
 /* Tabelle Webseitenvorlage */
 
 INSERT INTO WEBSEITENVORLAGE (ID, NAME, DATEINAME)
-VALUES (1, 'Fernuni', 'Template.html');
+VALUES (1, 'Fernuni', 'template.html');
+
+INSERT INTO WEBSEITENVORLAGE (ID, NAME, DATEINAME)
+VALUES (2, 'Startseite', 'templateStartseite.html');
 
 /* Tabelle Version */
 
@@ -15,7 +18,7 @@ INSERT INTO Version (id, vaterseiteID, path, titel, autor, format, statusid, hau
 VALUES (2, 0, 'Studium', 'Studium', 1, 1, 9, 2, 1);
 
 INSERT INTO Version (id, vaterseiteID, path, titel, autor, format, statusid, hauptseiteninhaltID, seitenleisteInhaltID)
-VALUES (3, 0, 'Forschung', 'Forschung', 1, 1, 9, 2, 1);
+VALUES (3, 0, 'Forschung', 'Forschung', 1, 1, 9, 5, 6);
 
 INSERT INTO Version (id, vaterseiteID, path, titel, autor, format, statusid, hauptseiteninhaltID, seitenleisteInhaltID)
 VALUES (4, 0, 'Uni intern', 'Uni intern', 1, 1, 9, 3, 4);
@@ -94,4 +97,102 @@ VALUES ('3', 'Text', '<h1>Überschrift <!-- FUCMS.Person.2.Name --></h1>
 <p>Das ist ein Testbeispiel für einen Inhalt</p>
 <p>Unser Mitarbeiter heißt <!-- FUCMS.Person.1.Name --> und sitzt im Raum <!-- FUCMS.Person_Telefon.1.telefon -->.</p>');
 
+
+INSERT INTO INHALT (ID, INHALTSTYP, INHALTSTEXT) 
+VALUES ('5', 'Text', '<a name="inhaltweiche"></a>
+
+    <h1>Forschung an der FernUniversität in Hagen</h1>
+  <div id="information">
+
+
+
+
+
+
+
+
+
+   <div class="text-block">
+   <img src="/imperia/md/images/forschung/forschung_lang.jpg" alt="Illustration" title="Illustration" id="bild2" />
+
+   <div>
+
+  <p>
+Die FernUniversität in Hagen setzt auf Schwerpunkt- und Profilbildung in der Forschung. Durch interdisziplinäre und fakultätsübergreifende Zusammenarbeit werden Kompetenzen gebündelt und wettbewerbsfähige Forschungsschwerpunkte etabliert. 
+</p>
+
+
+
+   <p>
+   Die grundlagen- und anwendungsorientierte Forschung ist zugleich Basis der Qualifizierung des wissenschaftlichen Nachwuchses.
+</p>
+
+  </div>
+
+  </div><!--ende textblock-->
+  <ul class="pfeil">
+
+  <li>
+    <a href="/forschung/schwerpunkte/index.shtml">Forschungsschwerpunkte</a>
+  <br /> <p>Die FernUniversit&auml;t ist nationaler Kompetenzknoten f&uuml;r den Einsatz der Neuen Medien in Forschung und Lehre.</p>
+  </li>
+
+  <li>
+    <a href="/forschung/einrichtungen/index.shtml">Forschungseinrichtungen</a>
+  <br /> <p>Die Einrichtungen der FernUniversit&auml;t, ihre Forschungs- und An-Institute, ihr wissenschaftliches und gesellschaftliches Netzwerk pr&auml;gen das unverwechselbare Profil. </p>
+  </li>
+
+  <li>
+
+    <a href="/forschung/wissenstransfer/index.shtml">Wissenstransfer</a>
+  <br /> <p>Die FernUniversit&auml;t f&ouml;rdert den Wissens- und Technologietransfer sowie eine Kultur der Selbstst&auml;ndigkeit. </p>
+  </li>
+
+  <li>
+    <a href="/forschung/berichte/index.shtml">Übersichten und Berichte</a>
+
+  <br /> Universit&auml;t, Fakult&auml;ten, Institute und Lehrgebiete berichten kontinuierlich &uuml;ber laufende Forschungsaktivit&auml;ten, Projekte und Publikationen. 
+  </li>
+
+  </ul>');
+
+
+
+INSERT INTO INHALT (ID, INHALTSTYP, INHALTSTEXT) 
+VALUES ('6', 'Text', '<ul>
+      <li> Ansprechpersonen:
+        <ul>
+
+     <li><a href="http://www.fernuni-hagen.de/universitaet/profil/leitung/prorektor_forschung.shtml"><strong>Prorektor für Forschung</strong></a>
+    </li>
+
+     <li><a href="http://www.fernuni-hagen.de/arbeiten/organisation/beauftragte/rektoratsbeauftragte.shtml">Ombuds-/ Kontaktpersonen</a>
+    </li>
+
+        </ul>
+      </li>
+
+      <li> Links:
+        <ul>
+
+     <li><a href="http://www.fernuni-hagen.de/universitaet/fakultaeten.shtml">Fakultäten</a>
+     </li>
+
+     <li><a href="http://www.ub.fernuni-hagen.de/">Universitätsbibliothek</a>
+     </li>
+
+        </ul>
+      </li>
+      <li> Services:
+        <ul>
+
+     <li><a href="http://www.fernuni-hagen.de/arbeiten/lehren/forschungpraktisch/index.shtml"><strong>Forschungsförderung</strong></a>
+     </li>
+
+     <li><a href="http://www.fernuni-hagen.de/arbeiten/lehren/forschungpraktisch/wisspraxis.shtml">Wissenschaftsleitlinien</a>
+
+     </li>
+
+        </ul>
+      </li>');
 
