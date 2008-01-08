@@ -272,7 +272,6 @@ public class EditFrame extends JFrame {
 		}  catch (SQLException e) {
 			System.out.println(e.getMessage());
 		} catch (EvilException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
@@ -306,7 +305,6 @@ public class EditFrame extends JFrame {
 	// Methode von CEditor
 	void seiteNeuLaden() {
 		try {
-			//TODO
 			String mSQLString = "select * from Version where id=" + mWebseitenID;
 			//mSQLString = "Select * from Person where id=1";
 	        System.out.println(mSQLString);
@@ -324,7 +322,6 @@ public class EditFrame extends JFrame {
 		}  catch (SQLException e) {
 			System.out.println(e.getMessage());
 		} catch (EvilException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
