@@ -104,7 +104,7 @@ public class WebsiteGenerator {
 	        //Übergeordneter Titel feststellen
 	        ResultSet rs_fathertitel = Context.getInstance().executeQuery("select * from Version where id = (select vaterseiteid from version where id =" + mWebseitenID + ")");
 	        rs_fathertitel.first();
-	        setTitleFather(rs_fathertitel.getString("path"));
+	        setTitleFather(rs.getString("titel").trim());
 	        
 	        setCSS("arbeiten.css");
 	        //TODO Menügenerierung
@@ -133,8 +133,7 @@ public class WebsiteGenerator {
 		catch (EvilException e2) {
 			System.out.println(e2.getMessage());
 		}
-		
-		
+
 		return mHtml;
 	}
 	
@@ -168,18 +167,30 @@ public class WebsiteGenerator {
 		mHtml = mHtml.replaceAll(FUCMS_ZUSATZINFORMATIONEN, zusatzinformation);
 	}
 	public static void setMenu() throws SQLException, EvilException {
+		
+		
 		// holt alle Seiten mit der gleichen Vaterseite
 		ResultSet rs = Context.getInstance().executeQuery("select * from Version where VaterseiteID=" + mWebseitenID);
         String link = "";
         String seitentitel = "";
-		
-		while (rs.next()){
+        String tempWebseitenTitel = webseitenTitel + "/";
+		if (!rs.first()){
+			rs = Context.getInstance().executeQuery("select * from Version where vaterseiteID = (select vaterseiteID from Version where id = " + mWebseitenID + ")");
+			rs.first();
+			tempWebseitenTitel = "";
+			
+		}
+		do {
 			if (!(rs.getString("path").contains("root"))){
 				//System.out.println(rs.getString("path"));
 				seitentitel = rs.getString("path").trim();
-				link = link + "<li><a href='"  + webseitenTitel + "/" + seitentitel + ".html" + "' >" + seitentitel + "</a></li>\n";
+				if (seitentitel.contains(webseitenTitel)){
+					link = link + "<li>" + seitentitel + "</li>\n";
+				} else {
+					link = link + "<li><a href='"  + tempWebseitenTitel + seitentitel + ".html" + "' >" + seitentitel + "</a></li>\n";
+				}
 			}
-		}
+		} while (rs.next());
 		mHtml = mHtml.replaceAll(FUCMS_MENU, link);
 	}
 	
