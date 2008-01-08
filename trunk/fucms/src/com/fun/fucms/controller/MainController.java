@@ -109,8 +109,8 @@ public class MainController implements ActionListener, TreeSelectionListener {
 				
 				//neue Seite anlegen
 				Context.getInstance().executeQuery("INSERT INTO Version " +
-						"(id, vaterseiteID, path, hauptseiteninhaltID, seitenleisteInhaltID) " +
-						"VALUES ("+new_id+", "+vaterseite_id+", 'testEintragNeu', 2, 1)");
+						"(id, vaterseiteID, path, titel, autor, format, statusid, hauptseiteninhaltID, seitenleisteInhaltID) " +
+						"VALUES ("+new_id+", "+vaterseite_id+", 'Hier Path eintragen','Hier Titel eintragen', 1, 1, 9, 2, 1)");
 				
 				
 				
