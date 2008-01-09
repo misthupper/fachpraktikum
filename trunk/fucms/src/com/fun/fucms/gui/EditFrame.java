@@ -93,7 +93,9 @@ public class EditFrame extends JFrame {
 
 	private String m_aktText; // aktueller Text in der TextArea
 
-	private CTextAnzeige m_textanzeige; // die eigentliche TextArea
+	private CTextAnzeige m_hauptinhaltanzeige; // die eigentliche TextArea
+	
+	private CTextAnzeige m_seitenleistAnzeige; // Anzeige des Seitenleisteninhalts
 
 	private JComboBox m_fonts, m_styles; // Auswahl von Fonttyp, Stil und
 
@@ -118,8 +120,13 @@ public class EditFrame extends JFrame {
 	/**
 	 * Editor mit diesem Inhalt laden
 	 */
+	/**
+	 * @param inhalt
+	 * @param seiteninhalt
+	 */
 	public void setEditorText(String inhalt) {
-		m_textanzeige.setText(inhalt);
+		m_hauptinhaltanzeige.setText(inhalt);
+		m_seitenleistAnzeige.setText("seiteninhalt");
 	}
 	
 	private void init() {
@@ -165,12 +172,18 @@ public class EditFrame extends JFrame {
 		p_außen.setLayout(new BorderLayout());
 
 		// Text-Komponente anlegen
-		m_textanzeige = new CTextAnzeige(ZEILEN, SPALTEN);
-		m_textanzeige.setEditable(true);
+		m_hauptinhaltanzeige = new CTextAnzeige(ZEILEN, SPALTEN);
+		m_hauptinhaltanzeige.setEditable(true);
+		
+		m_seitenleistAnzeige = new CTextAnzeige(20,20);
+		m_seitenleistAnzeige.setEditable(true);
 
 		// Textkomponente scrollbar machen
 		JScrollPane scroll = new JScrollPane();
-		scroll.getViewport().add(m_textanzeige);
+		scroll.getViewport().add(m_hauptinhaltanzeige);
+		
+		JScrollPane scroll2 = new JScrollPane();
+		scroll2.getViewport().add(m_seitenleistAnzeige);
 
 		// Inneres Panel für die Auswahlmöglichkeiten 
 		JPanel p_innen = new JPanel();
@@ -178,6 +191,7 @@ public class EditFrame extends JFrame {
 
 		p_außen.setPreferredSize(new Dimension(500, 400));
 		p_außen.add("Center", scroll);
+		p_außen.add("East", scroll2);
 		p_außen.add("North", p_innen);
 
 		// Panel zur Frame Klasse hinzufügen
@@ -241,7 +255,7 @@ public class EditFrame extends JFrame {
 		// Befehle für die Zwischenablage
 		// erzeuge Action-Tabelle
 		m_befehle = new Hashtable();
-		Action[] actionsArray = m_textanzeige.getActions();
+		Action[] actionsArray = m_hauptinhaltanzeige.getActions();
 		for (int i = 0; i < actionsArray.length; i++) {
 			Action a = actionsArray[i];
 			m_befehle.put(a.getValue(Action.NAME), a);
@@ -286,18 +300,18 @@ public class EditFrame extends JFrame {
 
 	void personEinfuegen() {
 		EntityAttributeSelectionFrame personSelectionFrame = 
-			new EntityAttributeSelectionFrame(new Person(), m_textanzeige);
+			new EntityAttributeSelectionFrame(new Person(), m_hauptinhaltanzeige);
 			
 	}
 	
 	void gebaeudeEinfuegen() {
 		EntityAttributeSelectionFrame gebaeudeSelectionFrame = 
-			new EntityAttributeSelectionFrame(new Gebaeude(), m_textanzeige);
+			new EntityAttributeSelectionFrame(new Gebaeude(), m_hauptinhaltanzeige);
 	}
 	
 	void medienlinkEinfuegen() {
 		EntityAttributeSelectionFrame einrichtungSelectionFrame = 
-			new EntityAttributeSelectionFrame(new Medien(), m_textanzeige);
+			new EntityAttributeSelectionFrame(new Medien(), m_hauptinhaltanzeige);
 	}
 
 	// Eine Textdatei  laden
@@ -401,7 +415,7 @@ public class EditFrame extends JFrame {
 ////	        update konto set kontostand=kontostand-100 where kontonummer=3301
 	        
 	        
-			String text = m_textanzeige.getText();
+			String text = m_hauptinhaltanzeige.getText();
 			Context.getInstance().executeQuery(
 					"update INHALT set INHALTSTEXT='"+text+"' where ID='"+hauptseitenID+"'");
 			
@@ -455,7 +469,7 @@ public class EditFrame extends JFrame {
 	void dateiDrucken() {
 		PrinterJob druckJob = PrinterJob.getPrinterJob();
 
-		druckJob.setPrintable(m_textanzeige);
+		druckJob.setPrintable(m_hauptinhaltanzeige);
 		PageFormat seitenFormat = druckJob.pageDialog(druckJob.defaultPage());
 
 		if (druckJob.printDialog()) {
@@ -486,7 +500,7 @@ public class EditFrame extends JFrame {
 			return;
 
 		// nun suchen
-		m_aktText = m_textanzeige.getText();
+		m_aktText = m_hauptinhaltanzeige.getText();
 		Index = m_aktText.indexOf(suchstring);
 
 		if (Index == -1) {
@@ -494,7 +508,7 @@ public class EditFrame extends JFrame {
 					"Meldung", JOptionPane.INFORMATION_MESSAGE);
 		} else
 			// Den String hervorheben
-			m_textanzeige.select(Index, Index + suchstring.length());
+			m_hauptinhaltanzeige.select(Index, Index + suchstring.length());
 
 	} // Ende von 'stringSuchen' 
 
