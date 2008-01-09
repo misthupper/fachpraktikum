@@ -218,10 +218,21 @@ public class MainController implements ActionListener, TreeSelectionListener {
 				//die seite mit der id loschen und inhalte loeschen
 				Context.getInstance().executeQuery(
 						"DELETE FROM Version WHERE ID='"+x+"'");
-				Context.getInstance().executeQuery(
-						"DELETE FROM Inhalt WHERE ID='"+hauptseiteninhaltID+"'");
-				Context.getInstance().executeQuery(
-						"DELETE FROM Inhalt WHERE ID='"+seitenleisteninhaltID+"'");
+				// prüfen, ob Inhalt von einer anderen Seite verwendet wird (und dann nicht löschen!)
+				rs = Context.getInstance().executeQuery("select HauptseiteninhaltID, SeitenleisteinhaltID from Version where id<>" + x + "and HauptseiteninhaltID =" + hauptseiteninhaltID);
+				if (!rs.first()){
+					Context.getInstance().executeQuery(
+							"DELETE FROM Inhalt WHERE ID='"+hauptseiteninhaltID+"'");
+					System.out.println("Hauptseiteninhalt gelöscht");
+				}
+					
+				rs = Context.getInstance().executeQuery("select HauptseiteninhaltID, SeitenleisteinhaltID from Version where id<>" + x + "and SeitenleisteinhaltID =" + seitenleisteninhaltID);
+				if (!rs.first()){
+					Context.getInstance().executeQuery(
+							"DELETE FROM Inhalt WHERE ID='"+seitenleisteninhaltID+"'");
+					System.out.println("Seitenleisteninhalt gelöscht");
+				}
+					
 				
 			} catch (SQLException e1) {
 				e1.printStackTrace();
