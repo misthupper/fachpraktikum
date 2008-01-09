@@ -53,11 +53,12 @@ public class MainController implements ActionListener, TreeSelectionListener {
 		this.jFrame = jFrame;
 	}
 	
-		/**
+	/**
 	 * dispatch actions from the main frame
 	 */
 	public void actionPerformed(ActionEvent e) {
-		int treenode_id, vaterseite_id, last_id, new_id=0;
+		int treenode_id, vaterseite_id, last_id, new_id=0,
+		hauptSeitenInhaltID, seitenLeistenInhaltID;
 		
 		String actionCommand = e.getActionCommand();
 		MainFrame.log("action: " + actionCommand);
@@ -124,16 +125,37 @@ public class MainController implements ActionListener, TreeSelectionListener {
 				vaterseite_id = rs.getInt("VATERSEITEID");
 				
 				//letzte id holen zum inkrementieren
-				ResultSet rs_id = Context.getInstance().executeQuery("select ID from VERSION order by ID DESC");
+				ResultSet rs_id = Context.getInstance().executeQuery(
+						"select ID from VERSION order by ID DESC");
 				rs_id.first();
 				last_id = rs_id.getInt("ID");
 				new_id = last_id + 1;
 				
+				ResultSet rs_hauptSeitenInhaltID = Context.getInstance().executeQuery(
+						"select hauptseiteninhaltid from version" +
+						" order by hauptseiteninhaltid desc");
+				rs_hauptSeitenInhaltID.first();
+				hauptSeitenInhaltID = rs_hauptSeitenInhaltID.getInt("HAUPTSEITENINHALTID");
+				System.out.println("max. HauptseitenID: "+hauptSeitenInhaltID);
+				
+				ResultSet rs_seitenLeistenInhaltID = Context.getInstance().executeQuery("" +
+						"select SEITENLEISTEINHALTID from version order by SEITENLEISTEINHALTID desc");
+				rs_seitenLeistenInhaltID.first();
+				seitenLeistenInhaltID = rs_seitenLeistenInhaltID.getInt("SEITENLEISTEINHALTID");
+				System.out.println("max. SeitenleistenID: "+seitenLeistenInhaltID);
+				
+				
 				//neue Seite anlegen
+				//dazu wird die letzte HAUPTSEITENINHALTID und
+				//SEITENLEISTENINHALTID benötigt
 				Context.getInstance().executeQuery("INSERT INTO Version " +
 						"(id, vaterseiteID, path, titel, autor, format, statusid, hauptseiteninhaltID, seitenleisteInhaltID) " +
-						"VALUES ("+new_id+", "+vaterseite_id+", 'Hier Path eintragen','Hier Titel eintragen', 1, 1, 9, 2, 1)");
-				
+						"VALUES ("+new_id+", "+vaterseite_id+", 'Hier Path eintragen','Hier Titel eintragen'," +
+								" 1, 1, 9, "+(hauptSeitenInhaltID+1)+","+(seitenLeistenInhaltID+1)+")");
+				//Inhalt zur Seite anlegen
+//				Context.getInstance().executeQuery(
+//						"INSERT INTO INHALT (ID, INHALTSTYP, INHALTSTEXT) " +
+//						"VALUES ('4', 'Text', 'Test')");
 				
 				
 			} catch (SQLException e1) {
