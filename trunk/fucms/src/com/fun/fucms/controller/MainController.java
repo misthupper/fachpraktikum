@@ -148,32 +148,44 @@ public class MainController implements ActionListener, TreeSelectionListener {
 				seitenLeistenInhaltID = rs_seitenLeistenInhaltID.getInt("SEITENLEISTEINHALTID");
 				System.out.println("max. SeitenleistenID: "+seitenLeistenInhaltID);
 				
-				
-				//neue Seite anlegen
-				//dazu wird die letzte HAUPTSEITENINHALTID und SEITENLEISTENINHALTID benötigt
-				Context.getInstance().executeQuery("INSERT INTO Version " +
-						"(id, vaterseiteID, path, titel, autor, format, statusid, hauptseiteninhaltID, seitenleisteInhaltID) " +
-						"VALUES ("+new_id+", "+vaterseite_id+", 'Hier Path eintragen','Hier Titel eintragen'," +
-								" 1, 1, 9, "+(hauptSeitenInhaltID+1)+","+(seitenLeistenInhaltID+1)+")");
-				//Inhalt zur Seite anlegen
-				//wieder id holen und inkrementieren
-				ResultSet rs_inhaltID = Context.getInstance().executeQuery("" +
-				"select ID from INHALT order by ID desc");
-				rs_inhaltID.first();
-				int inhaltID = rs_inhaltID.getInt("ID");
-				System.out.println("max. inhaltID: "+inhaltID);
-				
 				int high;
 				if(hauptSeitenInhaltID > seitenLeistenInhaltID)
 					high=hauptSeitenInhaltID;
 				else
 					high=seitenLeistenInhaltID;
 				
-				if(inhaltID != high) {
-					Context.getInstance().executeQuery(
-							"INSERT INTO INHALT (ID, INHALTSTYP, INHALTSTEXT) " +
-							"VALUES ("+(hauptSeitenInhaltID+1)+", 'Text', 'Hier kommt der Inhalt hinein')");
-				}
+				//neue Seite anlegen
+				Context.getInstance().executeQuery("INSERT INTO Version " +
+						"(id, vaterseiteID, path, titel, autor, format, statusid, hauptseiteninhaltID, seitenleisteInhaltID) " +
+						"VALUES ("+new_id+", "+vaterseite_id+", 'Hier Path eintragen','Hier Titel eintragen'," +
+								" 1, 1, 9, "+(high+1)+","+(high+2)+")");
+				
+				//Inhalt zur Seite anlegen
+				Context.getInstance().executeQuery(
+						"INSERT INTO INHALT (ID, INHALTSTYP, INHALTSTEXT) " +
+						"VALUES ("+(high+1)+", 'Text', 'Hier kommt der HauptleistenInhalt hinein')");
+				Context.getInstance().executeQuery(
+						"INSERT INTO INHALT (ID, INHALTSTYP, INHALTSTEXT) " +
+						"VALUES ("+(high+2)+", 'Text', 'Hier kommt der SeitenleistenInhalt hinein')");
+				
+				//wieder id holen und inkrementieren
+//				ResultSet rs_inhaltID = Context.getInstance().executeQuery("" +
+//				"select ID from INHALT order by ID desc");
+//				rs_inhaltID.first();
+//				int inhaltID = rs_inhaltID.getInt("ID");
+//				System.out.println("max. inhaltID: "+inhaltID);
+//				
+//				int high;
+//				if(hauptSeitenInhaltID > seitenLeistenInhaltID)
+//					high=hauptSeitenInhaltID;
+//				else
+//					high=seitenLeistenInhaltID;
+//				
+//				if(inhaltID != high) {
+//					Context.getInstance().executeQuery(
+//							"INSERT INTO INHALT (ID, INHALTSTYP, INHALTSTEXT) " +
+//							"VALUES ("+(hauptSeitenInhaltID+1)+", 'Text', 'Hier kommt der Inhalt hinein')");
+//				}
 				
 			} catch (SQLException e1) {
 				e1.printStackTrace();
@@ -194,11 +206,20 @@ public class MainController implements ActionListener, TreeSelectionListener {
 			TreeNode tn = MainFrame.getPageTreeModel().getSelectedTreeNode();
 			int x = tn.getId();
 			System.out.println(x);
+			
+			
+			
 			try {
 				//die seite mit der id loschen
-				//TODO die zugehörigen inhalte loeschen
 				Context.getInstance().executeQuery(
 						"DELETE FROM Version WHERE ID='"+x+"'");
+//				TODO die zugehörigen inhalte loeschen
+//				haupt- und seitenleistenID holen zum loeschen
+//				Context.getInstance().executeQuery("" +
+//						"select HAUPTSEITENINHALTID, SEITENLEISTEINHALTID from Version where id='"+x+"'");
+					
+				Context.getInstance().executeQuery(
+						"DELETE FROM Inhalt WHERE ID='"+7+"'");
 				
 			} catch (SQLException e1) {
 				e1.printStackTrace();
