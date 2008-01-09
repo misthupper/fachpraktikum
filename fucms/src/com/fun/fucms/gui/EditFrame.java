@@ -44,6 +44,7 @@ import javax.swing.text.DefaultEditorKit;
 
 import com.fun.fucms.Context;
 import com.fun.fucms.EvilException;
+import com.fun.fucms.WebsiteGenerator;
 import com.fun.fucms.gui.entities.EntityAttributeSelectionFrame;
 import com.fun.fucms.model.entities.Gebaeude;
 import com.fun.fucms.model.entities.Medien;
@@ -435,6 +436,9 @@ public class EditFrame extends JFrame {
 	// Den aktuellen Text in DB abspeichern - Methode von CEditor
 	void seiteSpeichern() {
 		try {
+			// Archiv der alten Seite anlegen
+			WebsiteGenerator.generateWebsiteForArchiv(mWebseitenID);
+
 			//id für Inhaltstext holen
 			String mSQLString = "select * from Version where id=" + mWebseitenID;
 			ResultSet rs = Context.getInstance().executeQuery(mSQLString);
