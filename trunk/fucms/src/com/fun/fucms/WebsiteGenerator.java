@@ -13,6 +13,7 @@ import java.io.UnsupportedEncodingException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import javax.swing.JOptionPane;
@@ -85,6 +86,24 @@ public class WebsiteGenerator {
 		WebsiteGenerator.generateWebsite(WebseitenID);
 	}
 	
+	// Geniert eine Webseite für das Archiv im Ordner Archiv mit angehängtem Datum und Uhrzeit
+	public static void generateWebsiteForArchiv(int WebseitenID){
+		mWebseitenID = WebseitenID;
+		getTemplate();
+		mHtml = sTemplate;
+		mHtml = InhaltsParser.parse(generateWebsiteContent());
+		//ersetzt eventuell weitere relative Pfadangaben zu Mediendateien etc.
+		setFolder("../" + generateRelativeLinkPath(websitePath.replaceAll("\\\\", "/")));
+		// Aktuelles Datum:
+		Date heute = new Date();
+		// Formatierer:
+		SimpleDateFormat formatierer = new SimpleDateFormat ("yyyyMMdd_HHmm");
+		//System.out.println(formatierer.format(heute));
+		String Datum = formatierer.format(heute);
+		
+		write(new File(Configuration.getHTMLDirectory().getAbsolutePath() + "/archiv" + websitePath + webseitenTitel + Datum + ".html"));
+	}
+	
 	// Generiert die Webseite basierend auf dem Template
 	public static void generateWebsite(int WebseitenID){
 		mWebseitenID = WebseitenID;
@@ -110,7 +129,7 @@ public class WebsiteGenerator {
 			
 			HTMLPath = Configuration.getHTMLDirectory().getAbsolutePath().trim();
 			//HTMLPath = HTMLPath.replaceAll("\\\\", "/");
-			setFolder(generateRelativeLinkPath(websitePath.replaceAll("\\\\", "/")));
+			//setFolder(generateRelativeLinkPath(websitePath.replaceAll("\\\\", "/")));
 	        
 	        
 	        setTitleFather(rs.getString("titel").trim());
