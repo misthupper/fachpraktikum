@@ -112,7 +112,7 @@ public class MainController implements ActionListener, TreeSelectionListener {
 			}
 				
 		} else if (actionCommand.equals(sOPEN_NEWPAGE)) {
-			
+			//TODO Behandlung des Falles, dass keine treenode ausgewählt ist.
 			//selektierte ID ermitteln
 			TreeNode tn = MainFrame.getPageTreeModel().getSelectedTreeNode();
 			treenode_id = tn.getId();
@@ -147,6 +147,7 @@ public class MainController implements ActionListener, TreeSelectionListener {
 		} else if (actionCommand.equals(sTREE_REFRESH)) {
 			//TODO Baumstruktur neu laden
 			PageTreeModel ptm = MainFrame.getPageTreeModel();
+			//ptm.update(new java.util.Date());
 			MainFrame mf = (MainFrame) jFrame;
 			PageTree pt = mf.getPageTree();
 			
