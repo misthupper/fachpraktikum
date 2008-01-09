@@ -119,9 +119,14 @@ public class MainController implements ActionListener, TreeSelectionListener {
 				JOptionPane.showMessageDialog(null, "Bitte wählen Sie eine Seite aus.", "Achtung!", JOptionPane.CANCEL_OPTION);
 				return;
 			}
-//			
+			
 			treenode_id = tn.getId();
-//						
+			String websiteName = "test";
+			websiteName = JOptionPane.showInputDialog(null,"Name der neuen Webseite","Webseitenname",JOptionPane.PLAIN_MESSAGE);
+            if(websiteName==null || websiteName.length()==0){
+            	JOptionPane.showMessageDialog(null, "Kein Seitenname eingegeben, bitte versuchen Sie es erneut","Oops...",JOptionPane.ERROR_MESSAGE);
+            } else {
+            
 			try {
 				//VaterID holen
 				ResultSet rs = Context.getInstance().executeQuery("select VATERSEITEID from VERSION where ID="+treenode_id);
@@ -157,7 +162,7 @@ public class MainController implements ActionListener, TreeSelectionListener {
 				//neue Seite anlegen
 				Context.getInstance().executeQuery("INSERT INTO Version " +
 						"(id, vaterseiteID, path, titel, autor, format, statusid, hauptseiteninhaltID, seitenleisteInhaltID) " +
-						"VALUES ("+new_id+", "+vaterseite_id+", 'Hier Path eintragen','Hier Titel eintragen'," +
+						"VALUES ("+new_id+", "+vaterseite_id+", '" + websiteName + "', '" + websiteName + "'," +
 								" 1, 1, 9, "+(high+1)+","+(high+2)+")");
 				
 				//Inhalt zur Seite anlegen
@@ -192,8 +197,10 @@ public class MainController implements ActionListener, TreeSelectionListener {
 			} catch (EvilException e1) {
 				e1.printStackTrace();
 			}
-	
 			EditFrame ef = new EditFrame(new_id);
+            }
+	
+			
 			
 		} else if (actionCommand.equals(sTREE_REFRESH)) {
 			//TODO Baumstruktur neu laden
