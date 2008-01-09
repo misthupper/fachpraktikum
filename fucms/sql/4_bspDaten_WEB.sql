@@ -6,6 +6,11 @@ VALUES (1, 'Fernuni', 'template.html');
 INSERT INTO WEBSEITENVORLAGE (ID, NAME, DATEINAME)
 VALUES (2, 'Startseite', 'templateStartseite.html');
 
+/* Tabelle Medien */
+
+INSERT INTO MEDIEN (ID, NAME, LINK)
+VALUES (1, 'ER-Diagramm', 'downloads/er04.ppt');
+
 /* Tabelle Version */
 
 INSERT INTO Version (id, vaterseiteID, path, titel, autor, format, statusid, hauptseiteninhaltID, seitenleisteInhaltID)
@@ -53,7 +58,7 @@ VALUES ('1', 'Text', '<!--anzeige der linklisten in den zusatzinformationen-->
     </ul>');
     
 INSERT INTO INHALT (ID, INHALTSTYP, INHALTSTEXT) 
-VALUES ('4', 'Text', 'Test');
+VALUES ('4', 'Text', 'Das ist ein Test für die Verlinkung von Mediendaten und hier ein Link auf die Datei <a href=''FUCMS_PATH<!-- FUCMS.Medien.1.LINK -->''><!-- FUCMS.Medien.1.NAME --></a>. Hoffentlich funktioniert alles');
 
 INSERT INTO INHALT (ID, INHALTSTYP, INHALTSTEXT) 
 VALUES ('2', 'Text', '  <p>

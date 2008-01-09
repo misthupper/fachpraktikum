@@ -71,6 +71,7 @@ CREATE TABLE Inhalt (
 /* Tabelle Medien */
 CREATE TABLE Medien (
 	id integer not null primary key, 
-	medium BLOB
+	name char(32) not null,
+	link char(64) not null
 );
 

@@ -89,9 +89,10 @@ public class WebsiteGenerator {
 	public static void generateWebsite(int WebseitenID){
 		mWebseitenID = WebseitenID;
 		getTemplate();
-		//TODO Template je nach Webseite auslesen
 		mHtml = sTemplate;
 		mHtml = InhaltsParser.parse(generateWebsiteContent());
+		//ersetzt eventuell weitere relative Pfadangaben zu Mediendateien etc.
+		setFolder(generateRelativeLinkPath(websitePath.replaceAll("\\\\", "/")));
 		write(new File(Configuration.getHTMLDirectory().getAbsolutePath() + websitePath + webseitenTitel + ".html"));
 	}
 	
@@ -115,7 +116,7 @@ public class WebsiteGenerator {
 	        setTitleFather(rs.getString("titel").trim());
 	        
 	        setCSS("arbeiten.css");
-	        //TODO Menügenerierung
+	        
 	        setMenu();
 	        
 	        // HauptseitenInhalt einlesen und ersetzen
