@@ -113,11 +113,15 @@ public class MainController implements ActionListener, TreeSelectionListener {
 			}
 				
 		} else if (actionCommand.equals(sOPEN_NEWPAGE)) {
-			//TODO Behandlung des Falles, dass keine treenode ausgewählt ist.
 			//selektierte ID ermitteln
 			TreeNode tn = MainFrame.getPageTreeModel().getSelectedTreeNode();
+			if(tn== null) {
+				JOptionPane.showMessageDialog(null, "Bitte wählen Sie eine Seite aus.", "Achtung!", JOptionPane.CANCEL_OPTION);
+				return;
+			}
+//			
 			treenode_id = tn.getId();
-			
+//						
 			try {
 				//VaterID holen
 				ResultSet rs = Context.getInstance().executeQuery("select VATERSEITEID from VERSION where ID="+treenode_id);
@@ -146,17 +150,30 @@ public class MainController implements ActionListener, TreeSelectionListener {
 				
 				
 				//neue Seite anlegen
-				//dazu wird die letzte HAUPTSEITENINHALTID und
-				//SEITENLEISTENINHALTID benötigt
+				//dazu wird die letzte HAUPTSEITENINHALTID und SEITENLEISTENINHALTID benötigt
 				Context.getInstance().executeQuery("INSERT INTO Version " +
 						"(id, vaterseiteID, path, titel, autor, format, statusid, hauptseiteninhaltID, seitenleisteInhaltID) " +
 						"VALUES ("+new_id+", "+vaterseite_id+", 'Hier Path eintragen','Hier Titel eintragen'," +
 								" 1, 1, 9, "+(hauptSeitenInhaltID+1)+","+(seitenLeistenInhaltID+1)+")");
 				//Inhalt zur Seite anlegen
-//				Context.getInstance().executeQuery(
-//						"INSERT INTO INHALT (ID, INHALTSTYP, INHALTSTEXT) " +
-//						"VALUES ('4', 'Text', 'Test')");
+				//wieder id holen und inkrementieren
+				ResultSet rs_inhaltID = Context.getInstance().executeQuery("" +
+				"select ID from INHALT order by ID desc");
+				rs_inhaltID.first();
+				int inhaltID = rs_inhaltID.getInt("ID");
+				System.out.println("max. inhaltID: "+inhaltID);
 				
+				int high;
+				if(hauptSeitenInhaltID > seitenLeistenInhaltID)
+					high=hauptSeitenInhaltID;
+				else
+					high=seitenLeistenInhaltID;
+				
+				if(inhaltID != high) {
+					Context.getInstance().executeQuery(
+							"INSERT INTO INHALT (ID, INHALTSTYP, INHALTSTEXT) " +
+							"VALUES ("+(hauptSeitenInhaltID+1)+", 'Text', 'Hier kommt der Inhalt hinein')");
+				}
 				
 			} catch (SQLException e1) {
 				e1.printStackTrace();
