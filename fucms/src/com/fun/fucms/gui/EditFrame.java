@@ -8,6 +8,8 @@ import java.awt.Graphics2D;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.awt.print.PageFormat;
@@ -103,6 +105,8 @@ public class EditFrame extends JFrame {
 
 	private Hashtable m_befehle;
 	
+	private JTextArea currentTextArea = m_hauptinhaltanzeige;
+	
 	private int mWebseitenID; //ID der Webseite
 	
 	
@@ -124,9 +128,9 @@ public class EditFrame extends JFrame {
 	 * @param inhalt
 	 * @param seiteninhalt
 	 */
-	public void setEditorText(String inhalt) {
+	public void setEditorText(String inhalt, String seiteninhalt) {
 		m_hauptinhaltanzeige.setText(inhalt);
-		m_seitenleistAnzeige.setText("seiteninhalt");
+		m_seitenleistAnzeige.setText(seiteninhalt);
 	}
 	
 	private void init() {
@@ -202,6 +206,20 @@ public class EditFrame extends JFrame {
 //				System.exit(0);
 			}
 		}
+		
+		class CMeinIFocusLauscher implements FocusListener {
+			public void focusGained(FocusEvent e) {
+				currentTextArea = m_hauptinhaltanzeige;
+			}
+			public void focusLost(FocusEvent arg0) {}
+		}
+		
+		class CMeinSFocusLauscher implements FocusListener {
+			public void focusGained(FocusEvent e) {
+				currentTextArea = m_seitenleistAnzeige;
+			}
+			public void focusLost(FocusEvent arg0) {}
+		}
 
 		class CMeinActionLauscher implements ActionListener {
 			public void actionPerformed(ActionEvent e) {
@@ -251,6 +269,11 @@ public class EditFrame extends JFrame {
 		item3_2.addActionListener(actionlistener);
 		item3_3.addActionListener(actionlistener);
 		item4_1.addActionListener(actionlistener);
+		
+		CMeinIFocusLauscher iFocuslistener = new CMeinIFocusLauscher();
+		CMeinSFocusLauscher sFocuslistener = new CMeinSFocusLauscher();
+		m_seitenleistAnzeige.addFocusListener(sFocuslistener);
+		m_hauptinhaltanzeige.addFocusListener(iFocuslistener);
 
 		// Befehle für die Zwischenablage
 		// erzeuge Action-Tabelle
@@ -279,9 +302,16 @@ public class EditFrame extends JFrame {
 
 	        // HauptseitenInhalt
 	        String hauptseitenID = rs.getString("HauptseitenInhaltID");
+	        String seitenleistenID = rs.getString("SeitenleisteInhaltID");
 	        ResultSet rs2 = Context.getInstance().executeQuery("select * from Inhalt where id=" + hauptseitenID);
 	        rs2.first();
-	        setEditorText(rs2.getString("Inhaltstext").trim());
+	        String inhaltstext = rs2.getString("Inhaltstext").trim();
+	        
+	        rs2 = Context.getInstance().executeQuery("select * from Inhalt where id=" + seitenleistenID);
+	        rs2.first();
+	        String seitenleistentext = rs2.getString("Inhaltstext").trim();
+	        
+	        setEditorText(inhaltstext, seitenleistentext);
 		}  catch (SQLException e) {
 			System.out.println(e.getMessage());
 		} catch (EvilException e) {
@@ -299,19 +329,20 @@ public class EditFrame extends JFrame {
 	}
 
 	void personEinfuegen() {
+		
 		EntityAttributeSelectionFrame personSelectionFrame = 
-			new EntityAttributeSelectionFrame(new Person(), m_hauptinhaltanzeige);
+			new EntityAttributeSelectionFrame(new Person(), currentTextArea);
 			
 	}
 	
 	void gebaeudeEinfuegen() {
 		EntityAttributeSelectionFrame gebaeudeSelectionFrame = 
-			new EntityAttributeSelectionFrame(new Gebaeude(), m_hauptinhaltanzeige);
+			new EntityAttributeSelectionFrame(new Gebaeude(), currentTextArea);
 	}
 	
 	void medienlinkEinfuegen() {
 		EntityAttributeSelectionFrame einrichtungSelectionFrame = 
-			new EntityAttributeSelectionFrame(new Medien(), m_hauptinhaltanzeige);
+			new EntityAttributeSelectionFrame(new Medien(), currentTextArea);
 	}
 
 	// Eine Textdatei  laden
@@ -319,19 +350,22 @@ public class EditFrame extends JFrame {
 	void seiteNeuLaden() {
 		try {
 			String mSQLString = "select * from Version where id=" + mWebseitenID;
-			//mSQLString = "Select * from Person where id=1";
-	        System.out.println(mSQLString);
 	        ResultSet rs = Context.getInstance().executeQuery(mSQLString);
 	        rs.first();
 	        setTitle("Seiteneditor: " + rs.getString("path").trim());
 
 	        // HauptseitenInhalt
 	        String hauptseitenID = rs.getString("HauptseitenInhaltID");
-	        System.out.println("HauptseitenInhaltsID: " + hauptseitenID);
+	        String seitenleistenID = rs.getString("SeitenleisteInhaltID");
 	        ResultSet rs2 = Context.getInstance().executeQuery("select * from Inhalt where id=" + hauptseitenID);
 	        rs2.first();
-	        System.out.println("Hauptinhalt:"+ rs2.getString("Inhaltstext"));
-	        setEditorText(rs2.getString("Inhaltstext").trim());
+	        String inhaltstext = rs2.getString("Inhaltstext").trim();
+	        
+	        rs2 = Context.getInstance().executeQuery("select * from Inhalt where id=" + seitenleistenID);
+	        rs2.first();
+	        String seitenleistentext = rs2.getString("Inhaltstext").trim();
+	        
+	        setEditorText(inhaltstext, seitenleistentext);
 		}  catch (SQLException e) {
 			System.out.println(e.getMessage());
 		} catch (EvilException e) {
@@ -407,6 +441,7 @@ public class EditFrame extends JFrame {
 	        rs.first();
 //	        // HauptseitenInhalt
 	        String hauptseitenID = rs.getString("HauptseitenInhaltID");
+	        String seitenleistenID = rs.getString("SeitenleisteInhaltID");
 //	        ResultSet rs2 = Context.getInstance().executeQuery("select * from Inhalt where id=" + hauptseitenID);
 //	        rs2.first();
 ////	        System.out.println("Hauptinhalt:"+ rs2.getString("Inhaltstext"));
@@ -418,6 +453,10 @@ public class EditFrame extends JFrame {
 			String text = m_hauptinhaltanzeige.getText();
 			Context.getInstance().executeQuery(
 					"update INHALT set INHALTSTEXT='"+text+"' where ID='"+hauptseitenID+"'");
+			
+			String text2 = m_seitenleistAnzeige.getText();
+			Context.getInstance().executeQuery(
+					"update INHALT set INHALTSTEXT='"+text2+"' where ID='"+seitenleistenID+"'");
 			
 			
 		} catch (SQLException e) {
