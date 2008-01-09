@@ -11,7 +11,7 @@ import com.fun.fucms.controller.MainController;
 public class MainMenu extends JMenuBar {
 	
 	// Web Menue
-	private static final String sMENU1 = "Web";
+	private static final String sMENU1 = "DB";
 	//private static final String sMENU1_ITEM1 = "DB löschen";  
 	private static final String sMENU1_ITEM1 = "DB neu anlegen"; 
 	private static final String sMENU1_ITEM2 = "Einzelnes SQL script ausführen"; 
