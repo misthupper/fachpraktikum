@@ -44,6 +44,7 @@ import com.fun.fucms.Context;
 import com.fun.fucms.EvilException;
 import com.fun.fucms.gui.entities.EntityAttributeSelectionFrame;
 import com.fun.fucms.model.entities.Gebaeude;
+import com.fun.fucms.model.entities.Medien;
 import com.fun.fucms.model.entities.Person;
 
 public class EditFrame extends JFrame {
@@ -79,7 +80,7 @@ public class EditFrame extends JFrame {
 
 	private static final String sMENU3_ITEM2 = "Gebaeude einfuegen...";
 
-	private static final String sMENU3_ITEM3 = "Einrichtung einfuegen...";
+	private static final String sMENU3_ITEM3 = "Medienlink einfuegen...";
 
 	private static final String sMENU4 = "Suchen";
 
@@ -119,7 +120,6 @@ public class EditFrame extends JFrame {
 	 */
 	public void setEditorText(String inhalt) {
 		m_textanzeige.setText(inhalt);
-		//TODO inhalt aus DB lesen
 	}
 	
 	private void init() {
@@ -209,7 +209,7 @@ public class EditFrame extends JFrame {
 					fensterSchliessen();
 
 				if (label.equals(sMENU3_ITEM3))
-					einrichtungEinfuegen(); 
+					medienlinkEinfuegen(); 
 
 				if (label.equals(sMENU3_ITEM1))
 					personEinfuegen();
@@ -258,7 +258,6 @@ public class EditFrame extends JFrame {
 		setTitle("Seiteneditor");
 		
 		try {
-			//TODO
 			String mSQLString = "select * from Version where id=" + mWebseitenID;
 	        ResultSet rs = Context.getInstance().executeQuery(mSQLString);
 	        rs.first();
@@ -296,9 +295,9 @@ public class EditFrame extends JFrame {
 			new EntityAttributeSelectionFrame(new Gebaeude(), m_textanzeige);
 	}
 	
-	void einrichtungEinfuegen() {
+	void medienlinkEinfuegen() {
 		EntityAttributeSelectionFrame einrichtungSelectionFrame = 
-			new EntityAttributeSelectionFrame(new Person(), m_textanzeige);
+			new EntityAttributeSelectionFrame(new Medien(), m_textanzeige);
 	}
 
 	// Eine Textdatei  laden

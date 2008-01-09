@@ -50,7 +50,11 @@ public class EntityAttributeSelectionFrameController implements ActionListener, 
 					String id = entity.getValueAsString("id");
 //					System.out.println("ID: " + id);
 					String ersetzungsmarke = "<!-- FUCMS."+ entity.getTable() + "." + id + "." + attributeName + " -->";
-					System.out.println(ersetzungsmarke);
+					//System.out.println(ersetzungsmarke);
+					// Falls eine link-adresse eingefügt wird, muss noch der (relative) Pfad ebenfalls hinzugefügt werden (FUCMS_PATH)
+					if (ersetzungsmarke.contains("LINK")){
+						ersetzungsmarke = "FUCMS_PATH" + ersetzungsmarke;
+					}
 					textanzeige.insert(ersetzungsmarke, textanzeige.getCaretPosition());
 				}
 				
