@@ -1,0 +1,8 @@
+com.fun.fucms
+com.fun.fucms.conf
+com.fun.fucms.controller
+com.fun.fucms.gui
+com.fun.fucms.gui.entities
+com.fun.fucms.model
+com.fun.fucms.model.entities
+com.fun.fucms.sql
