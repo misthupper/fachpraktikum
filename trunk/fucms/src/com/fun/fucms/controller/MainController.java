@@ -205,21 +205,23 @@ public class MainController implements ActionListener, TreeSelectionListener {
 		} else if (actionCommand.equals(sDELETE_PAGE)) {
 			TreeNode tn = MainFrame.getPageTreeModel().getSelectedTreeNode();
 			int x = tn.getId();
-			System.out.println(x);
-			
-			
+//			System.out.println(x);
 			
 			try {
-				//die seite mit der id loschen
+				ResultSet rs = Context.getInstance().executeQuery("" +
+						"select HAUPTSEITENINHALTID, SEITENLEISTEINHALTID from Version where id='"+x+"'");
+				rs.first();
+				int hauptseiteninhaltID = rs.getInt("HAUPTSEITENINHALTID");
+				int seitenleisteninhaltID = rs.getInt("SEITENLEISTEINHALTID");
+//				System.out.println(hauptseiteninhaltID+" "+seitenleisteninhaltID);
+				
+				//die seite mit der id loschen und inhalte loeschen
 				Context.getInstance().executeQuery(
 						"DELETE FROM Version WHERE ID='"+x+"'");
-//				TODO die zugehörigen inhalte loeschen
-//				haupt- und seitenleistenID holen zum loeschen
-//				Context.getInstance().executeQuery("" +
-//						"select HAUPTSEITENINHALTID, SEITENLEISTEINHALTID from Version where id='"+x+"'");
-					
 				Context.getInstance().executeQuery(
-						"DELETE FROM Inhalt WHERE ID='"+7+"'");
+						"DELETE FROM Inhalt WHERE ID='"+hauptseiteninhaltID+"'");
+				Context.getInstance().executeQuery(
+						"DELETE FROM Inhalt WHERE ID='"+seitenleisteninhaltID+"'");
 				
 			} catch (SQLException e1) {
 				e1.printStackTrace();
