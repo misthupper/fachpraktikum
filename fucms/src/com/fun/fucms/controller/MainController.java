@@ -129,9 +129,10 @@ public class MainController implements ActionListener, TreeSelectionListener {
             
 			try {
 				//VaterID holen
-				ResultSet rs = Context.getInstance().executeQuery("select VATERSEITEID from VERSION where ID="+treenode_id);
-				rs.first();
-				vaterseite_id = rs.getInt("VATERSEITEID");
+				//ResultSet rs = Context.getInstance().executeQuery("select VATERSEITEID from VERSION where ID="+treenode_id);
+				//rs.first();
+				//vaterseite_id = rs.getInt("VATERSEITEID");
+				vaterseite_id = treenode_id;//Neue Seite wird Unterseite der selektierten Seite.
 				
 				//letzte id holen zum inkrementieren
 				ResultSet rs_id = Context.getInstance().executeQuery(
