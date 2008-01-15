@@ -92,21 +92,34 @@ public class MainController implements ActionListener, TreeSelectionListener {
 				//System.out.println("ID des selektierten Knoten "+x);
 				WebsiteGenerator.generateWebsite(x);
 				System.out.println("Webseite generiert!");
+				
 			}
 			else {
 				JOptionPane.showMessageDialog(null, "Bitte wählen Sie eine Seite aus.", "Achtung!", JOptionPane.CANCEL_OPTION);
 			}
 				
 		}else if (actionCommand.equals(sGENERATE_WEBSITES)) {
-			//TODO Hier kommt manchmal ein "maximum open cursors exceeded" error der Datenbank. Warum?
 			ResultSet rs;
 			try {
 				rs = Context.getInstance().executeQuery("select * from Version");
+				int [] websiteIDs = new int [200];
+				int counter = 0;
 				while (rs.next()){
-	        		WebsiteGenerator.generateWebsite(rs.getInt("id"));
-	        		System.out.println("Webseite " + rs.getString("titel").trim() + " generiert!");
+					websiteIDs[counter] = rs.getInt("id");
+					System.out.println("Wert eingelesen: " + rs.getInt("id"));
+					counter++;
 				}
 				rs.close();
+				System.out.println(counter);
+				
+				for (int i=0; i < counter; i++){
+					WebsiteGenerator.generateWebsite(websiteIDs[i]);
+	        		System.out.println("Webseite " + websiteIDs[i] + " generiert!");
+	        		// schlie§t und startet die Verbindung neu um "maximum open cursors exceeded" error der Datenbank zu verhindern
+	        		mContext.close();
+					mContext.start();
+				}
+
 			} catch (SQLException e1) {
 				e1.printStackTrace();
 			} catch (EvilException e1) {

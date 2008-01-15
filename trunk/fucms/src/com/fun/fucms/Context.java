@@ -43,6 +43,15 @@ public class Context {
 		}
 	}
 	
+	public void start() {
+		try {
+			initDatabaseConnection();
+			mDate = new Date();
+		} catch (SQLException e) {
+			System.out.println(e.getMessage());
+		}
+	}
+	
 	public Date getDate() {
 		return mDate;
 	}
