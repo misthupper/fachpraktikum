@@ -181,8 +181,10 @@ public class WebsiteGenerator {
 		while (mHtml.contains(FUCMS_PATH))
 			mHtml = mHtml.replace(FUCMS_PATH, folder);
 	}
-	public static void setPfad(String pfad) {
-		mHtml = mHtml.replaceAll(FUCMS_BROTKRUEMELPFAD, pfad.replaceAll("/", " | "));
+	public static void setPfad(String pfad) throws SQLException, EvilException {
+		
+		mHtml = mHtml.replaceAll(FUCMS_BROTKRUEMELPFAD, generateBrotkruemelPath(mWebseitenID));
+		//mHtml = mHtml.replaceAll(FUCMS_BROTKRUEMELPFAD, pfad.replaceAll("/", " | "));
 	}
 	public static void setTitleFather(String titleFather) {
 		if (titleFather.contains("root"))
@@ -198,9 +200,8 @@ public class WebsiteGenerator {
 	public static void setSeitenleisteninhalt(String zusatzinformation) {
 		mHtml = mHtml.replaceAll(FUCMS_ZUSATZINFORMATIONEN, zusatzinformation);
 	}
+	
 	public static void setMenu() throws SQLException, EvilException {
-		
-		
 		// holt alle Seiten mit der gleichen Vaterseite
 		ResultSet rs = Context.getInstance().executeQuery("select * from Version where VaterseiteID=" + mWebseitenID);
         String link = "";
@@ -252,6 +253,35 @@ public class WebsiteGenerator {
 		}
 		rs.close();
 		return "/" + path;
+	}
+	
+	/**
+	 * Generiert den Brotkrümel-Pfad der Webseite inkl. Links basierend auf der Baumstruktur der Seiten
+	 */
+	public static String generateBrotkruemelPath(int websiteID) throws SQLException, EvilException{
+		String path = "";
+		String linkPath = "../";
+		pathDepth = 0;
+		String tempid = Integer.toString(websiteID);
+		ResultSet rs = Context.getInstance().executeQuery("select * from version where id = " + tempid);
+		rs.first();
+		tempid = rs.getString("vaterseiteid");
+		rs.close();
+		rs = Context.getInstance().executeQuery("select * from version where id = " + tempid);
+		rs.first();
+		while (!(rs.getString("path").contains("root"))){
+			path = "<li> <a href='" + linkPath + rs.getString("path").trim() + ".html' >" + rs.getString("path").trim() + "</a> </li> " + path; // pfad anh‰ngen
+			// tempid wird mit vaterseitenid geladen
+			linkPath = linkPath + "../";
+			tempid = rs.getString("vaterseiteid");
+			pathDepth++;
+			rs.close();
+			rs = Context.getInstance().executeQuery("select * from version where id = " + tempid);
+			rs.first();
+		}
+		rs.close();
+		//System.out.println("<a href = 'http://www.fernuni-hagen.de'>Fernuni</a> &nbsp;" + path + webseitenTitel);
+		return "<li> <a href = 'http://www.fernuni-hagen.de'>Fernuni</a> </li> " + path + "<li> " + webseitenTitel + "</li></ul>";
 	}
 	
 	public static String generateRelativeLinkPath(String path){
