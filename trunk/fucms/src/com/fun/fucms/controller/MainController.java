@@ -98,6 +98,7 @@ public class MainController implements ActionListener, TreeSelectionListener {
 			}
 				
 		}else if (actionCommand.equals(sGENERATE_WEBSITES)) {
+			//TODO Hier kommt manchmal ein "maximum open cursors exceeded" error der Datenbank. Warum?
 			ResultSet rs;
 			try {
 				rs = Context.getInstance().executeQuery("select * from Version");

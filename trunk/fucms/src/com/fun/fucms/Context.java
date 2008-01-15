@@ -51,13 +51,13 @@ public class Context {
 	}
 	
 	public void close() {
-		/*if (mConnection != null) {
+		if (mConnection != null) {
 			try {
 				mConnection.close();
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
-		}*/
+		}
 	}
 	
 	public Connection getConnection() {

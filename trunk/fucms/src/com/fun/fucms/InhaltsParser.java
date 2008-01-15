@@ -23,39 +23,11 @@ public class InhaltsParser {
 
 	protected static Context mContext;
 	private static String ENCODING = "ISO-8859-1";
-	private static String sInhalt = getInhalt();
 
 	public InhaltsParser(Context context) {
 		mContext = context;
 	}
 
-	private static String getInhalt()
-	// Erst mal über eine Datei laden - später aus der Datenbank
-	{
-		String ergebnis="";
-		File templateFile = new File(Configuration.getInhaltsDirectory().getAbsolutePath() +
-		"/Senatsbeauftragter.html");
-		try {
-			StringBuffer sb = new StringBuffer();
-			BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(templateFile), ENCODING));
-			String s = br.readLine();
-			while (s != null) {
-				sb.append(s+"\n");
-				s = br.readLine();
-			}
-			br.close();
-			ergebnis = parse(sb.toString());
-
-			return sb.toString();
-		} catch (FileNotFoundException e) {
-			System.out.println(e.getMessage());
-		} catch (UnsupportedEncodingException e) {
-			System.out.println(e.getMessage());
-		} catch (IOException e) {
-			System.out.println(e.getMessage());
-		}
-		return ergebnis;
-	}
 
 
 	public static String parse(String pHTML){
