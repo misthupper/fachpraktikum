@@ -53,6 +53,7 @@ public class WebsiteGenerator {
 			ResultSet rs = Context.getInstance().executeQuery("select * from Version where id = " + mWebseitenID);
 			rs.first();
 			int formatID = rs.getInt("format");
+			rs.close();
 			rs = Context.getInstance().executeQuery("select * from Webseitenvorlage where id = " + formatID);
 			rs.first();
 			templateFileName = rs.getString("dateiname").trim();
@@ -68,6 +69,7 @@ public class WebsiteGenerator {
 				s = br.readLine();
 			}
 			br.close();
+			rs.close();
 			sTemplate =  sb.toString();
 		} catch (FileNotFoundException e) {
 			System.out.println(e.getMessage());
@@ -100,7 +102,6 @@ public class WebsiteGenerator {
 		SimpleDateFormat formatierer = new SimpleDateFormat ("yyyyMMdd_HHmm");
 		//System.out.println(formatierer.format(heute));
 		String Datum = formatierer.format(heute);
-		
 		write(new File(Configuration.getHTMLDirectory().getAbsolutePath() + "/archiv" + websitePath + webseitenTitel + Datum + ".html"));
 	}
 	
@@ -155,6 +156,8 @@ public class WebsiteGenerator {
 	        
 	        rs.close();
 	        rs2.close();
+	        rs3.close();
+	        //Context.getInstance().close();
 		}  catch (SQLException e) {
 			System.out.println(e.getMessage());
 		}
@@ -204,6 +207,7 @@ public class WebsiteGenerator {
         String seitentitel = "";
         String tempWebseitenTitel = webseitenTitel + "/";
 		if (!rs.first()){
+			rs.close();
 			rs = Context.getInstance().executeQuery("select * from Version where vaterseiteID = (select vaterseiteID from Version where id = " + mWebseitenID + ")");
 			rs.first();
 			tempWebseitenTitel = "";
@@ -213,7 +217,7 @@ public class WebsiteGenerator {
 			if (!(rs.getString("path").contains("root"))){
 				//System.out.println(rs.getString("path"));
 				seitentitel = rs.getString("path").trim();
-				if (seitentitel.contains(webseitenTitel)){
+				if (seitentitel.contentEquals(webseitenTitel)){
 					link = link + "<li>" + seitentitel + "</li>\n";
 				} else {
 					link = link + "<li><a href='"  + tempWebseitenTitel + seitentitel + ".html" + "' >" + seitentitel + "</a></li>\n";
@@ -234,6 +238,7 @@ public class WebsiteGenerator {
 		ResultSet rs = Context.getInstance().executeQuery("select * from version where id = " + tempid);
 		rs.first();
 		tempid = rs.getString("vaterseiteid");
+		rs.close();
 		rs = Context.getInstance().executeQuery("select * from version where id = " + tempid);
 		rs.first();
 		while (!(rs.getString("path").contains("root"))){
@@ -241,6 +246,7 @@ public class WebsiteGenerator {
 			// tempid wird mit vaterseitenid geladen
 			tempid = rs.getString("vaterseiteid");
 			pathDepth++;
+			rs.close();
 			rs = Context.getInstance().executeQuery("select * from version where id = " + tempid);
 			rs.first();
 		}
