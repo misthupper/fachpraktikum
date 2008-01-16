@@ -19,6 +19,7 @@ import java.util.Date;
 import javax.swing.JOptionPane;
 
 import com.fun.fucms.conf.Configuration;
+import com.fun.fucms.gui.MainFrame;
 
 public class WebsiteGenerator {
 	
@@ -107,10 +108,13 @@ public class WebsiteGenerator {
 	
 	// Generiert die Webseite basierend auf dem Template
 	public static void generateWebsite(int WebseitenID){
+		MainFrame.log("-- Webseite mit der ID " + WebseitenID + " wird generiert!");
 		mWebseitenID = WebseitenID;
 		getTemplate();
+		MainFrame.log("Template-Datei wird geladen!");
 		mHtml = sTemplate;
 		mHtml = InhaltsParser.parse(generateWebsiteContent());
+		MainFrame.log("Ersetzungsmarken werden durch Inhalte der Datenbank ersetzt!");
 		//ersetzt eventuell weitere relative Pfadangaben zu Mediendateien etc.
 		setFolder(generateRelativeLinkPath(websitePath.replaceAll("\\\\", "/")));
 		write(new File(Configuration.getHTMLDirectory().getAbsolutePath() + websitePath + webseitenTitel + ".html"));
@@ -125,6 +129,7 @@ public class WebsiteGenerator {
 	        webseitenTitel = rs.getString("path").trim();
 	        setTitle(rs.getString("titel").trim());
 			
+	        MainFrame.log("Pfad der Webseite wird generiert!");
 			websitePath = generateWebsitePath(mWebseitenID);
 			setPfad("Fernuni" + websitePath + webseitenTitel);
 			
@@ -132,14 +137,16 @@ public class WebsiteGenerator {
 			//HTMLPath = HTMLPath.replaceAll("\\\\", "/");
 			//setFolder(generateRelativeLinkPath(websitePath.replaceAll("\\\\", "/")));
 	        
-	        
+			ResultSet rs4 = Context.getInstance().executeQuery("select * from Version where id =" + rs.getString("vaterseiteID").trim());
+	        rs4.first();
 	        setTitleFather(rs.getString("titel").trim());
 	        
 	        setCSS("arbeiten.css");
-	        
+	        MainFrame.log("Menü wird generiert!");
 	        setMenu();
 	        
 	        // HauptseitenInhalt einlesen und ersetzen
+	        MainFrame.log("Inhalt der Hauptseite wird aus der DB eingelesen!");
 	        String hauptseitenID = rs.getString("HauptseitenInhaltID");
 	        ResultSet rs2 = Context.getInstance().executeQuery("select * from Inhalt where id=" + hauptseitenID);
 	        rs2.first();
@@ -147,6 +154,7 @@ public class WebsiteGenerator {
 	        setHauptinhalt(rs2.getString("Inhaltstext"));
 	        
 	        // SeitenleistenInhalt
+	        MainFrame.log("Inhalt der Seitenleiste wird aus der DB eingelesen!");
 	        String seitenleistenID = rs.getString("SeitenleisteInhaltID");
 	        //System.out.println("SeitenleistenInhaltsID: " + seitenleistenID);
 	        ResultSet rs3 = Context.getInstance().executeQuery("select * from Inhalt where id=" + seitenleistenID);
@@ -157,6 +165,7 @@ public class WebsiteGenerator {
 	        rs.close();
 	        rs2.close();
 	        rs3.close();
+	        rs4.close();
 	        //Context.getInstance().close();
 		}  catch (SQLException e) {
 			System.out.println(e.getMessage());
@@ -281,7 +290,7 @@ public class WebsiteGenerator {
 		}
 		rs.close();
 		//System.out.println("<a href = 'http://www.fernuni-hagen.de'>Fernuni</a> &nbsp;" + path + webseitenTitel);
-		return "<li> <a href = 'http://www.fernuni-hagen.de'>Fernuni</a> </li> " + path + "<li> " + webseitenTitel + "</li></ul>";
+		return "<li> <a href = 'http://www.fernuni-hagen.de'>Fernuni</a> </li> " + path + "<li> " + webseitenTitel + "</li>";
 	}
 	
 	public static String generateRelativeLinkPath(String path){
