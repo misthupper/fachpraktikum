@@ -46,6 +46,18 @@
 			<fileset dir="sql" includes="**/*.sql"/>
 		</copy>
 		
+		<mkdir dir="${dist}/templates"/>
+		<copy todir="${dist}/templates/">
+			<fileset dir="templates" includes="**/*.html"/>
+		</copy>
+		
+		<mkdir dir="${dist}/html"/>
+		<copy todir="${dist}/html">
+			<fileset dir="html" includes="**/*.css"/>
+			<fileset dir="html" includes="**/*.jpg"/>
+			<fileset dir="html" includes="**/*.gif"/>
+		</copy>
+		
 		<echo file="${dist}/fucms.bat" append="false">java -cp cms.jar;dom4j-full.jar;ojdbc14.jar com.fun.fucms.gui.MainFrame</echo>
 		
 		<echo file="${dist}/fucms.sh" append="false">#!/bin/bash${line.separator}</echo>
