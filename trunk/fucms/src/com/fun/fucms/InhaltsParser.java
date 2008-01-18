@@ -80,7 +80,7 @@ public class InhaltsParser {
 						result = SQLUtils.arrayFromDB(result, mTable, mAttribute, "id", mID );
 						if (result.size()==1) // SQL-Ergebnis besteht aus einem Datensatz
 							{s=result.get(0).toString();}
-						else if (result.size()>1) {  // SQL-Ergebnis besteht aus mehreren Datensätzen
+						else if (result.size()>1) {  // SQL-Ergebnis besteht aus mehreren Datenrecords
 							s="<TABLE>"; 
 								for (int i=0; i<result.size(); i++) {
 									s+= "<tr>"+ result.get(i).toString()+ "</tr>";
@@ -95,7 +95,7 @@ public class InhaltsParser {
 				}
 				pseudoHTML = pseudoHTML.substring(0, markerStart) + s + pseudoHTML.substring(markerEnde+3,pseudoHTML.length());	
 				
-				// Bedingungen für while-Schleife
+				// Bedingungen fuer while-Schleife
 				markerStart=pseudoHTML.indexOf("<!-- FUCMS.",0);
 				if (markerStart !=-1) {
 					markerEnde=pseudoHTML.indexOf("-->",markerStart);

@@ -82,7 +82,7 @@ public class MainController implements ActionListener, TreeSelectionListener {
 				EditFrame ef = new EditFrame(x);
 			}
 			else {
-				JOptionPane.showMessageDialog(null, "Bitte wählen Sie eine Seite aus.", "Achtung!", JOptionPane.CANCEL_OPTION);
+				JOptionPane.showMessageDialog(null, "Bitte waehlen Sie eine Seite aus.", "Achtung!", JOptionPane.CANCEL_OPTION);
 			}
 				
 		} else if (actionCommand.equals(sGENERATE_WEBSITE)) {
@@ -95,7 +95,7 @@ public class MainController implements ActionListener, TreeSelectionListener {
 				
 			}
 			else {
-				JOptionPane.showMessageDialog(null, "Bitte wählen Sie eine Seite aus.", "Achtung!", JOptionPane.CANCEL_OPTION);
+				JOptionPane.showMessageDialog(null, "Bitte waehlen Sie eine Seite aus.", "Achtung!", JOptionPane.CANCEL_OPTION);
 			}
 				
 		}else if (actionCommand.equals(sGENERATE_WEBSITES)) {
@@ -115,7 +115,7 @@ public class MainController implements ActionListener, TreeSelectionListener {
 				for (int i=0; i < counter; i++){
 					WebsiteGenerator.generateWebsite(websiteIDs[i]);
 	        		System.out.println("Webseite " + websiteIDs[i] + " generiert!");
-	        		// schlie§t und startet die Verbindung neu um "maximum open cursors exceeded" error der Datenbank zu verhindern
+	        		// schliesst und startet die Verbindung neu um "maximum open cursors exceeded" error der Datenbank zu verhindern
 	        		mContext.close();
 					mContext.start();
 				}
@@ -130,7 +130,7 @@ public class MainController implements ActionListener, TreeSelectionListener {
 			//selektierte ID ermitteln
 			TreeNode tn = MainFrame.getPageTreeModel().getSelectedTreeNode();
 			if(tn== null) {
-				JOptionPane.showMessageDialog(null, "Bitte wählen Sie eine Seite aus.", "Achtung!", JOptionPane.CANCEL_OPTION);
+				JOptionPane.showMessageDialog(null, "Bitte waehlen Sie eine Seite aus.", "Achtung!", JOptionPane.CANCEL_OPTION);
 				return;
 			}
 			
@@ -240,19 +240,19 @@ public class MainController implements ActionListener, TreeSelectionListener {
 				//die seite mit der id loschen und inhalte loeschen
 				Context.getInstance().executeQuery(
 						"DELETE FROM Version WHERE ID='"+x+"'");
-				// prüfen, ob Inhalt von einer anderen Seite verwendet wird (und dann nicht löschen!)
+				// pruefen, ob Inhalt von einer anderen Seite verwendet wird (und dann nicht loeschen!)
 				rs = Context.getInstance().executeQuery("select HauptseiteninhaltID, SeitenleisteinhaltID from Version where id<>" + x + "and HauptseiteninhaltID =" + hauptseiteninhaltID);
 				if (!rs.first()){
 					Context.getInstance().executeQuery(
 							"DELETE FROM Inhalt WHERE ID='"+hauptseiteninhaltID+"'");
-					System.out.println("Hauptseiteninhalt gelöscht");
+					System.out.println("Hauptseiteninhalt geloescht");
 				}
 					
 				rs = Context.getInstance().executeQuery("select HauptseiteninhaltID, SeitenleisteinhaltID from Version where id<>" + x + "and SeitenleisteinhaltID =" + seitenleisteninhaltID);
 				if (!rs.first()){
 					Context.getInstance().executeQuery(
 							"DELETE FROM Inhalt WHERE ID='"+seitenleisteninhaltID+"'");
-					System.out.println("Seitenleisteninhalt gelöscht");
+					System.out.println("Seitenleisteninhalt geloescht");
 				}
 					
 				
@@ -286,7 +286,7 @@ public class MainController implements ActionListener, TreeSelectionListener {
 
 	public void valueChanged(TreeSelectionEvent e) {
 		TreeNode tn = (TreeNode) e.getPath().getLastPathComponent();
-		// Speichert den selektierten TreeNode im PageTreeModel für spätere Abfragen
+		// Speichert den selektierten TreeNode im PageTreeModel fuer spaetere Abfragen
 		MainFrame.getPageTreeModel().setSelectedTreeNode(tn);
 		//MainFrame.log(tn.toString());
 	}

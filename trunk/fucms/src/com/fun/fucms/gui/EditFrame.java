@@ -52,7 +52,7 @@ import com.fun.fucms.model.entities.Person;
 
 public class EditFrame extends JFrame {
 
-	//  Konstanten für die Größe der Textfläche
+	//  Konstanten fuer die Groesse der Textflaeche
 	final int ZEILEN = 100;
 
 	final int SPALTEN = 400;
@@ -60,7 +60,7 @@ public class EditFrame extends JFrame {
 	// Web Menue
 	private static final String sMENU1 = "Seite";
 
-	//private static final String sMENU1_ITEM1 = "DB löschen";  
+	//private static final String sMENU1_ITEM1 = "DB loeschen";  
 	private static final String sMENU1_ITEM1 = "Seite neu laden";
 
 	private static final String sMENU1_ITEM2 = "Seite speichern";
@@ -172,9 +172,9 @@ public class EditFrame extends JFrame {
 		menu4.add(item4_1);
 		menueleiste.add(menu4);
 
-		// Panel für den Textbereich und die Auswahlfelder
-		JPanel p_außen = new JPanel();
-		p_außen.setLayout(new BorderLayout());
+		// Panel fuer den Textbereich und die Auswahlfelder
+		JPanel p_aussen = new JPanel();
+		p_aussen.setLayout(new BorderLayout());
 
 		// Text-Komponente anlegen
 		m_hauptinhaltanzeige = new CTextAnzeige(ZEILEN, SPALTEN);
@@ -194,13 +194,13 @@ public class EditFrame extends JFrame {
 		JPanel p_innen = new JPanel();
 		p_innen.setLayout(new GridLayout(1, 4));
 
-		p_außen.setPreferredSize(new Dimension(500, 400));
-		p_außen.add("Center", scroll);
-		p_außen.add("East", scroll2);
-		p_außen.add("North", p_innen);
+		p_aussen.setPreferredSize(new Dimension(500, 400));
+		p_aussen.add("Center", scroll);
+		p_aussen.add("East", scroll2);
+		p_aussen.add("North", p_innen);
 
 		// Panel zur Frame Klasse hinzufügen
-		getContentPane().add(p_außen);
+		getContentPane().add(p_aussen);
 
 		class CMeinWindowAdapter extends WindowAdapter {
 			public void windowClosing(WindowEvent e) {
