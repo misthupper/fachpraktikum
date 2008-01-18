@@ -53,7 +53,7 @@ public class Configuration {
     }
     
     public static File getInhaltsDirectory() 
-    // Nur vorrübergehend - Später aus der DAtenbank lesen
+    // Nur vorruebergehend - Spaeter aus der DAtenbank lesen
     {
     	String path = Configuration.getInstance().mConfigFile.getString(INHALTS_DIR, Constants.INHALTS_DIR);
     	File file = new File(path);
@@ -64,7 +64,7 @@ public class Configuration {
     }
     
     public static File getHTMLDirectory() 
-    // Nur vorrübergehend - Später aus der DAtenbank lesen
+    // Nur vorruebergehend - Spaeter aus der DAtenbank lesen
     {
     	String path = Configuration.getInstance().mConfigFile.getString(HTML_DIR, Constants.HTML_DIR);
     	File file = new File(path);

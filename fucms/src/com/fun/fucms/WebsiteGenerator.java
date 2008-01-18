@@ -89,7 +89,7 @@ public class WebsiteGenerator {
 		WebsiteGenerator.generateWebsite(WebseitenID);
 	}
 	
-	// Geniert eine Webseite für das Archiv im Ordner Archiv mit angehängtem Datum und Uhrzeit
+	// Geniert eine Webseite fuer das Archiv im Ordner Archiv mit angehaengtem Datum und Uhrzeit
 	public static void generateWebsiteForArchiv(int WebseitenID){
 		mWebseitenID = WebseitenID;
 		getTemplate();
@@ -120,7 +120,7 @@ public class WebsiteGenerator {
 		write(new File(Configuration.getHTMLDirectory().getAbsolutePath() + websitePath + webseitenTitel + ".html"));
 	}
 	
-	// Führt die Ersetzung der Inhaltsmarken durch und liest dazu die Inhalte aus der DB aus.
+	// Fuehrt die Ersetzung der Inhaltsmarken durch und liest dazu die Inhalte aus der DB aus.
 	private static String generateWebsiteContent(){
 		try {
 			String mSQLString = "select * from Version where id=" + mWebseitenID;
@@ -142,7 +142,7 @@ public class WebsiteGenerator {
 	        setTitleFather(rs.getString("titel").trim());
 	        
 	        setCSS("arbeiten.css");
-	        MainFrame.log("Menü wird generiert!");
+	        MainFrame.log("Menue wird generiert!");
 	        setMenu();
 	        
 	        // HauptseitenInhalt einlesen und ersetzen
@@ -252,7 +252,7 @@ public class WebsiteGenerator {
 		rs = Context.getInstance().executeQuery("select * from version where id = " + tempid);
 		rs.first();
 		while (!(rs.getString("path").contains("root"))){
-			path = rs.getString("path").trim() + "/" + path; // pfad anhängen
+			path = rs.getString("path").trim() + "/" + path; // pfad anhaengen
 			// tempid wird mit vaterseitenid geladen
 			tempid = rs.getString("vaterseiteid");
 			pathDepth++;
@@ -265,7 +265,7 @@ public class WebsiteGenerator {
 	}
 	
 	/**
-	 * Generiert den BrotkrŸmel-Pfad der Webseite inkl. Links basierend auf der Baumstruktur der Seiten
+	 * Generiert den Brotkruemel-Pfad der Webseite inkl. Links basierend auf der Baumstruktur der Seiten
 	 */
 	public static String generateBrotkruemelPath(int websiteID) throws SQLException, EvilException{
 		String path = "";
@@ -279,7 +279,7 @@ public class WebsiteGenerator {
 		rs = Context.getInstance().executeQuery("select * from version where id = " + tempid);
 		rs.first();
 		while (!(rs.getString("path").contains("root"))){
-			path = "<li> <a href='" + linkPath + rs.getString("path").trim() + ".html' >" + rs.getString("path").trim() + "</a> </li> " + path; // pfad anhängen
+			path = "<li> <a href='" + linkPath + rs.getString("path").trim() + ".html' >" + rs.getString("path").trim() + "</a> </li> " + path; // pfad anhaengen
 			// tempid wird mit vaterseitenid geladen
 			linkPath = linkPath + "../";
 			tempid = rs.getString("vaterseiteid");
