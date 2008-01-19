@@ -7,6 +7,7 @@ import java.util.Date;
 import java.util.Iterator;
 import java.util.TreeSet;
 
+import javax.swing.event.TreeModelEvent;
 import javax.swing.event.TreeModelListener;
 import javax.swing.tree.TreeModel;
 import javax.swing.tree.TreePath;
@@ -20,12 +21,14 @@ public class PageTreeModel implements TreeModel {
 	private TreeNode mRoot;
 	private TreeNode selectedTreeNode = null;
 	ArrayList<TreeNode> mNodes = new ArrayList<TreeNode>();
+	ArrayList<TreeModelListener> mTreeModelListener = new ArrayList<TreeModelListener>();
 	
 	public PageTreeModel() {
 		update(new Date());
 	}
 
 	public void addTreeModelListener(TreeModelListener l) {
+		mTreeModelListener.add(l);
 	}
 
 	public Object getChild(Object parent, int index) {
@@ -52,6 +55,7 @@ public class PageTreeModel implements TreeModel {
 	}
 
 	public void removeTreeModelListener(TreeModelListener l) {
+		mTreeModelListener.remove(l);
 	}
 
 	public void valueForPathChanged(TreePath path, Object newValue) {
@@ -99,6 +103,7 @@ public class PageTreeModel implements TreeModel {
 				}
 			} 
 		}
+		fireTreeStructureChanged();
 	}
 	
 	private TreeNode getNode(int id) {
@@ -118,6 +123,15 @@ public class PageTreeModel implements TreeModel {
 	public TreeNode getSelectedTreeNode(){
 		return selectedTreeNode;
 	}
+	
+    public void fireTreeStructureChanged() {
+        int len = mTreeModelListener.size();
+        TreeModelEvent e = new TreeModelEvent(this, 
+                                              new Object[] {mRoot});
+        for (TreeModelListener tml : mTreeModelListener) {
+            tml.treeStructureChanged(e);
+        }
+    }
 	
 	public class TreeNode implements Comparable {
 		

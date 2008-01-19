@@ -214,8 +214,7 @@ public class MainController implements ActionListener, TreeSelectionListener {
 			}
 			EditFrame ef = new EditFrame(new_id);
             }
-	
-			
+			MainFrame.getPageTreeModel().update(null);
 			
 		} else if (actionCommand.equals(sTREE_REFRESH)) {
 			//TODO Baumstruktur neu laden
@@ -223,6 +222,7 @@ public class MainController implements ActionListener, TreeSelectionListener {
 			//ptm.update(new java.util.Date());
 			MainFrame mf = (MainFrame) jFrame;
 			PageTree pt = mf.getPageTree();
+			MainFrame.getPageTreeModel().update(null);
 			
 		} else if (actionCommand.equals(sDELETE_PAGE)) {
 			TreeNode tn = MainFrame.getPageTreeModel().getSelectedTreeNode();
@@ -261,7 +261,7 @@ public class MainController implements ActionListener, TreeSelectionListener {
 			} catch (EvilException e1) {
 				e1.printStackTrace();
 			}
-			
+			MainFrame.getPageTreeModel().update(null);
 		}
 		
 		

@@ -252,6 +252,7 @@ public class EditFrame extends JFrame {
 
 				if (label.equals(sMENU4_ITEM1))
 					stringSuchen();
+				MainFrame.getPageTreeModel().update(null);
 			}
 		}
 
